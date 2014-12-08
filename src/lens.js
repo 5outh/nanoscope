@@ -20,15 +20,15 @@ Lens = function (get, over, options) {
         return new Lens(get, over, options);
     }
 
-    self._get = get;
-    self._over = over;
-
     // Add additional properties to `Lens` if specified
     if (_.isObject(options)) {
         _.forEach(_.keys(options), function (key) {
             self[key] = options[key];
         });
     }
+
+    self._get = get;
+    self._over = over;
 
     return self;
 };
