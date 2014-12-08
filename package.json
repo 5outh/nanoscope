@@ -1,5 +1,5 @@
 {
-  "name": "microscope",
+  "name": "nanoscope",
   "version": "0.0.1",
   "description": "Experimental lenses in Javascript",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/5outh/microscope.git"
+    "url": "https://github.com/5outh/nanoscope.git"
   },
   "keywords": [
     "lens",
@@ -19,9 +19,9 @@
   "author": "Benjamin Kovach",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/5outh/microscope/issues"
+    "url": "https://github.com/5outh/nanoscope/issues"
   },
-  "homepage": "https://github.com/5outh/microscope",
+  "homepage": "https://github.com/5outh/nanoscope",
   "dependencies": {
     "lodash": "^2.4.1",
     "steeltoe": "^1.0.1"
