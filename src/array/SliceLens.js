@@ -49,7 +49,7 @@ over = function (i, j) {
         slicedArr = func(arr.slice(i, j));
 
         for (k = i; k < j; k++) {
-            newArr[i] = slicedArr[k - i];
+            newArr[k] = slicedArr[k - i];
         }
 
         return newArr;

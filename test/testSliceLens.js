@@ -85,7 +85,7 @@ describe('SliceLens', function () {
 
             res.length.should.equal(4);
 
-            _.forEach(_.zip(lens.get(testArr), [1, 2, 3, 4]), function (arr) {
+            _.forEach(_.zip(res, [1, 2, 3, 4]), function (arr) {
                 arr[0].should.equal(arr[1]);
             });
         });
@@ -93,7 +93,26 @@ describe('SliceLens', function () {
     });
 
     describe('#set', function () {
+        var testArr;
 
+        beforeEach(function () {
+            testArr = [1, 2, 3, 4, 5];
+        });
+
+        it('should set the first two elements of the list to 100', function () {
+            var lens = new SliceLens(':2'),
+                res;
+
+            res = lens.set(testArr, [100, 100]);
+
+            res.length.should.equal(5);
+
+            console.log(res);
+
+            _.forEach(_.zip(res, [100, 100, 3, 4, 5]), function (arr) {
+                arr[0].should.equal(arr[1]);
+            });
+        });
     });
 
     describe('#over', function () {
