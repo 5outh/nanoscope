@@ -1,7 +1,7 @@
 "use strict";
 
 var _ = require('lodash'),
-    PathLens = require('../src/dynamic/PathLens');
+    PathLens = require('../src/object/PathLens');
 
 describe('PathLens', function () {
     var testJS, testLens;

@@ -6,6 +6,6 @@
 module.exports = {
     Lens: require('./src/Lens'),
     Compose: require('./src/compose/Compose'),
-    IndexedLens: require('./src/dynamic/IndexedLens'),
-    PathLens: require('./src/dynamic/PathLens')
+    IndexedLens: require('./src/array/IndexedLens'),
+    PathLens: require('./src/object/PathLens')
 };

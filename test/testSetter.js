@@ -1,7 +1,7 @@
 "use strict";
 
 var _ = require('lodash'),
-    IndexedLens = require('../src/dynamic/IndexedLens'),
+    IndexedLens = require('../src/array/IndexedLens'),
     Setter = require('../src/Setter');
 
 describe('Setter', function () {
