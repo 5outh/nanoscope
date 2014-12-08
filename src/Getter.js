@@ -22,4 +22,13 @@ Getter = function (get) {
     return new Lens(get, over, { _getter: true });
 };
 
+/**
+ * Get a Getter from a Lens
+ *
+ * @param lens
+ */
+Getter.fromLens = function (lens) {
+    return new Getter(lens._get);
+};
+
 module.exports = Getter;
