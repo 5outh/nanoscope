@@ -9,6 +9,12 @@ var _ = require('lodash'),
     get,
     over;
 
+/**
+ * Get the element at a specific index of an array
+ *
+ * @param index
+ * @returns {Function}
+ */
 get = function (index) {
     return function (arr) {
         if (!(_.isArray(arr))) {
@@ -23,6 +29,12 @@ get = function (index) {
     };
 };
 
+/**
+ * Map a function over the value at some index in an array
+ *
+ * @param index
+ * @returns {Function}
+ */
 over = function (index) {
     return function (arr, func) {
         var newArr = _.cloneDeep(arr);

@@ -32,7 +32,7 @@ var _ = require('lodash'),
 /**
  * Safely get a value from a path (as an array or a dot-delimited string).
  *
- * @param path
+ * @param {string|Array} path Array or dot-delimited string describing a path to follow in an object
  * @returns {Function}
  */
 get = function (path) {
@@ -44,7 +44,7 @@ get = function (path) {
 /**
  * Map a function over a value gotten from some path in the object and return a new object.
  *
- * @param path
+ * @param {string|Array} path Array or dot-delimited string describing a path to follow in an object
  * @returns {Function}
  */
 over = function (path) {
@@ -89,7 +89,7 @@ over = function (path) {
 /**
  * Construct a PathLens from a path
  *
- * @param path
+ * @param {string|Array} path Array or dot-delimited string describing a path to follow in an object
  * @returns {Lens}
  * @constructor
  */

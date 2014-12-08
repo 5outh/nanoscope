@@ -28,11 +28,19 @@ Compose.prototype.get = function (obj) {
 
 Compose.prototype.over = function (obj, func) {
     var self = this;
-    return self._lensA.over(obj, function () { return self._lensB.over(self._lensA.get(obj), func); });
+    return self._lensA.over(
+        obj,
+        function () {
+            return self._lensB.over(self._lensA.get(obj), func);
+        }
+    );
 };
 
 Compose.prototype.set = function (obj, val) {
-    return this._lensA.set(obj, this._lensB.set(this._lensA.get(obj), val));
+    return this._lensA.set(
+        obj,
+        this._lensB.set(this._lensA.get(obj), val)
+    );
 };
 
 module.exports = Compose;
