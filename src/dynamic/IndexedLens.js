@@ -57,8 +57,7 @@ over = function (index) {
  * @constructor
  */
 IndexedLens = function (index) {
-    this._lens = new Lens(get(index), over(index));
-    this._lens._index = index;
+    this._lens = new Lens(get(index), over(index), { _index: index });
 
     return this._lens;
 };

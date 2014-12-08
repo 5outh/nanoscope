@@ -94,10 +94,7 @@ over = function (path) {
  * @constructor
  */
 PathLens = function (path) {
-    this._lens = new Lens(get(path), over(path));
-    this._lens._path = path;
-
-    return this._lens;
+    return new Lens(get(path), over(path), { _path: path });
 };
 
 module.exports = PathLens;
