@@ -5,7 +5,7 @@
  *
  * @type {exports}
  */
-var Lens = require('lens'),
+var Lens = require('./Lens'),
 
     Getter,
 
