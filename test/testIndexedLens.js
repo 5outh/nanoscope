@@ -16,6 +16,22 @@ describe('IndexedLens', function () {
         it('should return 1', function () {
             testLens.get(testArr).should.equal(1);
         });
+
+        it('should return the last element of the array when using a negative index', function () {
+            var lens = new IndexedLens(-1);
+
+            lens.get(testArr).should.equal(3);
+        });
+
+        it('should return null when element is out of range', function () {
+            var lens = new IndexedLens(10);
+
+            (lens.get(testArr) === null).should.be.true;
+
+            lens = new IndexedLens(-10);
+
+            (lens.get(testArr) === null).should.be.true;
+        });
     });
 
     describe('#set', function () {

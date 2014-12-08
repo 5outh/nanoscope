@@ -97,19 +97,14 @@ over = function (index) {
  * @constructor
  */
 IndexedLens = function (index) {
-    this._lens = new Lens(get(index), over(index), { _index: index });
+    this._lens = new Lens(
+        get(index),
+        over(index),
+        { _index: index }
+    );
 
     return this._lens;
 };
 
-/**
- * Set the index of an IndexedLens
- *
- * @param index
- * @returns {IndexedLens}
- */
-IndexedLens.prototype.setIndex = function (index) {
-    return new IndexedLens(index);
-};
 
 module.exports = IndexedLens;
