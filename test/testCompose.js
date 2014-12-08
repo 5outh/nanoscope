@@ -21,6 +21,10 @@ describe('IndexedLens', function () {
         it('should return 1', function () {
             compositeLens.get(testArr).should.equal(1);
         });
+
+        it('should not fail when trying to get nonexistent value', function () {
+            (compositeLens.get([]) === null).should.equal(true);
+        });
     });
 
     describe('#set', function () {
