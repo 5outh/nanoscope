@@ -1,5 +1,24 @@
 "use strict";
 
+/**
+ * Construct a lens that safely accesses and modifies parts of a structure.
+ * For instance, if your object is:
+ *
+ * obj = { a : { b : 'c' } }
+ *
+ * then your path lens:
+ *
+ * pathLens = new PathLens('a.b.c.d');
+ *
+ * allows you to do things like:
+ *
+ * pathLens.get(obj) // undefined, even though it would throw an error elsewhere
+ *
+ * pathLens.set(obj, 9) // { a : { b : { c : { d : 9 } } } } // Sets obj.a.b.c.d even though it didn't exist before
+ *
+ * @type {exports}
+ * @private
+ */
 var _ = require('lodash'),
     steelToe = require('steeltoe'),
 
@@ -10,12 +29,24 @@ var _ = require('lodash'),
 
     PathLens;
 
+/**
+ * Safely get a value from a path (as an array or a dot-delimited string).
+ *
+ * @param path
+ * @returns {Function}
+ */
 get = function (path) {
     return function (obj) {
         return steelToe(obj).get(path);
     };
 };
 
+/**
+ * Map a function over a value gotten from some path in the object and return a new object.
+ *
+ * @param path
+ * @returns {Function}
+ */
 over = function (path) {
     return function (obj, func) {
         var initialObj = obj,

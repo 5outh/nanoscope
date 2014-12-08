@@ -1,7 +1,7 @@
 "use strict";
 
 var _ = require('lodash'),
-    PathLens = require('../src/dynamic/safe');
+    PathLens = require('../src/dynamic/PathLens');
 
 describe('Lens', function () {
     var testJS, testLens;
@@ -16,6 +16,7 @@ describe('Lens', function () {
         testLens = new PathLens('a.b');
 
     });
+
     describe('#get', function () {
         it('should return c', function () {
             testLens.get(testJS).should.equal('c');
