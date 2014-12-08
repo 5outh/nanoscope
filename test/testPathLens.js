@@ -3,7 +3,7 @@
 var _ = require('lodash'),
     PathLens = require('../src/dynamic/PathLens');
 
-describe('Lens', function () {
+describe('PathLens', function () {
     var testJS, testLens;
 
     beforeEach (function () {

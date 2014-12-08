@@ -94,7 +94,6 @@ over = function (path) {
  * @constructor
  */
 PathLens = function (path) {
-    this._path = path;
     this._lens = new Lens(get(path), over(path));
     this._lens._path = path;
 
