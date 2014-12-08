@@ -22,7 +22,7 @@
 var _ = require('lodash'),
     steelToe = require('steeltoe'),
 
-    Lens = require('../lens'),
+    Lens = require('../Lens'),
 
     get,
     over,

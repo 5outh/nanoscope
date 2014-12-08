@@ -1,5 +1,5 @@
 var _ = require('lodash'),
-    Lens = require('../src/lens');
+    Lens = require('../src/Lens');
 
 describe('Lens', function () {
     var testJS = {
