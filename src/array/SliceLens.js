@@ -20,8 +20,6 @@ var _ = require('lodash'),
 get = function (i, j) {
     return function (arr) {
 
-        console.log(i, j);
-
         i = utils.normalizeIndex(arr, i);
         j = utils.normalizeIndex(arr, j);
 
@@ -38,18 +36,27 @@ get = function (i, j) {
  */
 over = function (i, j) {
     return function (arr, func) {
-        var newArr = _.cloneDeep(arr),
+        var newArr = [],
             slicedArr,
             k;
 
         i = utils.normalizeIndex(arr, i);
         j = utils.normalizeIndex(arr, j);
 
+        for (k = 0; k < i; k++) {
+            newArr.push(arr[k]);
+        }
+
         // Apply the function to the sliced array
         slicedArr = func(arr.slice(i, j));
 
-        for (k = i; k < j; k++) {
-            newArr[k] = slicedArr[k - i];
+
+        for (k = 0; k < j; k++) {
+            newArr.push(slicedArr[k]);
+        }
+
+        for (k = j; k < arr.length; k++) {
+            newArr.push(arr[k]);
         }
 
         return newArr;

@@ -107,9 +107,18 @@ describe('SliceLens', function () {
 
             res.length.should.equal(5);
 
-            console.log(res);
-
             _.forEach(_.zip(res, [100, 100, 3, 4, 5]), function (arr) {
+                arr[0].should.equal(arr[1]);
+            });
+        });
+
+        it('should cut out the last element of the list', function () {
+            var lens = new SliceLens('-1:'),
+                res = lens.set(testArr, []);
+
+            res.length.should.equal(4);
+
+            _.forEach(_.zip(res, [1, 2, 3, 4]), function (arr) {
                 arr[0].should.equal(arr[1]);
             });
         });
