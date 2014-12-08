@@ -17,8 +17,9 @@ get = function (path) {
 };
 
 over = function (path) {
-    return function (func, obj) {
-        var i;
+    return function (obj, func) {
+        var initialObj = obj,
+            i;
 
         if (_.isString(path)) {
             path = path.split('.');
@@ -26,23 +27,41 @@ over = function (path) {
             throw new Error('Path must either be an array or dot-separated string');
         }
 
+        if (!obj) {
+            obj = {};
+        }
+
         // Traverse the path and get the value we want
         for (i = 0; i < path.length - 1; i++) {
-            if (obj) {
-                obj = obj[path[i]];
+
+            if (!(_.isObject(obj[path[i]]))) {
+                obj[path[i]] = {};
             }
+
+            obj = obj[path[i]];
         }
 
         // Set the value we care about
-        if (obj[path[i]]) {
-            obj[path[i]] = func(obj[path[i]]);
-        }
+        obj[path[i]] = func(obj[path[i]]);
 
         // Return a clone of the object
-        return _.cloneDeep(obj);
+        return _.cloneDeep(initialObj);
     };
 };
 
-PathLens = Lens(get, over);
+/**
+ * Construct a PathLens from a path
+ *
+ * @param path
+ * @returns {Lens}
+ * @constructor
+ */
+PathLens = function (path) {
+    this._path = path;
+    this._lens = new Lens(get(path), over(path));
+    this._lens._path = path;
+
+    return this._lens;
+};
 
 module.exports = PathLens;

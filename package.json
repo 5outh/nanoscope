@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/5outh/microscope",
   "dependencies": {
-    "lodash": "^2.4.1"
+    "lodash": "^2.4.1",
+    "steeltoe": "^1.0.1"
   },
   "devDependencies": {
     "should": "^4.3.0"
