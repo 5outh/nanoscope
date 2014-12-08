@@ -1,0 +1,25 @@
+{
+  "name": "microscope",
+  "version": "0.0.1",
+  "description": "Experimental lenses in Javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/5outh/microscope.git"
+  },
+  "keywords": [
+    "lens",
+    "functional",
+    "getters",
+    "setters"
+  ],
+  "author": "Benjamin Kovach",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/5outh/microscope/issues"
+  },
+  "homepage": "https://github.com/5outh/microscope"
+}
