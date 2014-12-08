@@ -49,7 +49,8 @@ get = function (path) {
  */
 over = function (path) {
     return function (obj, func) {
-        var initialObj = obj,
+        var prevObj = _.cloneDeep(obj),
+            initialObj = obj,
             i;
 
         if (_.isString(path)) {
@@ -75,7 +76,12 @@ over = function (path) {
         // Set the value we care about
         obj[path[i]] = func(obj[path[i]]);
 
-        // Return a clone of the object
+        // If the value doesn't exist and we're not setting anything, return a clone of the previous object
+        if (!(obj[path[i]])) {
+            return prevObj;
+        }
+
+        // Return a clone of the modified object
         return _.cloneDeep(initialObj);
     };
 };
