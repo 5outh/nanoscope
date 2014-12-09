@@ -3,7 +3,8 @@ var Lens = require('../src/Lens'),
     Getter = require('../src/Getter'),
     Setter = require('../src/Setter'),
     IndexedLens = require('../src/array/IndexedLens'),
-    IdLens = require('../src/IdLens');
+    IdLens = require('../src/IdLens'),
+    utils = require('./utils');
 
 describe('Optional', function () {
     describe('#Optional', function () {
@@ -37,6 +38,19 @@ describe('Optional', function () {
     });
 
     describe('IndexedLens', function () {
+        var testArr, testLens;
 
+        beforeEach(function () {
+            testArr = [1, 2, 3];
+            testLens = new Optional(new IndexedLens(5));
+        });
+
+        it('should not get a value but should not throw an error either', function () {
+            (testLens.get(testArr) === null).should.be.true;
+        });
+
+        it('should not set a value but should not throw an error either', function () {
+            utils.testArrayEquals(testLens.set(testArr, 100), [1, 2, 3]);
+        });
     });
 });
