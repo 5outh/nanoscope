@@ -76,15 +76,23 @@ SliceLens = function (i, j) {
     if (_.isString(i)) {
         range = i.split(':');
 
-        if (range[0] !== '') {
-            i = Number(range[0]);
+        // "Array Copy" operator
+        if (i === ":") {
+            console.log("hi");
+            i = 0;
+            j = undefined;
         } else {
-            i = null;
+            if (range[0] !== '') {
+                i = Number(range[0]);
+            } else {
+                i = null;
+            }
+
+            if (range[1] !== '') {
+                j = Number(range[1]);
+            }
         }
 
-        if (range[1]) {
-            j = Number(range[1]);
-        }
     }
 
     if ((_.isUndefined(i) || _.isNull(i))

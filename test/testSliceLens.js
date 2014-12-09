@@ -60,6 +60,18 @@ describe('SliceLens', function () {
                 }
             });
         });
+
+
+        it('should create a slice lens with the right properties with : constructor', function () {
+            var lens = new SliceLens(':');
+
+            lens.should.have.properties({
+                _slice: {
+                    _start: 0,
+                    _end: undefined
+                }
+            });
+        });
     });
 
     describe('#get', function () {
