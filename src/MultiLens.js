@@ -44,8 +44,6 @@ MultiLens.prototype.get = function (obj) {
     var lenses = this._lenses,
         gets;
 
-    console.log(lenses);
-
     if (_.isArray(lenses)) {
         gets = [];
 
@@ -66,7 +64,7 @@ MultiLens.prototype.get = function (obj) {
 };
 
 MultiLens.prototype.over = function (obj, func) {
-    var newObj = _.deepClone(obj);
+    var newObj = _.cloneDeep(obj);
 
     if (_.isArray(this._lenses)) {
         _.forEach(this._lenses, function (lens) {
@@ -84,7 +82,7 @@ MultiLens.prototype.over = function (obj, func) {
 };
 
 MultiLens.prototype.set = function (obj, val) {
-    this.over(obj, _.constant(val));
+    return this.over(obj, _.constant(val));
 };
 
 module.exports = MultiLens;

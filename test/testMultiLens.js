@@ -40,4 +40,10 @@ describe('MultiLens', function () {
                 .should.equal(JSON.stringify({ head: 1, last: 5 }));
         });
     });
+
+    describe('#set', function () {
+        it('should set the first and second values of the array', function () {
+            utils.testArrayEquals(arrayMultiLens.set(testArr, 0), [0, 0, 3, 4, 5]);
+        });
+    });
 });
