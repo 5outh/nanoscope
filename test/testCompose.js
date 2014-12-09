@@ -4,7 +4,7 @@ var _ = require('lodash'),
     IndexedLens = require('../src/array/IndexedLens'),
     Compose = require('../src/compose/Compose');
 
-describe('IndexedLens', function () {
+describe('Compose', function () {
     var testArr, compositeLens;
 
     beforeEach(function () {
@@ -22,8 +22,12 @@ describe('IndexedLens', function () {
             compositeLens.get(testArr).should.equal(1);
         });
 
-        it('should not fail when trying to get nonexistent value', function () {
-            (compositeLens.get([]) === null).should.equal(true);
+        it('should fail when trying to get nonexistent value', function () {
+            try {
+                compositeLens.get([]);
+            } catch (ex) {
+                ex.message.should.equal('Argument to indexed lens must be an array');
+            }
         });
     });
 

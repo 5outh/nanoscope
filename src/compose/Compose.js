@@ -23,41 +23,25 @@ var Compose = function (lensA, lensB) {
 };
 
 Compose.prototype.get = function (obj) {
-    try {
-        return this._lensB.get(this._lensA.get(obj));
-    } catch (ex) {
-        console.log("Warning: " + ex.message);
-    }
-
-    return null;
+    return this._lensB.get(this._lensA.get(obj));
 };
 
 Compose.prototype.over = function (obj, func) {
     var self = this;
 
-    try {
-        return self._lensA.over(
-            obj,
-            function () {
-                return self._lensB.over(self._lensA.get(obj), func);
-            }
-        );
-    } catch (ex) {
-        console.log("Warning: " + ex.message);
-    }
-    return null;
+    return self._lensA.over(
+        obj,
+        function () {
+            return self._lensB.over(self._lensA.get(obj), func);
+        }
+    );
 };
 
 Compose.prototype.set = function (obj, val) {
-    try {
-        return this._lensA.set(
-            obj,
-            this._lensB.set(this._lensA.get(obj), val)
-        );
-    } catch (ex) {
-        console.log("Warning: " + ex.message);
-    }
-    return null;
+    return this._lensA.set(
+        obj,
+        this._lensB.set(this._lensA.get(obj), val)
+    );
 };
 
 module.exports = Compose;
