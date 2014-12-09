@@ -125,6 +125,34 @@ describe('SliceLens', function () {
     });
 
     describe('#over', function () {
+        var testArr;
 
+        beforeEach(function () {
+            testArr = [1, 2, 3, 4, 5];
+        });
+
+        it('should square the last two elements of the list', function () {
+            var lens = new SliceLens('-2:'),
+                res;
+
+            res = lens.over(testArr, function (arr) {
+                return _.map(arr, function (val) { return Math.pow(val, 2); });
+            });
+
+            _.forEach(_.zip(res, [1, 2, 3, 16, 25]), function (arr) {
+                arr[0].should.equal(arr[1]);
+            });
+        });
+
+        it('should return the length of the list', function () {
+            var lens = new SliceLens('0:'),
+                res;
+
+            res = lens.over(testArr, function (arr) {
+                return [arr.length];
+            });
+
+            res[0].should.equal(5);
+        });
     });
 });

@@ -50,10 +50,9 @@ over = function (i, j) {
         // Apply the function to the sliced array
         slicedArr = func(arr.slice(i, j));
 
-
-        for (k = 0; k < j; k++) {
-            newArr.push(slicedArr[k]);
-        }
+        _.forEach(slicedArr, function (val) {
+            newArr.push(val);
+        });
 
         for (k = j; k < arr.length; k++) {
             newArr.push(arr[k]);
