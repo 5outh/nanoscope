@@ -15,8 +15,9 @@ var _ = require('lodash'),
  *
  * @param {int} index The index to get
  * @returns {Function} The get function required to construct a Lens
+ * @param {boolean} unsafe If true, throw an error if index is invalid
  */
-get = function (index) {
+get = function (index, unsafe) {
     return function (arr) {
         index = utils.normalizeIndex(arr, index);
 
@@ -24,9 +25,13 @@ get = function (index) {
             throw new Error('Argument to indexed lens must be an array');
         }
 
-        // Only allow updates if array element exists or is the next element in the array
-        if (utils.isValidIndex(arr, index)) {
+        // Only allow updates if array element exists
+        if (utils.isValidIndex(arr, index + 1)) {
             return arr[index];
+        }
+
+        if (unsafe) {
+            throw new Error('Attempt to access invalid index ' + index);
         }
 
         return null;
@@ -40,8 +45,9 @@ get = function (index) {
  *
  * @param {int} index The index to map over
  * @returns {Function} The over function required to construct a Lens
+ * @param {boolean} unsafe If true, throw an error if index isn't valid.
  */
-over = function (index) {
+over = function (index, unsafe) {
     return function (arr, func) {
         var newArr = _.cloneDeep(arr);
 
@@ -55,7 +61,10 @@ over = function (index) {
         if (utils.isValidIndex(arr, index)) {
             newArr[index] = func(newArr[index]);
         } else {
-            throw new Error('Array index ' + index + ' out of range.');
+            // Only throw error if unsafe
+            if (unsafe) {
+                throw new Error('Array index ' + index + ' out of range');
+            }
         }
 
         return newArr;
@@ -70,13 +79,27 @@ over = function (index) {
  * @constructor
  */
 IndexedLens = function (index) {
-    this._lens = new Lens(
+    return new Lens(
         get(index),
         over(index),
         { _index: index }
     );
+};
 
-    return this._lens;
+/**
+ * Construct an Unsafe IndexedLens that throws errors when attempting to access
+ * elements that are out of bounds.
+ *
+ * @param {int} index index The index to focus on
+ * @returns {Lens}
+ * @constructor
+ */
+IndexedLens.Unsafe = function (index) {
+    return new Lens(
+        get(index, true),
+        over(index, true),
+        { _index: index }
+    );
 };
 
 /**

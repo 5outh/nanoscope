@@ -9,6 +9,52 @@ describe('IndexedLens', function () {
     beforeEach(function () {
         testArr = [1, 2, 3];
         testLens = new IndexedLens(0);
+    });
+
+    describe('#Unsafe', function () {
+        var unsafeLens = IndexedLens.Unsafe(0);
+
+        describe ('#get', function () {
+            it('should get the first element of the array', function () {
+                unsafeLens.get(testArr).should.equal(1);
+            });
+
+            it('should fail when trying to get an element out of range', function () {
+                try {
+                    unsafeLens.get([]);
+                } catch (ex) {
+                    ex.message.should.equal('Attempt to access invalid index 0');
+                }
+            });
+        });
+
+        describe('#set', function () {
+            it('should set the first element of the array', function () {
+                unsafeLens.set(testArr, 10)[0].should.equal(10);
+            });
+
+            it('should fail when trying to set an element out of range', function () {
+                try {
+                    new IndexedLens.Unsafe(1).set([], 1);
+                } catch (ex) {
+                    ex.message.should.equal('Array index 1 out of range');
+                }
+            });
+        });
+
+        describe('#over', function () {
+            it('should map over the first element in the array', function () {
+                unsafeLens.over(testArr, function (val) { return val + 10 })[0].should.equal(11);
+            });
+
+            it('should fail when trying to map over an element out of range', function () {
+                try {
+                    new IndexedLens.Unsafe(1).over([], _.identity);
+                } catch (ex) {
+                    ex.message.should.equal('Array index 1 out of range');
+                }
+            });
+        });
 
     });
 
