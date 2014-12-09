@@ -20,13 +20,24 @@ describe('MultiLens', function () {
         objectMultiLens = new MultiLens(objectLenses);
 
     describe('#MultiLens', function () {
-        it('should have an array of lenses', function () {
+        it('should have the correct array of lenses', function () {
             utils.testArrayEquals(arrayMultiLens._lenses, arrayLenses);
         });
 
         it('should have the right object of lenses', function () {
             JSON.stringify(objectMultiLens._lenses)
                 .should.equal(JSON.stringify(objectLenses));
+        });
+    });
+
+    describe('#get', function () {
+        it('should return the correct array of values for an array MultiLens', function () {
+            utils.testArrayEquals(arrayMultiLens.get(testArr), [1, 2]);
+        });
+
+        it('should return the correct object of values for an object MultiLens', function () {
+            JSON.stringify(objectMultiLens.get(testArr))
+                .should.equal(JSON.stringify({ head: 1, last: 5 }));
         });
     });
 });

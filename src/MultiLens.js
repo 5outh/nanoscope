@@ -41,22 +41,25 @@ MultiLens = function (lenses, options) {
 };
 
 MultiLens.prototype.get = function (obj) {
-    var gets;
+    var lenses = this._lenses,
+        gets;
 
-    if (_.isArray(this._lenses)) {
+    console.log(lenses);
+
+    if (_.isArray(lenses)) {
         gets = [];
 
-        _.forEach(this._lenses, function (lens) {
+        _.forEach(lenses, function (lens) {
             gets.push(lens.get(obj));
         });
-    }
+    } else {
+        if (_.isObject(lenses)) {
+            gets = {};
 
-    if (_.isObject(this._lenses)) {
-        gets = {};
-
-        _.forEach(this.lenses, function (key, lens) {
-            gets[key] = lens.get(obj);
-        });
+            _.forEach(_.keys(lenses), function (key) {
+                gets[key] = lenses[key].get(obj);
+            });
+        }
     }
 
     return gets;
