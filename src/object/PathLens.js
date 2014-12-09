@@ -27,6 +27,8 @@ var _ = require('lodash'),
     get,
     over,
 
+    getPaths,
+
     PathLens;
 
 /**
@@ -95,6 +97,54 @@ over = function (path) {
  */
 PathLens = function (path) {
     return new Lens(get(path), over(path), { _path: path });
+};
+
+/**
+ * Helper function for building all paths in an object
+ *
+ * @param prefix
+ * @param obj
+ * @param paths
+ * @returns {*}
+ * @private
+ */
+getPaths = function (prefix, obj, paths) {
+    if (!paths) {
+        paths = [];
+    }
+
+    _.forEach(_.keys(obj), function (key) {
+        var nextPrefix;
+
+        if (!prefix) {
+            nextPrefix = key;
+        } else {
+            nextPrefix = prefix + '.' + key;
+        }
+
+        paths.push(nextPrefix);
+
+        if (_.isObject(obj[key])) {
+            paths = getPaths(nextPrefix, obj[key], paths);
+        }
+    });
+
+    return paths;
+};
+
+/**
+ * Derive lenses for every path in an object
+ *
+ * @param obj
+ */
+PathLens.deriveLenses = function (obj) {
+    var lenses = {};
+
+    _.forEach(getPaths(null, obj), function (path) {
+        lenses[path] = new PathLens(path);
+    });
+
+    return lenses;
 };
 
 module.exports = PathLens;

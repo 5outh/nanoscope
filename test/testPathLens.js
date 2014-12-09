@@ -1,12 +1,13 @@
 "use strict";
 
 var _ = require('lodash'),
-    PathLens = require('../src/object/PathLens');
+    PathLens = require('../src/object/PathLens'),
+    utils = require('./utils');
 
 describe('PathLens', function () {
     var testJS, testLens;
 
-    beforeEach (function () {
+    beforeEach(function () {
         testJS = {
             a: {
                 b: 'c'
@@ -44,6 +45,22 @@ describe('PathLens', function () {
             var lens = new PathLens('a.b.c.d.e.f');
 
             lens.over(testJS, function (attr) { return attr; }).a.b.should.not.have.property('c');
+        });
+    });
+
+    describe('#deriveLenses', function () {
+        var obj = { a: { b: { c: { d: { e: 'hello' }, f: 10 }}}};
+
+        it('should return lenses for each path in object', function () {
+            var lenses = PathLens.deriveLenses(obj),
+                paths = _.keys(lenses);
+
+            utils.testArrayEquals(
+                paths,
+                [ 'a', 'a.b', 'a.b.c', 'a.b.c.d', 'a.b.c.d.e', 'a.b.c.f' ]
+            );
+
+            lenses['a.b.c.d.e'].get(obj).should.equal('hello');
         });
     });
 });
