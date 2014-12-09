@@ -37,7 +37,7 @@ describe('Lens', function () {
     });
 
     describe('#getOptions', function () {
-        it('should give back all custom options', function () {
+        it('should return all custom options', function () {
             JSON.stringify(testLens.getOptions())
                 .should.equal(JSON.stringify({ _extra: 'extra' }));
         });

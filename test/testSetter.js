@@ -17,6 +17,10 @@ describe('Setter', function () {
             Setter.fromLens(testLens).should.have.property('_setter', true);
         });
 
+        it('should be marked as indexed', function () {
+            Setter.fromLens(testLens).should.have.property('_index', 0);
+        });
+
         it('should have the same over function as before', function () {
             Setter.fromLens(testLens)._over.should.equal(testLens._over);
         });
@@ -35,6 +39,7 @@ describe('Setter', function () {
                 }
             ),
             testArr = [1, 2, 3];
+
 
         it('should multiply the first element by 10', function () {
             setter.over(testArr, function (attr) { return attr * 10; })[0].should.equal(10);

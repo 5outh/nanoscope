@@ -17,6 +17,10 @@ describe('Getter', function () {
             Getter.fromLens(testLens).should.have.property('_getter', true);
         });
 
+        it('should be marked as indexed', function () {
+            Getter.fromLens(testLens).should.have.property('_index', 0);
+        });
+
         it('should have the same get function as before', function () {
             Getter.fromLens(testLens)._get.should.equal(testLens._get);
         });

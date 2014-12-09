@@ -5,7 +5,8 @@
  *
  * @type {exports}
  */
-var Lens = require('./Lens'),
+var _ = require('lodash'),
+    Lens = require('./Lens'),
 
     Setter,
 
@@ -18,8 +19,14 @@ get = function () {
     throw new Error('get not permitted in a Setter');
 };
 
-Setter = function (over) {
-    return new Lens(get, over, { _setter: true });
+Setter = function (over, options) {
+    var opts = { _setter: true};
+
+    if (_.isObject(options)) {
+        opts = _.extend(opts, options);
+    }
+
+    return new Lens(get, over, opts);
 };
 
 /**
@@ -29,7 +36,7 @@ Setter = function (over) {
  * @returns {Lens}
  */
 Setter.fromLens = function (lens) {
-    return new Setter(lens._over);
+    return new Setter(lens._over, lens.getOptions());
 };
 
 module.exports = Setter;
