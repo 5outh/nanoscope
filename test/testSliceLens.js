@@ -1,7 +1,8 @@
 "use strict";
 
 var _ = require('lodash'),
-    SliceLens = require('../src/array/SliceLens');
+    SliceLens = require('../src/array/SliceLens'),
+    utils = require('./utils');
 
 describe('SliceLens', function () {
     describe('#SliceLens', function () {
@@ -74,9 +75,7 @@ describe('SliceLens', function () {
 
             res.length.should.equal(3);
 
-            _.forEach(_.zip(res, [1, 2, 3]), function (arr) {
-                arr[0].should.equal(arr[1]);
-            });
+            utils.testArrayEquals(res, [1, 2, 3]);
         });
 
         it('should get the first part of the list', function () {
@@ -85,9 +84,7 @@ describe('SliceLens', function () {
 
             res.length.should.equal(4);
 
-            _.forEach(_.zip(res, [1, 2, 3, 4]), function (arr) {
-                arr[0].should.equal(arr[1]);
-            });
+            utils.testArrayEquals(res, [1, 2, 3, 4]);
         });
 
     });
@@ -107,9 +104,7 @@ describe('SliceLens', function () {
 
             res.length.should.equal(5);
 
-            _.forEach(_.zip(res, [100, 100, 3, 4, 5]), function (arr) {
-                arr[0].should.equal(arr[1]);
-            });
+            utils.testArrayEquals(res, [100, 100, 3, 4, 5]);
         });
 
         it('should cut out the last element of the list', function () {
@@ -118,9 +113,7 @@ describe('SliceLens', function () {
 
             res.length.should.equal(4);
 
-            _.forEach(_.zip(res, [1, 2, 3, 4]), function (arr) {
-                arr[0].should.equal(arr[1]);
-            });
+            utils.testArrayEquals(res, [1, 2, 3, 4]);
         });
     });
 
@@ -139,9 +132,7 @@ describe('SliceLens', function () {
                 return _.map(arr, function (val) { return Math.pow(val, 2); });
             });
 
-            _.forEach(_.zip(res, [1, 2, 3, 16, 25]), function (arr) {
-                arr[0].should.equal(arr[1]);
-            });
+            utils.testArrayEquals(res, [1, 2, 3, 16, 25]);
         });
 
         it('should return the length of the list', function () {
