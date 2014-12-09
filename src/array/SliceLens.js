@@ -78,7 +78,6 @@ SliceLens = function (i, j) {
 
         // "Array Copy" operator
         if (i === ":") {
-            console.log("hi");
             i = 0;
             j = undefined;
         } else {
