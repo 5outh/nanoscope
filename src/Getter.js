@@ -1,10 +1,5 @@
 "use strict";
 
-/**
- * A `Getter` is a `Lens` that doesn't support setting (or mapping over values)
- *
- * @type {exports}
- */
 var _ = require('lodash'),
     Lens = require('./Lens'),
 
@@ -19,6 +14,14 @@ over = function () {
     throw new Error('over not permitted in a Getter');
 };
 
+/**
+ * A `Getter` is a `Lens` that doesn't support setting (or mapping over values)
+ *
+ * @param {function} get Function to allow access to an object via this lens.
+ * @param {object} options Additional flags to set in the resulting Lens
+ * @returns {Lens}
+ * @constructor
+ */
 Getter = function (get, options) {
     var opts = { _getter: true};
 
@@ -32,7 +35,7 @@ Getter = function (get, options) {
 /**
  * Get a Getter from a Lens
  *
- * @param lens
+ * @param {Lens} lens The lens to convert to a Getter.
  */
 Getter.fromLens = function (lens) {
     return new Getter(lens._get, lens.getOptions());
