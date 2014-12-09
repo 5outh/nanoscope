@@ -14,7 +14,8 @@ describe('Lens', function () {
             var newObj = _.cloneDeep(obj);
             newObj.a.b = func(newObj.a.b);
             return newObj;
-        }
+        },
+        { _extra: 'extra' }
     );
 
     describe('#get', function () {
@@ -32,6 +33,13 @@ describe('Lens', function () {
     describe('#over', function () {
         it('should turn testJS.a.b into cat', function () {
             testLens.over(testJS, function (attr) { return attr + 'at'; }).a.b.should.equal('cat');
+        });
+    });
+
+    describe('#getOptions', function () {
+        it('should give back all custom options', function () {
+            JSON.stringify(testLens.getOptions())
+                .should.equal(JSON.stringify({ _extra: 'extra' }));
         });
     });
 });

@@ -34,6 +34,15 @@ Lens = function (get, over, options) {
 };
 
 /**
+ * Get any extra set options in a Lens
+ *
+ * @returns {*}
+ */
+Lens.prototype.getOptions = function () {
+    return _.omit(this, ['_get', '_over', 'get', 'getOptions', 'over', 'set']);
+};
+
+/**
  * Get the value this Lens focuses on from an object
  *
  * @param obj The object to run the Lens on
