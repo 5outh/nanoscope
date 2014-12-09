@@ -45,5 +45,21 @@ describe('MultiLens', function () {
         it('should set the first and second values of the array', function () {
             utils.testArrayEquals(arrayMultiLens.set(testArr, 0), [0, 0, 3, 4, 5]);
         });
+
+        it('should set the first and last values of the array', function () {
+            utils.testArrayEquals(objectMultiLens.set(testArr, 0), [0, 2, 3, 4, 0]);
+        });
+    });
+
+    describe('#over', function () {
+        var addTen = function (val) { return val + 10; };
+
+        it('should add 10 to the first and second values of the array', function () {
+            utils.testArrayEquals(arrayMultiLens.over(testArr, addTen), [11, 12, 3, 4, 5]);
+        });
+
+        it('should add 10 to the first and last values of the array', function () {
+            utils.testArrayEquals(objectMultiLens.over(testArr, addTen), [11, 2, 3, 4, 15]);
+        });
     });
 });

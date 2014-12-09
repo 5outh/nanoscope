@@ -70,12 +70,12 @@ MultiLens.prototype.over = function (obj, func) {
         _.forEach(this._lenses, function (lens) {
             newObj = lens.over(newObj, func);
         });
-    }
-
-    if (_.isObject(this._lenses)) {
-        _.forEach(_.values(this._lenses), function (lens) {
-            newObj = lens.over(newObj, func);
-        });
+    } else {
+        if (_.isObject(this._lenses)) {
+            _.forEach(_.values(this._lenses), function (lens) {
+                newObj = lens.over(newObj, func);
+            });
+        }
     }
 
     return newObj;
