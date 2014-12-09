@@ -1,7 +1,8 @@
 "use strict";
 
 var _ = require('lodash'),
-    IndexedLens = require('../src/array/IndexedLens');
+    IndexedLens = require('../src/array/IndexedLens'),
+    utils = require('./utils');
 
 describe('IndexedLens', function () {
     var testArr, testLens;
@@ -75,6 +76,17 @@ describe('IndexedLens', function () {
     describe('#over', function () {
         it('should multiply testArr[0] by 10', function () {
             testLens.over(testArr, function (attr) { return attr * 10; })[0].should.equal(10);
+        });
+    });
+
+    describe('#deriveLenses', function () {
+        it('should give back lenses for every index', function () {
+            var lenses = IndexedLens.deriveLenses(testArr);
+
+            _.forEach(lenses, function (lens, index) {
+                lens._index.should.equal(index);
+                lens.get(testArr).should.equal(testArr[index]);
+            });
         });
     });
 });

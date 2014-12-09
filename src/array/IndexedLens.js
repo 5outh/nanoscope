@@ -79,5 +79,21 @@ IndexedLens = function (index) {
     return this._lens;
 };
 
+/**
+ * Derive all indexed lenses for an array and return them in an object
+ *
+ * @param arr
+ * @returns {{}}
+ */
+IndexedLens.deriveLenses = function(arr) {
+    var lenses = [];
+
+    _.forEach(_.range(arr.length), function (index) {
+        lenses[index] = new IndexedLens(index);
+    });
+
+    return lenses;
+};
+
 
 module.exports = IndexedLens;
