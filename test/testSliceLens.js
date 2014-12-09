@@ -99,6 +99,14 @@ describe('SliceLens', function () {
             utils.testArrayEquals(res, [1, 2, 3, 4]);
         });
 
+        it('should create a copy of the list', function () {
+            var lens = new SliceLens(':'),
+                res = lens.get(testArr);
+
+            res.length.should.equal(5);
+            utils.testArrayEquals(res, [1, 2, 3, 4, 5]);
+        });
+
     });
 
     describe('#set', function () {
