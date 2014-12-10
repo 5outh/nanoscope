@@ -9,7 +9,7 @@ var Lens = require('../src/Lens'),
 describe('Optional', function () {
     describe('#Optional', function () {
         it('should create an optional lens with correct properties', function () {
-            new Optional(new IdLens()).should.have.property('_optional', true);
+            new Optional(new IdLens()).getFlags().should.have.property('_optional', true);
         });
     });
 

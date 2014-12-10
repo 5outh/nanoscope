@@ -14,15 +14,15 @@ describe('Setter', function () {
 
     describe('#fromLens', function () {
         it('should be marked as a setter', function () {
-            Setter.fromLens(testLens).should.have.property('_setter', true);
+            Setter.fromLens(testLens).getFlags().should.have.property('_setter', true);
         });
 
         it('should be marked as indexed', function () {
-            Setter.fromLens(testLens).should.have.property('_index', 0);
+            Setter.fromLens(testLens).getFlags().should.have.property('_index', 0);
         });
 
         it('should have the same over function as before', function () {
-            Setter.fromLens(testLens)._over.should.equal(testLens._over);
+            Setter.fromLens(testLens).over.should.equal(testLens.over);
         });
 
         it('should have the same set function as before', function () {

@@ -39,7 +39,7 @@ Setter = function (over, options) {
  * @returns {Lens}
  */
 Setter.fromLens = function (lens) {
-    return new Setter(lens._over, lens.getOptions());
+    return new Setter(lens._over, lens.getFlags());
 };
 
 module.exports = Setter;

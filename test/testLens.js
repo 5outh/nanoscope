@@ -36,9 +36,9 @@ describe('Lens', function () {
         });
     });
 
-    describe('#getOptions', function () {
+    describe('#getFlags', function () {
         it('should return all custom options', function () {
-            JSON.stringify(testLens.getOptions())
+            JSON.stringify(testLens.getFlags())
                 .should.equal(JSON.stringify({ _extra: 'extra' }));
         });
     });

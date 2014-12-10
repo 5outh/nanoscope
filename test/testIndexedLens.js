@@ -129,7 +129,7 @@ describe('IndexedLens', function () {
             var lenses = IndexedLens.deriveLenses(testArr);
 
             _.forEach(lenses, function (lens, index) {
-                lens._index.should.equal(index);
+                lens.getFlags()._index.should.equal(index);
                 lens.get(testArr).should.equal(testArr[index]);
             });
         });

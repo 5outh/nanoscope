@@ -8,25 +8,19 @@ var _ = require('lodash'),
  *
  * @param {function} get Get the value you want from the structure
  * @param {function} over Map a function over the value and return the modified structure
- * @param {object} options Additional properties to add to `Lens` if specified
+ * @param {object} flags Additional properties to add to `Lens` if specified
  * @returns {Lens}
  * @constructor
  */
-Lens = function (get, over, options) {
+Lens = function (get, over, flags) {
     var self = this;
 
     // guard against no `new`
     if (!(self instanceof Lens)) {
-        return new Lens(get, over, options);
+        return new Lens(get, over, flags);
     }
 
-    // Add additional properties to `Lens` if specified
-    if (_.isObject(options)) {
-        _.forEach(_.keys(options), function (key) {
-            self[key] = options[key];
-        });
-    }
-
+    self._flags = flags || {};
     self._get = get;
     self._over = over;
 
@@ -38,8 +32,8 @@ Lens = function (get, over, options) {
  *
  * @returns {*}
  */
-Lens.prototype.getOptions = function () {
-    return _.omit(this, ['_get', '_over', 'get', 'getOptions', 'over', 'set']);
+Lens.prototype.getFlags = function () {
+    return this._flags;
 };
 
 /**

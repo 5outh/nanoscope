@@ -45,7 +45,7 @@ Optional = function (lens, errorHandler) {
         };
     }
 
-    return new Lens(get, over, _.extend(lens.getOptions(), { _optional: true }));
+    return new Lens(get, over, _.extend(lens.getFlags(), { _optional: true }));
 };
 
 module.exports = Optional;

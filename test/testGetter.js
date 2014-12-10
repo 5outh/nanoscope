@@ -14,11 +14,11 @@ describe('Getter', function () {
 
     describe('#fromLens', function () {
         it('should be marked as a getter', function () {
-            Getter.fromLens(testLens).should.have.property('_getter', true);
+            Getter.fromLens(testLens).getFlags().should.have.property('_getter', true);
         });
 
         it('should be marked as indexed', function () {
-            Getter.fromLens(testLens).should.have.property('_index', 0);
+            Getter.fromLens(testLens).getFlags().should.have.property('_index', 0);
         });
 
         it('should have the same get function as before', function () {

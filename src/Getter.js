@@ -41,7 +41,7 @@ Getter.prototype = new Lens;
  * @param {Lens} lens The lens to convert to a Getter.
  */
 Getter.fromLens = function (lens) {
-    return new Getter(lens._get, lens.getOptions());
+    return new Getter(lens._get, lens.getFlags());
 };
 
 module.exports = Getter;

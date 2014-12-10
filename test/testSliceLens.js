@@ -6,69 +6,81 @@ var _ = require('lodash'),
 
 describe('SliceLens', function () {
     describe('#SliceLens', function () {
-        it('should create a slice lens with the right properties', function () {
+        it('should create a slice lens with the right flags', function () {
             var lens = new SliceLens(0, 5);
 
             lens.should.have.properties({
-                _slice: {
-                    _start: 0,
-                    _end: 5
+                _flags: {
+                    _slice: {
+                        _start: 0,
+                        _end: 5
+                    }
                 }
             });
         });
 
-        it('should create a slice lens with the right properties with string constructor', function () {
+        it('should create a slice lens with the right flags with string constructor', function () {
             var lens = new SliceLens('0:5');
 
             lens.should.have.properties({
-                _slice: {
-                    _start: 0,
-                    _end: 5
+                _flags: {
+                    _slice: {
+                        _start: 0,
+                        _end: 5
+                    }
                 }
             });
         });
 
-        it('should create a slice lens with the right properties with negative indices', function () {
+        it('should create a slice lens with the right flags with negative indices', function () {
             var lens = new SliceLens('0:-1');
 
             lens.should.have.properties({
-                _slice: {
-                    _start: 0,
-                    _end: -1
+                _flags: {
+                    _slice: {
+                        _start: 0,
+                        _end: -1
+                    }
                 }
             });
         });
 
-        it('should create a slice lens with the right properties with partially defined slice from left', function () {
+        it('should create a slice lens with the right flags with partially defined slice from left', function () {
             var lens = new SliceLens('1:');
 
             lens.should.have.properties({
-                _slice: {
-                    _start: 1,
-                    _end: undefined
+                _flags: {
+                    _slice: {
+                        _start: 1,
+                        _end: undefined
+                    }
                 }
             });
         });
 
-        it('should create a slice lens with the right properties with partially defined slice from right', function () {
+        it('should create a slice lens with the right flags with partially defined slice from right', function () {
             var lens = new SliceLens(':1');
 
             lens.should.have.properties({
-                _slice: {
-                    _start: 0,
-                    _end: 1
+                _flags: {
+                    _slice: {
+                        _start: 0,
+                        _end: 1
+                    }
                 }
             });
         });
 
 
-        it('should create a slice lens with the right properties with : constructor', function () {
+        it('should create a slice lens with the right flags with : constructor', function () {
             var lens = new SliceLens(':');
 
             lens.should.have.properties({
-                _slice: {
-                    _start: 0,
-                    _end: undefined
+                _flags: {
+                    _slice: {
+                        _start: 0,
+                        _end: undefined
+                    }
                 }
             });
         });
