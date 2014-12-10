@@ -29,8 +29,11 @@ Getter = function (get, options) {
         opts = _.extend(opts, options);
     }
 
-    return new Lens(get, over, opts);
+    this.base = Lens;
+    this.base(get, over, opts);
 };
+
+Getter.prototype = new Lens;
 
 /**
  * Get a Getter from a Lens
