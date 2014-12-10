@@ -19,7 +19,7 @@ over = function () {
  *
  * @param {function} get Function to allow access to an object via this lens.
  * @param {object} options Additional flags to set in the resulting Lens
- * @returns {Lens}
+ * @returns {Getter}
  * @constructor
  */
 Getter = function (get, options) {
