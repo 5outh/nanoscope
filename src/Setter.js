@@ -29,8 +29,11 @@ Setter = function (over, options) {
         opts = _.extend(opts, options);
     }
 
-    return new Lens(get, over, opts);
+    this.base = Lens;
+    this.base(get, over, opts);
 };
+
+Setter.prototype = new Lens;
 
 /**
  * Get a Setter from a Lens
