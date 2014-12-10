@@ -2,7 +2,9 @@
 
 var _ = require('lodash'),
     IndexedLens = require('../src/array/IndexedLens'),
-    Setter = require('../src/Setter');
+    Setter = require('../src/Setter'),
+    Getter = require('../src/Getter'),
+    IdLens = require('../src/IdLens');
 
 describe('Setter', function () {
     var testArr, testLens;
@@ -54,6 +56,26 @@ describe('Setter', function () {
                 setter.get(testArr);
             } catch (ex) {
                 ex.message.should.equal('get not permitted in a Setter');
+            }
+        });
+    });
+
+    describe('Set/Get Combo', function () {
+        var setGetLens = Setter.fromLens(Getter.fromLens(new IdLens()));
+
+        it('should fail to get', function () {
+            try {
+                setGetLens.get(100);
+            } catch (ex) {
+                ex.message.should.equal('get not permitted in a Setter');
+            }
+        });
+
+        it('should fail to set', function () {
+            try {
+                setGetLens.set(100, 200);
+            } catch (ex) {
+                ex.message.should.equal('over not permitted in a Getter');
             }
         });
     });
