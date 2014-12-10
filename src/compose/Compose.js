@@ -1,5 +1,26 @@
 "use strict";
 
+var Lens = require('../Lens'),
+    get,
+    over;
+
+get = function (lensA, lensB) {
+    return function (obj) {
+        return lensB.get(lensA.get(obj));
+    };
+};
+
+over = function (lensA, lensB) {
+    return function (obj, func) {
+        return lensA.over(
+            obj,
+            function () {
+                return lensB.over(lensA.get(obj), func);
+            }
+        );
+    };
+};
+
 /**
  * Create the composite of two `lens`es. For instance, to create a lens for arr[i][j]:
  *
@@ -16,32 +37,10 @@
  * @constructor
  */
 var Compose = function (lensA, lensB) {
-    this._lensA = lensA;
-    this._lensB = lensB;
-
-    return this;
+    this.base = Lens;
+    this.base(get(lensA, lensB), over(lensA, lensB), { _lensA: lensA, _lensB: lensB });
 };
 
-Compose.prototype.get = function (obj) {
-    return this._lensB.get(this._lensA.get(obj));
-};
-
-Compose.prototype.over = function (obj, func) {
-    var self = this;
-
-    return self._lensA.over(
-        obj,
-        function () {
-            return self._lensB.over(self._lensA.get(obj), func);
-        }
-    );
-};
-
-Compose.prototype.set = function (obj, val) {
-    return this._lensA.set(
-        obj,
-        this._lensB.set(this._lensA.get(obj), val)
-    );
-};
+Compose.prototype = new Lens;
 
 module.exports = Compose;
