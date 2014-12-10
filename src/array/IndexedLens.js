@@ -79,12 +79,11 @@ over = function (index, unsafe) {
  * @constructor
  */
 IndexedLens = function (index) {
-    return new Lens(
-        get(index),
-        over(index),
-        { _index: index }
-    );
+    this.base = Lens;
+    this.base(get(index), over(index), { _index: index });
 };
+
+IndexedLens.prototype = new Lens;
 
 /**
  * Construct an Unsafe IndexedLens that throws errors when attempting to access

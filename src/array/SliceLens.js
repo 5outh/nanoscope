@@ -71,7 +71,8 @@ over = function (i, j) {
  * @constructor
  */
 SliceLens = function (i, j) {
-    var range;
+    var range,
+        flags;
 
     if (_.isString(i)) {
         range = i.split(':');
@@ -106,16 +107,17 @@ SliceLens = function (i, j) {
 
     // NOTE: j not defined is handled by array.slice in both functions.
 
-    return new Lens(
-        get(i, j),
-        over(i, j),
-        {
-            _slice : {
-                _start: i,
-                _end: j
-            }
+    flags = {
+        _slice: {
+            _start: i,
+            _end: j
         }
-    );
+    };
+
+    this.base = Lens;
+    this.base(get(i, j), over(i, j), flags);
 };
+
+SliceLens.prototype = new Lens;
 
 module.exports = SliceLens;
