@@ -45,7 +45,7 @@
         <h2>Constructor</h2>
         
 
-        <h4 class="name" id="PathLens"><span class="type-signature"></span>new PathLens<span class="signature">(path)</span><span class="type-signature"> &rarr; {<a href="Lens.html">Lens</a>}</span></h4>
+        <h4 class="name" id="PathLens"><span class="type-signature"></span>new PathLens<span class="signature">(path, unsafe)</span><span class="type-signature"> &rarr; {<a href="Lens.html">Lens</a>}</span></h4>
 
         
     
@@ -54,7 +54,15 @@
 
     
     <div class="description">
-        Construct a PathLens from a path
+        <p>A PathLens is a Lens that focuses on some element following a path in a JS object. They are safe by default
+and will not throw errors when trying to get or set elements that don't exist. In regular javascript, for example:</p>
+<p>{}.a.b; // Throws 'cannot read property b of undefined'</p>
+<p>But with a PathLens:</p>
+<p>new PathLens('a.b').get(); // null</p>
+<p>You can also set values that don't exist yet:</p>
+<p>new PathLens('a.b').set({}, 100); // {a : { b : 100 } }</p>
+<p>Unsafe PathLenses don't catch these errors and will throw the usual error messages. These can be constructed using
+either the PathLens.Unsafe constructor or by setting the unsafe parameter in the PathLens constructor to true.</p>
     </div>
     
 
@@ -109,7 +117,30 @@
 
             
 
-            <td class="description last">Array or dot-delimited string describing a path to follow in an object</td>
+            <td class="description last"><p>Array or dot-delimited string describing a path to follow in an object</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>unsafe</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>If true, construct an unsafe version of</p></td>
         </tr>
 
     
@@ -149,7 +180,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="object_PathLens.js.html">object/PathLens.js</a>, <a href="object_PathLens.js.html#line98">line 98</a>
+        <a href="object_PathLens.js.html">object/PathLens.js</a>, <a href="object_PathLens.js.html#line135">line 135</a>
     </li></ul></dd>
     
 
@@ -202,6 +233,13 @@
     
 
     
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="PathLens.Unsafe.html">Unsafe</a></dt>
+            <dd></dd>
+        </dl>
+    
 
      
 
@@ -227,7 +265,12 @@
 
     
     <div class="description">
-        Derive lenses for every path in an object
+        <p>deriveLenses derives lenses for every existent path in the object passed in.
+For example, if you have the following structure:</p>
+<p>var obj = { a: { b : { c : 8, d: 9 } } }</p>
+<p>PathLens.deriveLenses(obj) gives back an object with the following keys:</p>
+<p>'a', 'a.b', 'a.b.c', and 'a.b.d'.</p>
+<p>Each of these keys point to a safe PathLens for that path.</p>
     </div>
     
 
@@ -267,6 +310,11 @@
             
 
             <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
             
             </td>
 
@@ -314,7 +362,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="object_PathLens.js.html">object/PathLens.js</a>, <a href="object_PathLens.js.html#line140">line 140</a>
+        <a href="object_PathLens.js.html">object/PathLens.js</a>, <a href="object_PathLens.js.html#line189">line 189</a>
     </li></ul></dd>
     
 
@@ -357,13 +405,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Compose.html">Compose</a></li><li><a href="Getter.html">Getter</a></li><li><a href="IndexedLens.html">IndexedLens</a></li><li><a href="Lens.html">Lens</a></li><li><a href="MultiLens.html">MultiLens</a></li><li><a href="PathLens.html">PathLens</a></li><li><a href="Setter.html">Setter</a></li><li><a href="SliceLens.html">SliceLens</a></li></ul><h3>Global</h3><ul><li><a href="global.html#get">get</a></li><li><a href="global.html#IdLens">IdLens</a></li><li><a href="global.html#isValidIndex">isValidIndex</a></li><li><a href="global.html#normalizeIndex">normalizeIndex</a></li><li><a href="global.html#over">over</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Compose.html">Compose</a></li><li><a href="Getter.html">Getter</a></li><li><a href="IndexedLens.html">IndexedLens</a></li><li><a href="IndexedLens.Unsafe.html">Unsafe</a></li><li><a href="Lens.html">Lens</a></li><li><a href="MultiLens.html">MultiLens</a></li><li><a href="Optional.html">Optional</a></li><li><a href="PathLens.html">PathLens</a></li><li><a href="PathLens.Unsafe.html">Unsafe</a></li><li><a href="Setter.html">Setter</a></li><li><a href="SliceLens.html">SliceLens</a></li></ul><h3>Global</h3><ul><li><a href="global.html#get">get</a></li><li><a href="global.html#IdLens">IdLens</a></li><li><a href="global.html#isValidIndex">isValidIndex</a></li><li><a href="global.html#normalizeIndex">normalizeIndex</a></li><li><a href="global.html#over">over</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a> on Tue Dec 09 2014 12:44:01 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a> on Thu Dec 11 2014 10:41:15 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

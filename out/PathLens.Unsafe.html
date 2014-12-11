@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Compose</title>
+    <title>JSDoc: Class: Unsafe</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Compose</h1>
+    <h1 class="page-title">Class: Unsafe</h1>
 
     
 
@@ -29,7 +29,9 @@
 <header>
     
         <h2>
-        Compose
+            <span class="ancestors"><a href="PathLens.html">PathLens</a>.</span>
+        
+        Unsafe
         </h2>
         
     
@@ -45,7 +47,7 @@
         <h2>Constructor</h2>
         
 
-        <h4 class="name" id="Compose"><span class="type-signature"></span>new Compose<span class="signature">(lensA, lensB)</span><span class="type-signature"> &rarr; {<a href="Compose.html">Compose</a>}</span></h4>
+        <h4 class="name" id="Unsafe"><span class="type-signature"></span>new Unsafe<span class="signature">(path)</span><span class="type-signature"></span></h4>
 
         
     
@@ -54,12 +56,7 @@
 
     
     <div class="description">
-        <p>Create the composite of two <code>lens</code>es. For instance, to create a lens for arr[i][j]:</p>
-<p>arrIJLens = new Compose(
-    new IndexedLens(1),
-    new IndexedLens(0)
-);</p>
-<p>Then arrIJLens.get, .set, and .over all work as you'd expect.</p>
+        <p>Construct an unsafe PathLens from a path (throws the usual errors)</p>
     </div>
     
 
@@ -95,25 +92,7 @@
 
         <tr>
             
-                <td class="name"><code>lensA</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>lensB</code></td>
+                <td class="name"><code>path</code></td>
             
 
             <td class="type">
@@ -164,7 +143,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="compose_Compose.js.html">compose/Compose.js</a>, <a href="compose_Compose.js.html#line39">line 39</a>
+        <a href="object_PathLens.js.html">object/PathLens.js</a>, <a href="object_PathLens.js.html#line205">line 205</a>
     </li></ul></dd>
     
 
@@ -187,24 +166,6 @@
     
 
     
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="Compose.html">Compose</a></span>
-
-
-    </dd>
-</dl>
-
-        
 
     
 </dd>

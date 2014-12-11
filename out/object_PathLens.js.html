@@ -63,11 +63,29 @@ var _ = require('lodash'),
  * Safely get a value from a path (as an array or a dot-delimited string).
  *
  * @param {string|Array} path Array or dot-delimited string describing a path to follow in an object
+ * @param {boolean} unsafe If true, fails if element at path doesn't exist
  * @returns {Function}
  */
-get = function (path) {
+get = function (path, unsafe) {
+    if (!unsafe) {
+        // Just use steelToe to safely access element
+        return function (obj) {
+            return steelToe(obj).get(path);
+        };
+    }
+
+    // If unsafe, split the path and follow it without regard for errors.
+    if (_.isString(path)) {
+        path = path.split('.');
+    }
+
     return function (obj) {
-        return steelToe(obj).get(path);
+        console.log(path);
+        _.forEach(path, function (key) {
+            obj = obj[key];
+        });
+
+        return obj;
     };
 };
 
@@ -75,9 +93,10 @@ get = function (path) {
  * Map a function over a value gotten from some path in the object and return a new object.
  *
  * @param {string|Array} path Array or dot-delimited string describing a path to follow in an object
+ * @param {boolean} unsafe If true, fails if element at path doesn't exist
  * @returns {Function}
  */
-over = function (path) {
+over = function (path, unsafe) {
     return function (obj, func) {
         var prevObj = _.cloneDeep(obj),
             initialObj = obj,
@@ -89,14 +108,16 @@ over = function (path) {
             throw new Error('Path must either be an array or dot-separated string');
         }
 
-        if (!obj) {
+        // Only safeguard against empty object if using safe version
+        if (!obj &amp;&amp; !unsafe) {
             obj = {};
         }
 
         // Traverse the path and get the value we want
         for (i = 0; i &lt; path.length - 1; i++) {
 
-            if (!(_.isObject(obj[path[i]]))) {
+            // Only safeguard if not unsafe
+            if (!(_.isObject(obj[path[i]])) &amp;&amp; !unsafe) {
                 obj[path[i]] = {};
             }
 
@@ -107,6 +128,7 @@ over = function (path) {
         obj[path[i]] = func(obj[path[i]]);
 
         // If the value doesn't exist and we're not setting anything, return a clone of the previous object
+        // This prevents turning, for example, {} into { a: { b : { ... z: undefined } ... } }
         if (!(obj[path[i]])) {
             return prevObj;
         }
@@ -117,15 +139,33 @@ over = function (path) {
 };
 
 /**
- * Construct a PathLens from a path
+ * A PathLens is a Lens that focuses on some element following a path in a JS object. They are safe by default
+ * and will not throw errors when trying to get or set elements that don't exist. In regular javascript, for example:
+ *
+ * {}.a.b; // Throws 'cannot read property b of undefined'
+ *
+ * But with a PathLens:
+ *
+ * new PathLens('a.b').get(); // null
+ *
+ * You can also set values that don't exist yet:
+ *
+ * new PathLens('a.b').set({}, 100); // {a : { b : 100 } }
+ *
+ * Unsafe PathLenses don't catch these errors and will throw the usual error messages. These can be constructed using
+ * either the PathLens.Unsafe constructor or by setting the unsafe parameter in the PathLens constructor to true.
  *
  * @param {string|Array} path Array or dot-delimited string describing a path to follow in an object
+ * @param {boolean} unsafe If true, construct an unsafe version of
  * @returns {Lens}
  * @constructor
  */
-PathLens = function (path) {
-    return new Lens(get(path), over(path), { _path: path });
+PathLens = function (path, unsafe) {
+    this.base = Lens;
+    this.base(get(path, unsafe), over(path, unsafe), { _path: path });
 };
+
+PathLens.prototype = new Lens;
 
 /**
  * Helper function for building all paths in an object
@@ -152,7 +192,7 @@ getPaths = function (prefix, obj, paths) {
 
         paths.push(nextPrefix);
 
-        if (_.isObject(obj[key])) {
+        if (_.isObject(obj[key]) &amp;&amp; !_.isArray(obj[key])) {
             paths = getPaths(nextPrefix, obj[key], paths);
         }
     });
@@ -161,9 +201,18 @@ getPaths = function (prefix, obj, paths) {
 };
 
 /**
- * Derive lenses for every path in an object
+ * deriveLenses derives lenses for every existent path in the object passed in.
+ * For example, if you have the following structure:
  *
- * @param obj
+ * var obj = { a: { b : { c : 8, d: 9 } } }
+ *
+ * PathLens.deriveLenses(obj) gives back an object with the following keys:
+ *
+ * 'a', 'a.b', 'a.b.c', and 'a.b.d'.
+ *
+ * Each of these keys point to a safe PathLens for that path.
+ *
+ * @param {object} obj
  */
 PathLens.deriveLenses = function (obj) {
     var lenses = {};
@@ -175,6 +224,19 @@ PathLens.deriveLenses = function (obj) {
     return lenses;
 };
 
+/**
+ * Construct an unsafe PathLens from a path (throws the usual errors)
+ *
+ * @param path
+ * @constructor
+ */
+PathLens.Unsafe = function (path) {
+    this.base = PathLens;
+    this.base(path, true);
+};
+
+PathLens.Unsafe.prototype = new PathLens;
+
 module.exports = PathLens;</code></pre>
         </article>
     </section>
@@ -185,13 +247,13 @@ module.exports = PathLens;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Compose.html">Compose</a></li><li><a href="Getter.html">Getter</a></li><li><a href="IndexedLens.html">IndexedLens</a></li><li><a href="Lens.html">Lens</a></li><li><a href="MultiLens.html">MultiLens</a></li><li><a href="PathLens.html">PathLens</a></li><li><a href="Setter.html">Setter</a></li><li><a href="SliceLens.html">SliceLens</a></li></ul><h3>Global</h3><ul><li><a href="global.html#get">get</a></li><li><a href="global.html#IdLens">IdLens</a></li><li><a href="global.html#isValidIndex">isValidIndex</a></li><li><a href="global.html#normalizeIndex">normalizeIndex</a></li><li><a href="global.html#over">over</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Compose.html">Compose</a></li><li><a href="Getter.html">Getter</a></li><li><a href="IndexedLens.html">IndexedLens</a></li><li><a href="IndexedLens.Unsafe.html">Unsafe</a></li><li><a href="Lens.html">Lens</a></li><li><a href="MultiLens.html">MultiLens</a></li><li><a href="Optional.html">Optional</a></li><li><a href="PathLens.html">PathLens</a></li><li><a href="PathLens.Unsafe.html">Unsafe</a></li><li><a href="Setter.html">Setter</a></li><li><a href="SliceLens.html">SliceLens</a></li></ul><h3>Global</h3><ul><li><a href="global.html#get">get</a></li><li><a href="global.html#IdLens">IdLens</a></li><li><a href="global.html#isValidIndex">isValidIndex</a></li><li><a href="global.html#normalizeIndex">normalizeIndex</a></li><li><a href="global.html#over">over</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a> on Tue Dec 09 2014 12:44:01 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a> on Thu Dec 11 2014 10:41:15 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

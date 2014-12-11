@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Compose</title>
+    <title>JSDoc: Class: Optional</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Compose</h1>
+    <h1 class="page-title">Class: Optional</h1>
 
     
 
@@ -29,7 +29,7 @@
 <header>
     
         <h2>
-        Compose
+        Optional
         </h2>
         
     
@@ -45,7 +45,7 @@
         <h2>Constructor</h2>
         
 
-        <h4 class="name" id="Compose"><span class="type-signature"></span>new Compose<span class="signature">(lensA, lensB)</span><span class="type-signature"> &rarr; {<a href="Compose.html">Compose</a>}</span></h4>
+        <h4 class="name" id="Optional"><span class="type-signature"></span>new Optional<span class="signature">(lens, errorHandler)</span><span class="type-signature"> &rarr; {<a href="Lens.html">Lens</a>}</span></h4>
 
         
     
@@ -54,12 +54,13 @@
 
     
     <div class="description">
-        <p>Create the composite of two <code>lens</code>es. For instance, to create a lens for arr[i][j]:</p>
-<p>arrIJLens = new Compose(
-    new IndexedLens(1),
-    new IndexedLens(0)
-);</p>
-<p>Then arrIJLens.get, .set, and .over all work as you'd expect.</p>
+        <p>Optional Lenses take Lenses and an optional error handler as an argument, and make any Lens accesses safe.
+For example, Using an unsafe IndexedLens, you may get an error if you try to access an element out of range:</p>
+<p>new IndexedLens(100).get([]) // Uh oh!</p>
+<p>Using Optional, you can wrap the IndexedLens to return null (or optionally handle exceptions in some other way), e.g</p>
+<p>var lens = new Option(new IndexedLens(100));</p>
+<p>lens.get([]); // null</p>
+<p>lens.get([], console.log); // prints 'Array index 100 out of range'</p>
     </div>
     
 
@@ -95,10 +96,15 @@
 
         <tr>
             
-                <td class="name"><code>lensA</code></td>
+                <td class="name"><code>lens</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type"><a href="Lens.html">Lens</a></span>
+
+
             
             </td>
 
@@ -106,17 +112,25 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>The lens to make safe</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>lensB</code></td>
+                <td class="name"><code>errorHandler</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">function</span>
+|
+
+<span class="param-type">*</span>
+
+
             
             </td>
 
@@ -124,7 +138,8 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>A function that is called on any thrown exceptions,
+or a default value to return on error.</p></td>
         </tr>
 
     
@@ -164,7 +179,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="compose_Compose.js.html">compose/Compose.js</a>, <a href="compose_Compose.js.html#line39">line 39</a>
+        <a href="combinator_Optional.js.html">combinator/Optional.js</a>, <a href="combinator_Optional.js.html#line28">line 28</a>
     </li></ul></dd>
     
 
@@ -190,6 +205,10 @@
     <h5>Returns:</h5>
     
             
+<div class="param-desc">
+    <p>A safer lens</p>
+</div>
+
 
 
 <dl>
@@ -198,7 +217,7 @@
     </dt>
     <dd>
         
-<span class="param-type"><a href="Compose.html">Compose</a></span>
+<span class="param-type"><a href="Lens.html">Lens</a></span>
 
 
     </dd>

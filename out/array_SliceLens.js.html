@@ -41,8 +41,8 @@ var _ = require('lodash'),
 /**
  * Get the slice of an array from i to j.
  *
- * @param i
- * @param j
+ * @param {int} i The start of the slice
+ * @param {int} j The end of the slice
  * @returns {Function}
  */
 get = function (i, j) {
@@ -58,8 +58,8 @@ get = function (i, j) {
 /**
  * Map a function over a slice of an array and return the modified array.
  *
- * @param i
- * @param j
+ * @param {int} i The start of the slice (may be negative)
+ * @param {int} j The end of the slice (may be negative)
  * @returns {Function}
  */
 over = function (i, j) {
@@ -78,9 +78,14 @@ over = function (i, j) {
         // Apply the function to the sliced array
         slicedArr = func(arr.slice(i, j));
 
-        _.forEach(slicedArr, function (val) {
-            newArr.push(val);
-        });
+        if (_.isArray(slicedArr)) {
+            _.forEach(slicedArr, function (val) {
+                newArr.push(val);
+            });
+        } else {
+            // If the result isn't an array, replace the slice with that element
+            newArr.push(slicedArr);
+        }
 
         for (k = j; k &lt; arr.length; k++) {
             newArr.push(arr[k]);
@@ -91,28 +96,41 @@ over = function (i, j) {
 };
 
 /**
- * Build a slice lens from start and end of range parameters.
+ * A SliceLens focuses on a slice of an array from starting and ending indices.
+ * SliceLenses can be constructed in two ways:
  *
- * @param i
- * @param j
- * @returns {Lens|*}
+ * 1. By giving it integer start and end indices, which can be negative (negative indices start from the right)
+ * 2. By passing in a Python-style string representing the slice, e.g. '0:-1'. By default, the starting index is set
+ * to 0 and the ending index is set to arr.length, so for instance, new SliceLens(':') focuses on the whole list.
+ *
+ * @param {int|string} i The start of the slice or a string representing the slice, e.g. '0:-1"
+ * @param {int} j The end of the Slice
+ * @returns {SliceLens}
  * @constructor
  */
 SliceLens = function (i, j) {
-    var range;
+    var range,
+        flags;
 
     if (_.isString(i)) {
         range = i.split(':');
 
-        if (range[0] !== '') {
-            i = Number(range[0]);
+        // "Array Copy" operator
+        if (i === ":") {
+            i = 0;
+            j = undefined;
         } else {
-            i = null;
+            if (range[0] !== '') {
+                i = Number(range[0]);
+            } else {
+                i = null;
+            }
+
+            if (range[1] !== '') {
+                j = Number(range[1]);
+            }
         }
 
-        if (range[1]) {
-            j = Number(range[1]);
-        }
     }
 
     if ((_.isUndefined(i) || _.isNull(i))
@@ -127,17 +145,18 @@ SliceLens = function (i, j) {
 
     // NOTE: j not defined is handled by array.slice in both functions.
 
-    return new Lens(
-        get(i, j),
-        over(i, j),
-        {
-            _slice : {
-                _start: i,
-                _end: j
-            }
+    flags = {
+        _slice: {
+            _start: i,
+            _end: j
         }
-    );
+    };
+
+    this.base = Lens;
+    this.base(get(i, j), over(i, j), flags);
 };
+
+SliceLens.prototype = new Lens;
 
 module.exports = SliceLens;</code></pre>
         </article>
@@ -149,13 +168,13 @@ module.exports = SliceLens;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Compose.html">Compose</a></li><li><a href="Getter.html">Getter</a></li><li><a href="IndexedLens.html">IndexedLens</a></li><li><a href="Lens.html">Lens</a></li><li><a href="MultiLens.html">MultiLens</a></li><li><a href="PathLens.html">PathLens</a></li><li><a href="Setter.html">Setter</a></li><li><a href="SliceLens.html">SliceLens</a></li></ul><h3>Global</h3><ul><li><a href="global.html#get">get</a></li><li><a href="global.html#IdLens">IdLens</a></li><li><a href="global.html#isValidIndex">isValidIndex</a></li><li><a href="global.html#normalizeIndex">normalizeIndex</a></li><li><a href="global.html#over">over</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Compose.html">Compose</a></li><li><a href="Getter.html">Getter</a></li><li><a href="IndexedLens.html">IndexedLens</a></li><li><a href="IndexedLens.Unsafe.html">Unsafe</a></li><li><a href="Lens.html">Lens</a></li><li><a href="MultiLens.html">MultiLens</a></li><li><a href="Optional.html">Optional</a></li><li><a href="PathLens.html">PathLens</a></li><li><a href="PathLens.Unsafe.html">Unsafe</a></li><li><a href="Setter.html">Setter</a></li><li><a href="SliceLens.html">SliceLens</a></li></ul><h3>Global</h3><ul><li><a href="global.html#get">get</a></li><li><a href="global.html#IdLens">IdLens</a></li><li><a href="global.html#isValidIndex">isValidIndex</a></li><li><a href="global.html#normalizeIndex">normalizeIndex</a></li><li><a href="global.html#over">over</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a> on Tue Dec 09 2014 12:44:01 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a> on Thu Dec 11 2014 10:41:15 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>
