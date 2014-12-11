@@ -1,6 +1,5 @@
 <img src="NanoscopeLogo.png" width="400px"></img>
-
-Experimental lenses in Javascript
+## A Lens Library for Javascript
 
 ## TODO
 - Documentation (incl. lens laws)!
