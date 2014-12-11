@@ -40,7 +40,7 @@ get = function (index, unsafe) {
 
 /**
  * Map a function over the value at some index in an array.
- * Index must be in the interval [0, array.length] (inclusive); i.e. you may only modify existing elements or
+ * Index must be in the interval `[0, array.length]` (inclusive); i.e. you may only modify existing elements or
  * add an element to the end.
  *
  * @param {int} index The index to map over
@@ -72,7 +72,7 @@ over = function (index, unsafe) {
 };
 
 /**
- * An IndexedLens is a Lens that focuses on some index of an array.
+ * An `IndexedLens` is a `Lens` that focuses on some index of an array.
  *
  * @param {int} index The index to focus on
  * @param {boolean} unsafe If true, throws errors when index is out of range.
@@ -87,7 +87,7 @@ IndexedLens = function (index, unsafe) {
 IndexedLens.prototype = new Lens;
 
 /**
- * Construct an Unsafe IndexedLens that throws errors when attempting to access
+ * Construct an Unsafe `IndexedLens` that throws errors when attempting to access
  * elements that are out of bounds.
  *
  * @param {int} index index The index to focus on

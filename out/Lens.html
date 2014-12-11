@@ -54,32 +54,30 @@
 
     
     <div class="description">
-        <p>A Lens is a construct that allows you to 'peer into' some structure and operate on subparts of it. A Lens supports
+        <p>A <code>Lens</code> is a construct that allows you to 'peer into' some structure and operate on sub-parts of it. A <code>Lens</code> supports
 three basic operations:</p>
 <ol>
-<li>get, which takes an object and gets a piece of it,</li>
-<li>over, which takes an object and maps a function over it, and</li>
-<li>set, which takes an object and sets it to some value.</li>
+<li><code>get</code>, which takes an object and gets a piece of it,</li>
+<li><code>over</code>, which takes an object and maps a function over it, and</li>
+<li><code>set</code>, which takes an object and sets it to some value.</li>
 </ol>
-<p>To construct a lens, you must provide both a get function and an over function. Set is a special case of over, so you
+<p>To construct a <code>Lens</code>, you must provide both a <code>get</code> function and an <code>over</code> function. <code>set</code> is a special case of <code>over</code>, so you
 don't need to explicitly define it.</p>
-<p>As a simple example, the following constructs a lens that focuses on the first element of an Array:</p>
-<p>var headLens = new Lens (
+<p>As a simple example, the following constructs a <code>Lens</code> that focuses on the first element of an array:</p>
+<pre class="prettyprint source lang-javascript"><code>var headLens = new Lens (
     function (arr) { return arr[0]; },
     function (arr, func) {
         var newArr = _.deepClone(arr); // Lenses should operate on immutable data, don't modify original array
         newArr[0] = func(newArr[0]); // Apply a user-specified function to the head of the array and set the first element
         return newArr; // Return the modified array
     }
-)</p>
-<p>Any user-constructed lenses are expected to obey the &quot;lens laws&quot;:</p>
+);</code></pre><p>Any user-constructed lenses are expected to obey the Lens laws, as follows:</p>
 <ol>
-<li>set-get (you get what you put in): lens.get(a, lens.set(a, b)) = b</li>
-<li>get-set (putting what is there doesn't change anything): lens.set(a, lens.get(a)) = a</li>
-<li>set-set (setting twice is the same as setting once):  lens.set(c, lens.set(b, a)) = lens.set(c, a)</li>
+<li>set-get (you get what you put in): <code>lens.get(a, lens.set(a, b)) = b</code></li>
+<li>get-set (putting what is there doesn't change anything): <code>lens.set(a, lens.get(a)) = a</code></li>
+<li>set-set (setting twice is the same as setting once): <code>lens.set(c, lens.set(b, a)) = lens.set(c, a)</code></li>
 </ol>
-<p>Poring over these definitions for a minute should allow you to see <em>why</em> they exist and <em>why</em> they matter. These laws
-ensure that the getting and setting behavior make sense in the usual way.</p>
+<p>These laws ensure that the getting and setting behavior make sense in the usual way.</p>
     </div>
     
 
@@ -217,7 +215,7 @@ ensure that the getting and setting behavior make sense in the usual way.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line43">line 43</a>
+        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line44">line 44</a>
     </li></ul></dd>
     
 
@@ -295,7 +293,7 @@ ensure that the getting and setting behavior make sense in the usual way.</p>
 
     
     <div class="description">
-        <p>Get the value this Lens focuses on from an object</p>
+        <p>Get the value this <code>Lens</code> focuses on from an object</p>
     </div>
     
 
@@ -347,7 +345,7 @@ ensure that the getting and setting behavior make sense in the usual way.</p>
 
             
 
-            <td class="description last"><p>The object to run the Lens on</p></td>
+            <td class="description last"><p>The object to run the <code>Lens</code> on</p></td>
         </tr>
 
     
@@ -387,7 +385,7 @@ ensure that the getting and setting behavior make sense in the usual way.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line73">line 73</a>
+        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line74">line 74</a>
     </li></ul></dd>
     
 
@@ -491,7 +489,7 @@ ensure that the getting and setting behavior make sense in the usual way.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line63">line 63</a>
+        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line64">line 64</a>
     </li></ul></dd>
     
 
@@ -551,7 +549,7 @@ ensure that the getting and setting behavior make sense in the usual way.</p>
 
     
     <div class="description">
-        <p>Run a function over the focus of the Lens and return the modified structure</p>
+        <p>Run a function over the focus of the <code>Lens</code> and return the modified structure</p>
     </div>
     
 
@@ -603,7 +601,7 @@ ensure that the getting and setting behavior make sense in the usual way.</p>
 
             
 
-            <td class="description last"><p>The object to run the Lens on</p></td>
+            <td class="description last"><p>The object to run the <code>Lens</code> on</p></td>
         </tr>
 
     
@@ -666,7 +664,7 @@ ensure that the getting and setting behavior make sense in the usual way.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line84">line 84</a>
+        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line85">line 85</a>
     </li></ul></dd>
     
 
@@ -726,7 +724,7 @@ ensure that the getting and setting behavior make sense in the usual way.</p>
 
     
     <div class="description">
-        <p>Set the focus of the Lens to something new and return the modified structure</p>
+        <p>Set the focus of the <code>Lens</code> to something new and return the modified structure</p>
     </div>
     
 
@@ -841,7 +839,7 @@ ensure that the getting and setting behavior make sense in the usual way.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line95">line 95</a>
+        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line96">line 96</a>
     </li></ul></dd>
     
 
@@ -902,13 +900,13 @@ ensure that the getting and setting behavior make sense in the usual way.</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Compose.html">Compose</a></li><li><a href="Getter.html">Getter</a></li><li><a href="IndexedLens.html">IndexedLens</a></li><li><a href="IndexedLens.Unsafe.html">Unsafe</a></li><li><a href="Lens.html">Lens</a></li><li><a href="MultiLens.html">MultiLens</a></li><li><a href="Optional.html">Optional</a></li><li><a href="PathLens.html">PathLens</a></li><li><a href="PathLens.Unsafe.html">Unsafe</a></li><li><a href="Setter.html">Setter</a></li><li><a href="SliceLens.html">SliceLens</a></li></ul><h3>Global</h3><ul><li><a href="global.html#get">get</a></li><li><a href="global.html#IdLens">IdLens</a></li><li><a href="global.html#isValidIndex">isValidIndex</a></li><li><a href="global.html#normalizeIndex">normalizeIndex</a></li><li><a href="global.html#over">over</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Compose.html">Compose</a></li><li><a href="Getter.html">Getter</a></li><li><a href="IndexedLens.html">IndexedLens</a></li><li><a href="IndexedLens.Unsafe.html">Unsafe</a></li><li><a href="Lens.html">Lens</a></li><li><a href="MultiLens.html">MultiLens</a></li><li><a href="Optional.html">Optional</a></li><li><a href="PathLens.html">PathLens</a></li><li><a href="PathLens.Unsafe.html">Unsafe</a></li><li><a href="Setter.html">Setter</a></li><li><a href="SliceLens.html">SliceLens</a></li></ul><h3>Global</h3><ul><li><a href="global.html#get">get</a></li><li><a href="global.html#IdLens">IdLens</a></li><li><a href="global.html#over">over</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a> on Thu Dec 11 2014 10:41:15 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a> on Thu Dec 11 2014 10:53:30 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -15,7 +15,7 @@ get = function () {
 };
 
 /**
- * A Setter is a Lens that only supports setting and mapping. A Setter is constructed with a single function (over).
+ * A `Setter` is a `Lens` that only supports setting and mapping. A `Setter` is constructed with a single function (`over`).
  *
  * @param {function} over Function that maps over the focus of the Lens and returns the result.
  * @param {object} options Additional flags to set in the Lens.
@@ -36,9 +36,9 @@ Setter = function (over, options) {
 Setter.prototype = new Lens;
 
 /**
- * Get a Setter from a Lens
+ * Get a `Setter` from a `Lens`
  *
- * @param {Lens} lens The Lens to conver to a Setter
+ * @param {Lens} lens The Lens to convert to a `Setter`
  * @returns {Lens}
  */
 Setter.fromLens = function (lens) {

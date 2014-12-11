@@ -1,7 +1,7 @@
 "use strict";
 
 var _ = require('lodash'),
-    MultiLens = require('../src/MultiLens'),
+    MultiLens = require('../src/combinator/MultiLens'),
     IndexedLens = require('../src/array/IndexedLens'),
 
     utils = require('./utils');

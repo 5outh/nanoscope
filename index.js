@@ -1,11 +1,18 @@
-/**
- * Top-level exports
- *
- * @type {{Lens: (Lens|exports), Compose: (Compose|exports), IndexedLens: (IndexedLens|exports), PathLens: (PathLens|exports)}}
- */
 module.exports = {
     Lens: require('./src/Lens'),
-    Compose: require('./src/compose/Compose'),
+
+    // Predefined Lenses
     IndexedLens: require('./src/array/IndexedLens'),
-    PathLens: require('./src/object/PathLens')
+    SliceLens: require('./src/array/SliceLens'),
+    PathLens: require('./src/object/PathLens'),
+    IdLens: require('./src/IdLens'),
+
+    // Composite Lenses
+    Compose: require('./src/combinator/Compose'),
+    Optional: require('./src/combinator/Optional'),
+    MultiLens: require('./src/combinator/MultiLens'),
+
+    // Special Cases
+    Getter: require('./src/Getter'),
+    Setter: require('./src/Setter')
 };

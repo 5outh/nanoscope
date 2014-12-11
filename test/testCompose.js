@@ -2,7 +2,7 @@
 
 var _ = require('lodash'),
     IndexedLens = require('../src/array/IndexedLens'),
-    Compose = require('../src/compose/Compose');
+    Compose = require('../src/combinator/Compose');
 
 describe('Compose', function () {
     var testArr, compositeLens;

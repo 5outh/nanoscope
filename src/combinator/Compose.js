@@ -22,17 +22,20 @@ over = function (lensA, lensB) {
 };
 
 /**
- * Create the composite of two `lens`es. For instance, to create a lens for arr[i][j]:
+ * Create the composite of two `Lens`es. For instance, to create a `Lens` for `arr[i][j]`:
  *
+ * ```javascript
  * arrIJLens = new Compose(
  *     new IndexedLens(1),
  *     new IndexedLens(0)
  * );
+ * ```
  *
- * Then arrIJLens.get, .set, and .over all work as you'd expect.
+ * Then `arrIJLens.get`, `.set`, and `.over` first call the appropriate function for the first `Lens`, then
+ * the appropriate function for the second `Lens` and return the result.
  *
- * @param lensA
- * @param lensB
+ * @param {Lens} lensA The first `Lens` to call functions on
+ * @param {Lens} lensB The second `Lens` to call functions on
  * @returns {Compose}
  * @constructor
  */

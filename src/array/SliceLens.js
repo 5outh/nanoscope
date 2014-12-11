@@ -11,7 +11,7 @@ var _ = require('lodash'),
     SliceLens;
 
 /**
- * Get the slice of an array from i to j.
+ * Get the slice of an array from `i` to `j`.
  *
  * @param {int} i The start of the slice
  * @param {int} j The end of the slice
@@ -68,8 +68,8 @@ over = function (i, j) {
 };
 
 /**
- * A SliceLens focuses on a slice of an array from starting and ending indices.
- * SliceLenses can be constructed in two ways:
+ * A `SliceLens` focuses on a slice of an array from starting and ending indices.
+ * `SliceLenses` can be constructed in two ways:
  *
  * 1. By giving it integer start and end indices, which can be negative (negative indices start from the right)
  * 2. By passing in a Python-style string representing the slice, e.g. '0:-1'. By default, the starting index is set
