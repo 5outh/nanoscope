@@ -44,6 +44,19 @@ describe('Lens', function () {
         });
     });
 
+    describe('#focus', function () {
+        it('should set the focus to 10', function () {
+            testLens.focus(10)._focus.should.equal(10);
+        });
+    });
+
+    describe('#blur', function () {
+        it('should reset the focus to null', function () {
+            testLens.focus(10);
+            (testLens.blur()._focus === null).should.be.true;
+        });
+    });
+
     describe('#getFlags', function () {
         it('should return all custom options', function () {
             JSON.stringify(testLens.getFlags())
