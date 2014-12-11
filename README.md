@@ -1,5 +1,4 @@
-nanoscope
-==========
+![Nanoscope Logo](NanoscopeLogo.png)
 
 Experimental lenses in Javascript
 
