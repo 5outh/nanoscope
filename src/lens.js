@@ -57,6 +57,27 @@ Lens = function (get, over, flags) {
 };
 
 /**
+ * Focus this `Lens` on an object
+ *
+ * @param {*} focus The object to focus a Lens on
+ * @return {Lens} this
+ */
+Lens.prototype.focus = function (focus) {
+    this._focus = focus;
+    return this;
+};
+
+/**
+ * Reset the focus of the `Lens`.
+ *
+ * @return {Lens} this
+ */
+Lens.prototype.blur = function () {
+    this._focus = null;
+    return this;
+};
+
+/**
  * Get any extra set options in a Lens
  *
  * @returns {*}
@@ -72,7 +93,7 @@ Lens.prototype.getFlags = function () {
  * @returns {*}
  */
 Lens.prototype.get = function (obj) {
-    return this._get(obj);
+    return this._get(this._focus || obj);
 };
 
 /**
@@ -83,6 +104,12 @@ Lens.prototype.get = function (obj) {
  * @returns {Lens}
  */
 Lens.prototype.over = function (obj, func) {
+    // If a focus exists, use it instead of the object passed in
+    // and consider the first argument the function to be run.
+    if (this._focus) {
+        return this._over(this._focus, obj);
+    }
+
     return this._over(obj, func);
 };
 
@@ -94,6 +121,12 @@ Lens.prototype.over = function (obj, func) {
  * @returns {Lens}
  */
 Lens.prototype.set = function (obj, val) {
+    // If a focus exists, use it instead of the object passed in
+    // and consider the first argument the value to be set.
+    if (this._focus) {
+        return this._over(this._focus, _.constant(obj));
+    }
+
     return this._over(obj, _.constant(val));
 };
 
