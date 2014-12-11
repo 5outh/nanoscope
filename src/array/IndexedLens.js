@@ -74,7 +74,7 @@ over = function (index, unsafe) {
 /**
  * An `IndexedLens` is a `Lens` that focuses on some index of an array.
  *
- * @param {int} index The index to focus on
+ * @param {int} index The index to view on
  * @param {boolean} unsafe If true, throws errors when index is out of range.
  * @returns {Lens}
  * @constructor
@@ -90,7 +90,7 @@ IndexedLens.prototype = new Lens;
  * Construct an Unsafe `IndexedLens` that throws errors when attempting to access
  * elements that are out of bounds.
  *
- * @param {int} index index The index to focus on
+ * @param {int} index index The index to view on
  * @returns {Lens}
  * @constructor
  */

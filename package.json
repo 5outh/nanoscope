@@ -27,6 +27,7 @@
     "steeltoe": "^1.0.1"
   },
   "devDependencies": {
+    "ink-docstrap": "^0.4.12",
     "should": "^4.3.0"
   }
 }

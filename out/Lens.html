@@ -284,6 +284,114 @@ don't need to explicitly define it.</p>
     
         
 
+        <h4 class="name" id="blur"><span class="type-signature"></span>blur<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Lens.html">Lens</a>}</span></h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Reset the view of the <code>Lens</code>.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line75">line 75</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>this</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Lens.html">Lens</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        
+
         <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">(obj)</span><span class="type-signature"> &rarr; {*}</span></h4>
 
         
@@ -385,7 +493,7 @@ don't need to explicitly define it.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line74">line 74</a>
+        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line95">line 95</a>
     </li></ul></dd>
     
 
@@ -489,7 +597,7 @@ don't need to explicitly define it.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line64">line 64</a>
+        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line85">line 85</a>
     </li></ul></dd>
     
 
@@ -549,7 +657,7 @@ don't need to explicitly define it.</p>
 
     
     <div class="description">
-        <p>Run a function over the focus of the <code>Lens</code> and return the modified structure</p>
+        <p>Run a function over the view of the <code>Lens</code> and return the modified structure</p>
     </div>
     
 
@@ -624,7 +732,7 @@ don't need to explicitly define it.</p>
 
             
 
-            <td class="description last"><p>The function to call on the focus of the Lens</p></td>
+            <td class="description last"><p>The function to call on the view of the Lens</p></td>
         </tr>
 
     
@@ -664,7 +772,7 @@ don't need to explicitly define it.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line85">line 85</a>
+        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line106">line 106</a>
     </li></ul></dd>
     
 
@@ -724,7 +832,7 @@ don't need to explicitly define it.</p>
 
     
     <div class="description">
-        <p>Set the focus of the <code>Lens</code> to something new and return the modified structure</p>
+        <p>Set the view of the <code>Lens</code> to something new and return the modified structure</p>
     </div>
     
 
@@ -839,7 +947,7 @@ don't need to explicitly define it.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line96">line 96</a>
+        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line123">line 123</a>
     </li></ul></dd>
     
 
@@ -884,6 +992,162 @@ don't need to explicitly define it.</p>
     
 </dd>
 
+        
+            
+<dt>
+    
+        
+
+        <h4 class="name" id="view"><span class="type-signature"></span>view<span class="signature">(view)</span><span class="type-signature"> &rarr; {<a href="Lens.html">Lens</a>}</span></h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Force the <code>Lens</code> to <code>view</code> a new object</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>view</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The object to view a Lens on</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line65">line 65</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>this</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Lens.html">Lens</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
         </dl>
     
 
@@ -906,7 +1170,7 @@ don't need to explicitly define it.</p>
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a> on Thu Dec 11 2014 10:53:30 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a> on Thu Dec 11 2014 11:23:03 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

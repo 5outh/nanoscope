@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: Getter.js</title>
+    <title>JSDoc: Source: combinator/Compose.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: Getter.js</h1>
+    <h1 class="page-title">Source: combinator/Compose.js</h1>
 
     
 
@@ -28,52 +28,53 @@
         <article>
             <pre class="prettyprint source linenums"><code>"use strict";
 
-var _ = require('lodash'),
-    Lens = require('./Lens'),
-
-    Getter,
-
+var Lens = require('../Lens'),
+    get,
     over;
 
-/**
- * Never allow `over` in a getter
- */
-over = function () {
-    throw new Error('over not permitted in a Getter');
+get = function (lensA, lensB) {
+    return function (obj) {
+        return lensB.get(lensA.get(obj));
+    };
+};
+
+over = function (lensA, lensB) {
+    return function (obj, func) {
+        return lensA.over(
+            obj,
+            function () {
+                return lensB.over(lensA.get(obj), func);
+            }
+        );
+    };
 };
 
 /**
- * A `Getter` is a `Lens` that doesn't support setting or mapping over values. A `Getter` is constructed using only a
- * `get` function, which returns the element (or elements) the `Lens` should view on.
+ * Create the composite of two `Lens`es. For instance, to create a `Lens` for `arr[i][j]`:
  *
- * @param {function} get Function to allow access to an object via this lens.
- * @param {object} options Additional flags to set in the resulting Lens
- * @returns {Getter}
+ * ```javascript
+ * arrIJLens = new Compose(
+ *     new IndexedLens(1),
+ *     new IndexedLens(0)
+ * );
+ * ```
+ *
+ * Then `arrIJLens.get`, `.set`, and `.over` first call the appropriate function for the first `Lens`, then
+ * the appropriate function for the second `Lens` and return the result.
+ *
+ * @param {Lens} lensA The first `Lens` to call functions on
+ * @param {Lens} lensB The second `Lens` to call functions on
+ * @returns {Compose}
  * @constructor
  */
-Getter = function (get, options) {
-    var opts = { _getter: true};
-
-    if (_.isObject(options)) {
-        opts = _.extend(opts, options);
-    }
-
+var Compose = function (lensA, lensB) {
     this.base = Lens;
-    this.base(get, over, opts);
+    this.base(get(lensA, lensB), over(lensA, lensB), { _lensA: lensA, _lensB: lensB });
 };
 
-Getter.prototype = new Lens;
+Compose.prototype = new Lens;
 
-/**
- * Construct a `Getter` from a `Lens` by overwriting its over and set functions.
- *
- * @param {Lens} lens The `Lens` to convert to a `Getter`.
- */
-Getter.fromLens = function (lens) {
-    return new Getter(lens._get, lens.getFlags());
-};
-
-module.exports = Getter;</code></pre>
+module.exports = Compose;</code></pre>
         </article>
     </section>
 

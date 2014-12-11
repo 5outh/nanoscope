@@ -16,7 +16,7 @@ over = function () {
 
 /**
  * A `Getter` is a `Lens` that doesn't support setting or mapping over values. A `Getter` is constructed using only a
- * `get` function, which returns the element (or elements) the `Lens` should focus on.
+ * `get` function, which returns the element (or elements) the `Lens` should view on.
  *
  * @param {function} get Function to allow access to an object via this lens.
  * @param {object} options Additional flags to set in the resulting Lens

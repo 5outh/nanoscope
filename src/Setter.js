@@ -17,7 +17,7 @@ get = function () {
 /**
  * A `Setter` is a `Lens` that only supports setting and mapping. A `Setter` is constructed with a single function (`over`).
  *
- * @param {function} over Function that maps over the focus of the Lens and returns the result.
+ * @param {function} over Function that maps over the view of the Lens and returns the result.
  * @param {object} options Additional flags to set in the Lens.
  * @returns {Lens}
  * @constructor

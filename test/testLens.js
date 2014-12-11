@@ -26,45 +26,45 @@ describe('Lens', function () {
     describe('#get', function () {
         it('should return c', function () {
             testLens.get(testJS).should.equal('c');
-            testLens.focus(testJS).get().should.equal('c');
+            testLens.view(testJS).get().should.equal('c');
         });
     });
 
     describe('#set', function () {
         it('should return a new object with modified obj.a.b', function () {
             testLens.set(testJS, 9).a.b.should.equal(9);
-            testLens.focus(testJS).set(9).a.b.should.equal(9);
+            testLens.view(testJS).set(9).a.b.should.equal(9);
         });
     });
 
     describe('#over', function () {
         it('should turn testJS.a.b into cat', function () {
             testLens.over(testJS, function (attr) { return attr + 'at'; }).a.b.should.equal('cat');
-            testLens.focus(testJS).over(function (attr) { return attr + 'at'; }).a.b.should.equal('cat');
+            testLens.view(testJS).over(function (attr) { return attr + 'at'; }).a.b.should.equal('cat');
         });
     });
 
-    describe('#focus', function () {
-        it('should set the focus to 10', function () {
-            testLens.focus(10)._focus.should.equal(10);
+    describe('#view', function () {
+        it('should set the view to 10', function () {
+            testLens.view(10)._view.should.equal(10);
+        });
+
+        it('should still run functions on the correct object', function () {
+            testLens.view(10);
+
+            testLens.get(testJS).should.equal('c');
+            testLens.set(testJS, 9).a.b.should.equal(9);
+            testLens.over(testJS, function (attr) { return attr + 'at'; }).a.b.should.equal('cat');
         });
     });
 
     describe('#blur', function () {
         beforeEach(function () {
-            testLens.focus(10);
+            testLens.view(10);
         });
 
-        it('should reset the focus to null', function () {
-            (testLens.blur()._focus === null).should.be.true;
-        });
-
-        it('should run functions on the correct object', function () {
-            testLens.blur();
-
-            testLens.get(testJS).should.equal('c');
-            testLens.set(testJS, 9).a.b.should.equal(9);
-            testLens.over(testJS, function (attr) { return attr + 'at'; }).a.b.should.equal('cat');
+        it('should reset the view to null', function () {
+            (testLens.blur()._view === null).should.be.true;
         });
     });
 

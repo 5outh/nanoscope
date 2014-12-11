@@ -13,6 +13,7 @@
     "parser": "gfm"
   },
   "templates": {
+    "theme": "amelia",
     "cleverLinks": true,
     "monospaceLinks": true,
     "default": {

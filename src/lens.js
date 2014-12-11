@@ -57,23 +57,23 @@ Lens = function (get, over, flags) {
 };
 
 /**
- * Focus this `Lens` on an object
+ * Force the `Lens` to `view` a new object
  *
- * @param {*} focus The object to focus a Lens on
+ * @param {*} view The object to view a Lens on
  * @return {Lens} this
  */
-Lens.prototype.focus = function (focus) {
-    this._focus = focus;
+Lens.prototype.view = function (view) {
+    this._view = view;
     return this;
 };
 
 /**
- * Reset the focus of the `Lens`.
+ * Reset the view of the `Lens`.
  *
  * @return {Lens} this
  */
 Lens.prototype.blur = function () {
-    this._focus = null;
+    this._view = null;
     return this;
 };
 
@@ -93,38 +93,36 @@ Lens.prototype.getFlags = function () {
  * @returns {*}
  */
 Lens.prototype.get = function (obj) {
-    return this._get(this._focus || obj);
+    return this._get(obj || this._view);
 };
 
 /**
- * Run a function over the focus of the `Lens` and return the modified structure
+ * Run a function over the view of the `Lens` and return the modified structure
  *
  * @param {*} obj The object to run the `Lens` on
- * @param {function} func The function to call on the focus of the Lens
+ * @param {function} func The function to call on the view of the Lens
  * @returns {Lens}
  */
 Lens.prototype.over = function (obj, func) {
-    // If a focus exists, use it instead of the object passed in
-    // and consider the first argument the function to be run.
-    if (this._focus) {
-        return this._over(this._focus, obj);
+    // If a view exists and a second argument isn't provided, use the view.
+    if (this._view && !func) {
+        return this._over(this._view, obj);
     }
 
     return this._over(obj, func);
 };
 
 /**
- * Set the focus of the `Lens` to something new and return the modified structure
+ * Set the view of the `Lens` to something new and return the modified structure
  *
  * @param {*} obj The object to run the Lens on
  * @param {*} val The value to set
  * @returns {Lens}
  */
 Lens.prototype.set = function (obj, val) {
-    // If a focus exists, use it instead of the object passed in
-    // and consider the first argument the value to be set.
-    if (this._focus) {
-        return this._over(this._focus, _.constant(obj));
+    // If a view exists, and a second argument isn't provided, set the view.
+    if (this._view && !val) {
+        return this._over(this._view, _.constant(obj));
     }
 
     return this._over(obj, _.constant(val));
