@@ -177,5 +177,22 @@ describe('SliceLens', function () {
 
             res[0].should.equal(5);
         });
+
+        it('should sum the first 3 elements of the list', function () {
+            var lens = new SliceLens('0:3'),
+                res;
+
+            res = lens.over(testArr, function (arr) {
+                var sum = 0;
+
+                _.forEach(arr, function (elem) {
+                    sum += elem;
+                });
+
+                return sum;
+            });
+
+            utils.testArrayEquals(res, [6, 4, 5]);
+        });
     });
 });
