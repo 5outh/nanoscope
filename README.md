@@ -5,7 +5,7 @@ Experimental lenses in Javascript
 
 ## TODO
 - Documentation (incl. lens laws)!
-- Unsafe `PathLens`
+- <s>Unsafe `PathLens`</s>
 - <s>Use actual inheritance instead of making up my own</s>
 - <s>Change 'options' to 'flags' and put flags in own sub-property instead of
 top-level (i.e. `_flags: { _index: 0}` instead of just `_index: 0`)</s>

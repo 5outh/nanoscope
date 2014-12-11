@@ -64,6 +64,22 @@ describe('PathLens', function () {
                 }
             });
         });
+
+        describe('#set', function () {
+            var lens = new PathLens.Unsafe('a.b');
+
+            it('should not fail when trying to set an attribute that exists', function () {
+                lens.set({a: { b: 10}}, 20).a.b.should.equal(20);
+            });
+
+            it('should fail when trying to set an attribute that does not exist', function () {
+                try {
+                    console.log(lens.set({}, 10));
+                } catch (ex) {
+                    ex.message.should.equal('Cannot read property \'b\' of undefined');
+                }
+            });
+        });
     });
 
     describe('#deriveLenses', function () {
