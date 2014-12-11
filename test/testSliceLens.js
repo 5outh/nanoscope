@@ -172,7 +172,7 @@ describe('SliceLens', function () {
                 res;
 
             res = lens.over(testArr, function (arr) {
-                return [arr.length];
+                return arr.length;
             });
 
             res[0].should.equal(5);
