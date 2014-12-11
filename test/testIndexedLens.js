@@ -12,7 +12,7 @@ describe('IndexedLens', function () {
     });
 
     describe('#Unsafe', function () {
-        var unsafeLens = IndexedLens.Unsafe(0);
+        var unsafeLens = new IndexedLens.Unsafe(0);
 
         describe ('#get', function () {
             it('should get the first element of the array', function () {

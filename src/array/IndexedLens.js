@@ -95,8 +95,11 @@ IndexedLens.prototype = new Lens;
  * @constructor
  */
 IndexedLens.Unsafe = function (index) {
-    return new IndexedLens(index, true);
+    this.base = IndexedLens;
+    this.base(index, true);
 };
+
+IndexedLens.Unsafe.prototype = new IndexedLens;
 
 /**
  * Derive all indexed lenses for an array and return them in an array
