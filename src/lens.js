@@ -4,7 +4,35 @@ var _ = require('lodash'),
     Lens;
 
 /**
- * Construct a new lens from a `get` function and an `over` function
+ * A Lens is a construct that allows you to 'peer into' some structure and operate on subparts of it. A Lens supports
+ * three basic operations:
+ *
+ * 1. get, which takes an object and gets a piece of it,
+ * 2. over, which takes an object and maps a function over it, and
+ * 3. set, which takes an object and sets it to some value.
+ *
+ * To construct a lens, you must provide both a get function and an over function. Set is a special case of over, so you
+ * don't need to explicitly define it.
+ *
+ * As a simple example, the following constructs a lens that focuses on the first element of an Array:
+ *
+ * var headLens = new Lens (
+ *     function (arr) { return arr[0]; },
+ *     function (arr, func) {
+ *         var newArr = _.deepClone(arr); // Lenses should operate on immutable data, don't modify original array
+ *         newArr[0] = func(newArr[0]); // Apply a user-specified function to the head of the array and set the first element
+ *         return newArr; // Return the modified array
+ *     }
+ * )
+ *
+ * Any user-constructed lenses are expected to obey the "lens laws":
+ *
+ * 1. set-get (you get what you put in): lens.get(a, lens.set(a, b)) = b
+ * 2. get-set (putting what is there doesn't change anything): lens.set(a, lens.get(a)) = a
+ * 3. set-set (setting twice is the same as setting once):  lens.set(c, lens.set(b, a)) = lens.set(c, a)
+ *
+ * Poring over these definitions for a minute should allow you to see *why* they exist and *why* they matter. These laws
+ * ensure that the getting and setting behavior make sense in the usual way.
  *
  * @param {function} get Get the value you want from the structure
  * @param {function} over Map a function over the value and return the modified structure

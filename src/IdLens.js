@@ -6,7 +6,7 @@ var _ = require('lodash'),
     IdLens;
 
 /**
- * A Lens that operates on a single object; get returns the object and `over` applies a function to it.
+ * The simplest possible Lens: operates on a single object; get returns the object and over applies a function to it.
  *
  * @type {Lens}
  */

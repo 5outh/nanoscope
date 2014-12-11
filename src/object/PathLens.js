@@ -111,7 +111,21 @@ over = function (path, unsafe) {
 };
 
 /**
- * Construct a PathLens from a path
+ * A PathLens is a Lens that focuses on some element following a path in a JS object. They are safe by default
+ * and will not throw errors when trying to get or set elements that don't exist. In regular javascript, for example:
+ *
+ * {}.a.b; // Throws 'cannot read property b of undefined'
+ *
+ * But with a PathLens:
+ *
+ * new PathLens('a.b').get(); // null
+ *
+ * You can also set values that don't exist yet:
+ *
+ * new PathLens('a.b').set({}, 100); // {a : { b : 100 } }
+ *
+ * Unsafe PathLenses don't catch these errors and will throw the usual error messages. These can be constructed using
+ * either the PathLens.Unsafe constructor or by setting the unsafe parameter in the PathLens constructor to true.
  *
  * @param {string|Array} path Array or dot-delimited string describing a path to follow in an object
  * @param {boolean} unsafe If true, construct an unsafe version of
@@ -159,9 +173,18 @@ getPaths = function (prefix, obj, paths) {
 };
 
 /**
- * Derive lenses for every path in an object
+ * deriveLenses derives lenses for every existent path in the object passed in.
+ * For example, if you have the following structure:
  *
- * @param obj
+ * var obj = { a: { b : { c : 8, d: 9 } } }
+ *
+ * PathLens.deriveLenses(obj) gives back an object with the following keys:
+ *
+ * 'a', 'a.b', 'a.b.c', and 'a.b.d'.
+ *
+ * Each of these keys point to a safe PathLens for that path.
+ *
+ * @param {object} obj
  */
 PathLens.deriveLenses = function (obj) {
     var lenses = {};
@@ -174,7 +197,7 @@ PathLens.deriveLenses = function (obj) {
 };
 
 /**
- * Construct an unsafe PathLens from a path
+ * Construct an unsafe PathLens from a path (throws the usual errors)
  *
  * @param path
  * @constructor

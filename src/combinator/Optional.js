@@ -7,6 +7,17 @@ var _ = require('lodash'),
 
 /**
  * Optional Lenses take Lenses and an optional error handler as an argument, and make any Lens accesses safe.
+ * For example, Using an unsafe IndexedLens, you may get an error if you try to access an element out of range:
+ *
+ * new IndexedLens(100).get([]) // Uh oh!
+ *
+ * Using Optional, you can wrap the IndexedLens to return null (or optionally handle exceptions in some other way), e.g
+ *
+ * var lens = new Option(new IndexedLens(100));
+ *
+ * lens.get([]); // null
+ *
+ * lens.get([], console.log); // prints 'Array index 100 out of range'
  *
  * @param {Lens} lens The lens to make safe
  * @param {function|*} errorHandler A function that is called on any thrown exceptions,

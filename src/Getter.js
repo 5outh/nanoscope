@@ -15,7 +15,8 @@ over = function () {
 };
 
 /**
- * A `Getter` is a `Lens` that doesn't support setting (or mapping over values)
+ * A Getter is a Lens that doesn't support setting or mapping over values. A Getter is constructed using only a
+ * get function, which returns the element (or elements) the Lens should focus on.
  *
  * @param {function} get Function to allow access to an object via this lens.
  * @param {object} options Additional flags to set in the resulting Lens
@@ -36,7 +37,7 @@ Getter = function (get, options) {
 Getter.prototype = new Lens;
 
 /**
- * Get a Getter from a Lens
+ * Construct a Getter from a Lens by overwriting its over and set functions.
  *
  * @param {Lens} lens The lens to convert to a Getter.
  */

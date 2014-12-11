@@ -167,7 +167,7 @@ describe('SliceLens', function () {
             utils.testArrayEquals(res, [1, 2, 3, 16, 25]);
         });
 
-        it('should return the length of the list', function () {
+        it('should return the length of the list as the first element', function () {
             var lens = new SliceLens('0:'),
                 res;
 
