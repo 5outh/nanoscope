@@ -51,9 +51,20 @@ describe('Lens', function () {
     });
 
     describe('#blur', function () {
-        it('should reset the focus to null', function () {
+        beforeEach(function () {
             testLens.focus(10);
+        });
+
+        it('should reset the focus to null', function () {
             (testLens.blur()._focus === null).should.be.true;
+        });
+
+        it('should run functions on the correct object', function () {
+            testLens.blur();
+
+            testLens.get(testJS).should.equal('c');
+            testLens.set(testJS, 9).a.b.should.equal(9);
+            testLens.over(testJS, function (attr) { return attr + 'at'; }).a.b.should.equal('cat');
         });
     });
 
