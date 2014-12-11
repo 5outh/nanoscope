@@ -83,7 +83,11 @@ describe('PathLens', function () {
     });
 
     describe('#deriveLenses', function () {
-        var obj = { a: { b: { c: { d: { e: 'hello' }, f: 10 }}}};
+        var obj;
+
+        beforeEach(function () {
+            obj = { a: { b: { c: { d: { e: 'hello' }, f: 10 }}}};
+        });
 
         it('should return lenses for each path in object', function () {
             var lenses = PathLens.deriveLenses(obj),
@@ -95,6 +99,20 @@ describe('PathLens', function () {
             );
 
             lenses['a.b.c.d.e'].get(obj).should.equal('hello');
+        });
+
+        it('should not include array indices', function () {
+            obj.a.b.c.d.e = [1, 2, 3, 4, 5];
+
+            var lenses = PathLens.deriveLenses(obj),
+                paths = _.keys(lenses);
+
+            utils.testArrayEquals(
+                paths,
+                [ 'a', 'a.b', 'a.b.c', 'a.b.c.d', 'a.b.c.d.e', 'a.b.c.f' ]
+            );
+
+            utils.testArrayEquals(lenses['a.b.c.d.e'].get(obj), [1, 2, 3, 4, 5]);
         });
     });
 });

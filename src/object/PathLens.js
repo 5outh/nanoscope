@@ -150,7 +150,7 @@ getPaths = function (prefix, obj, paths) {
 
         paths.push(nextPrefix);
 
-        if (_.isObject(obj[key])) {
+        if (_.isObject(obj[key]) && !_.isArray(obj[key])) {
             paths = getPaths(nextPrefix, obj[key], paths);
         }
     });
