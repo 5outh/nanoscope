@@ -57,36 +57,6 @@ Lens = function (get, over, flags) {
 };
 
 /**
- * Force the `Lens` to `view` a new object
- *
- * @param {*} view The object to view a Lens on
- * @return {Lens} this
- */
-Lens.prototype.view = function (view) {
-    this._view = view;
-    return this;
-};
-
-/**
- * Reset the view of the `Lens`.
- *
- * @return {Lens} this
- */
-Lens.prototype.blur = function () {
-    this._view = null;
-    return this;
-};
-
-/**
- * Get any extra set options in a Lens
- *
- * @returns {*}
- */
-Lens.prototype.getFlags = function () {
-    return this._flags;
-};
-
-/**
  * Get the value this `Lens` focuses on from an object
  *
  * @param {*} obj The object to run the `Lens` on
@@ -126,6 +96,48 @@ Lens.prototype.set = function (obj, val) {
     }
 
     return this._over(obj, _.constant(val));
+};
+
+
+/**
+ * Force the `Lens` to `view` a new object
+ *
+ * @param {*} view The object to view a Lens on
+ * @return {Lens} this
+ */
+Lens.prototype.view = function (view) {
+    this._view = view;
+    return this;
+};
+
+/**
+ * Reset the view of the `Lens`.
+ *
+ * @return {Lens} this
+ */
+Lens.prototype.blur = function () {
+    this._view = null;
+    return this;
+};
+
+/**
+ * Get any extra set options in a Lens
+ *
+ * @returns {*}
+ */
+Lens.prototype.getFlags = function () {
+    return this._flags;
+};
+
+/**
+ * Compose this lens with another `Lens`
+ *
+ * @param {Lens} otherLens The `Lens` to compose this one with
+ * @returns {Compose}
+ */
+Lens.prototype.compose = function (otherLens) {
+    var Compose = require('./combinator/Compose');
+    return new Compose(this, otherLens, _.extend(this.getFlags(), otherLens.getFlags()));
 };
 
 module.exports = Lens;

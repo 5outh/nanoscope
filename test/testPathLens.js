@@ -58,7 +58,7 @@ describe('PathLens', function () {
 
             it('should fail when trying to get an attribute that does not exist', function () {
                 try {
-                    console.log(lens.get({}));
+                    lens.get({});
                 } catch (ex) {
                     ex.message.should.equal('Cannot read property \'b\' of undefined');
                 }

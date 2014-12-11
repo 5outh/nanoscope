@@ -52,7 +52,6 @@ get = function (path, unsafe) {
     }
 
     return function (obj) {
-        console.log(path);
         _.forEach(path, function (key) {
             obj = obj[key];
         });

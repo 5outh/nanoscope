@@ -1,5 +1,7 @@
 var _ = require('lodash'),
-    Lens = require('../src/Lens');
+    Lens = require('../src/Lens'),
+    IndexedLens = require('../src/array/IndexedLens'),
+    utils = require('./utils');
 
 describe('Lens', function () {
     var testJS, testLens;
@@ -55,6 +57,23 @@ describe('Lens', function () {
             testLens.get(testJS).should.equal('c');
             testLens.set(testJS, 9).a.b.should.equal(9);
             testLens.over(testJS, function (attr) { return attr + 'at'; }).a.b.should.equal('cat');
+        });
+    });
+
+    describe('#compose', function () {
+        it('should compose the lens with another lens', function () {
+            var headLens = new IndexedLens(0),
+                composed = testLens.compose(headLens),
+                obj = {a : { b: [1, 2, 3] }};
+
+            composed.view(obj).get().should.equal(1);
+
+            console.log(composed.view(obj).set(100));
+
+            utils.testArrayEquals(
+                composed.view(obj).set(100).a.b,
+                [100, 2, 3]
+            );
         });
     });
 
