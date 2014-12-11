@@ -75,12 +75,13 @@ over = function (index, unsafe) {
  * An IndexedLens is a Lens that focuses on some index of an array.
  *
  * @param {int} index The index to focus on
+ * @param {boolean} unsafe If true, throws errors when index is out of range.
  * @returns {Lens}
  * @constructor
  */
-IndexedLens = function (index) {
+IndexedLens = function (index, unsafe) {
     this.base = Lens;
-    this.base(get(index), over(index), { _index: index });
+    this.base(get(index, unsafe), over(index, unsafe), { _index: index });
 };
 
 IndexedLens.prototype = new Lens;
@@ -94,11 +95,7 @@ IndexedLens.prototype = new Lens;
  * @constructor
  */
 IndexedLens.Unsafe = function (index) {
-    return new Lens(
-        get(index, true),
-        over(index, true),
-        { _index: index }
-    );
+    return new IndexedLens(index, true);
 };
 
 /**

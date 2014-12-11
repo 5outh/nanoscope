@@ -35,11 +35,29 @@ var _ = require('lodash'),
  * Safely get a value from a path (as an array or a dot-delimited string).
  *
  * @param {string|Array} path Array or dot-delimited string describing a path to follow in an object
+ * @param {boolean} unsafe If true, fails if element at path doesn't exist
  * @returns {Function}
  */
-get = function (path) {
+get = function (path, unsafe) {
+    if (!unsafe) {
+        // Just use steelToe to safely access element
+        return function (obj) {
+            return steelToe(obj).get(path);
+        };
+    }
+
+    // If unsafe, split the path and follow it without regard for errors.
+    if (_.isString(path)) {
+        path = path.split('.');
+    }
+
     return function (obj) {
-        return steelToe(obj).get(path);
+        console.log(path);
+        _.forEach(path, function (key) {
+            obj = obj[key];
+        });
+
+        return obj;
     };
 };
 
@@ -47,9 +65,10 @@ get = function (path) {
  * Map a function over a value gotten from some path in the object and return a new object.
  *
  * @param {string|Array} path Array or dot-delimited string describing a path to follow in an object
+ * @param {boolean} unsafe If true, fails if element at path doesn't exist
  * @returns {Function}
  */
-over = function (path) {
+over = function (path, unsafe) {
     return function (obj, func) {
         var prevObj = _.cloneDeep(obj),
             initialObj = obj,
@@ -61,14 +80,16 @@ over = function (path) {
             throw new Error('Path must either be an array or dot-separated string');
         }
 
-        if (!obj) {
+        // Only safeguard against empty object if using safe version
+        if (!obj && !unsafe) {
             obj = {};
         }
 
         // Traverse the path and get the value we want
         for (i = 0; i < path.length - 1; i++) {
 
-            if (!(_.isObject(obj[path[i]]))) {
+            // Only safeguard if not unsafe
+            if (!(_.isObject(obj[path[i]])) && !unsafe) {
                 obj[path[i]] = {};
             }
 
@@ -79,6 +100,7 @@ over = function (path) {
         obj[path[i]] = func(obj[path[i]]);
 
         // If the value doesn't exist and we're not setting anything, return a clone of the previous object
+        // This prevents turning, for example, {} into { a: { b : { ... z: undefined } ... } }
         if (!(obj[path[i]])) {
             return prevObj;
         }
@@ -92,12 +114,13 @@ over = function (path) {
  * Construct a PathLens from a path
  *
  * @param {string|Array} path Array or dot-delimited string describing a path to follow in an object
+ * @param {boolean} unsafe If true, construct an unsafe version of
  * @returns {Lens}
  * @constructor
  */
-PathLens = function (path) {
+PathLens = function (path, unsafe) {
     this.base = Lens;
-    this.base(get(path), over(path), { _path: path });
+    this.base(get(path, unsafe), over(path, unsafe), { _path: path });
 };
 
 PathLens.prototype = new Lens;
@@ -149,5 +172,18 @@ PathLens.deriveLenses = function (obj) {
 
     return lenses;
 };
+
+/**
+ * Construct an unsafe PathLens from a path
+ *
+ * @param path
+ * @constructor
+ */
+PathLens.Unsafe = function (path) {
+    this.base = PathLens;
+    this.base(path, true);
+};
+
+PathLens.Unsafe.prototype = new PathLens;
 
 module.exports = PathLens;

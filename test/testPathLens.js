@@ -48,6 +48,24 @@ describe('PathLens', function () {
         });
     });
 
+    describe('#PathLens.Unsafe', function () {
+        describe('#get', function () {
+            var lens = new PathLens.Unsafe('a.b');
+
+            it('should not fail when trying to get an attribute that exists', function () {
+                lens.get({a: { b: 10}}).should.equal(10);
+            });
+
+            it('should fail when trying to get an attribute that does not exist', function () {
+                try {
+                    console.log(lens.get({}));
+                } catch (ex) {
+                    ex.message.should.equal('Cannot read property \'b\' of undefined');
+                }
+            });
+        });
+    });
+
     describe('#deriveLenses', function () {
         var obj = { a: { b: { c: { d: { e: 'hello' }, f: 10 }}}};
 
