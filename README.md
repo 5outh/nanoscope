@@ -1,4 +1,4 @@
-<img src="Logo.png" width="400px"></img>
+<img src="NanoscopeLogo.png" width="400px"></img>
 
 Experimental lenses in Javascript
 
