@@ -29,7 +29,7 @@ var _ = require('lodash'),
  * @constructor
  */
 Optional = function (lens, errorHandler) {
-    var get = lens._get, over = lens._over;
+    var get = lens._get, map = lens._over;
 
     // Only overwrite get if the lens is not a setter (always throw the errors about missing functions)
     if (!(lens._setter)) {
@@ -47,9 +47,9 @@ Optional = function (lens, errorHandler) {
 
     // Only overwrite set if the lens is not a getter (always throw the errors about missing functions)
     if (!(lens._getter)) {
-        over = function (obj, func) {
+        map = function (obj, func) {
             try {
-                return lens.over(obj, func);
+                return lens.map(obj, func);
             } catch (ex) {
                 if (_.isFunction(errorHandler)) {
                     return errorHandler(ex);
@@ -60,7 +60,7 @@ Optional = function (lens, errorHandler) {
     }
 
     this.base = Lens;
-    this.base(get, over, _.extend(lens.getFlags(), { _optional: true }));
+    this.base(get, map, _.extend(lens.getFlags(), { _optional: true }));
 };
 
 Optional.prototype = new Lens;

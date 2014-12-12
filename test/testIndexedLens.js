@@ -42,14 +42,14 @@ describe('IndexedLens', function () {
             });
         });
 
-        describe('#over', function () {
+        describe('#map', function () {
             it('should map over the first element in the array', function () {
-                unsafeLens.over(testArr, function (val) { return val + 10 })[0].should.equal(11);
+                unsafeLens.map(testArr, function (val) { return val + 10 })[0].should.equal(11);
             });
 
             it('should fail when trying to map over an element out of range', function () {
                 try {
-                    new IndexedLens.Unsafe(1).over([], _.identity);
+                    new IndexedLens.Unsafe(1).map([], _.identity);
                 } catch (ex) {
                     ex.message.should.equal('Array index 1 out of range');
                 }
@@ -118,9 +118,9 @@ describe('IndexedLens', function () {
         });
     });
 
-    describe('#over', function () {
+    describe('#map', function () {
         it('should multiply testArr[0] by 10', function () {
-            testLens.over(testArr, function (attr) { return attr * 10; })[0].should.equal(10);
+            testLens.map(testArr, function (attr) { return attr * 10; })[0].should.equal(10);
         });
     });
 

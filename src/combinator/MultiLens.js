@@ -4,7 +4,7 @@ var _ = require('lodash'),
     Lens = require('./../Lens'),
 
     get,
-    over,
+    map,
 
     MultiLens;
 
@@ -32,18 +32,18 @@ get = function (lenses) {
     };
 };
 
-over = function (lenses) {
+map = function (lenses) {
     return function (obj, func) {
         var newObj = _.cloneDeep(obj);
 
         if (_.isArray(lenses)) {
             _.forEach(lenses, function (lens) {
-                newObj = lens.over(newObj, func);
+                newObj = lens.map(newObj, func);
             });
         } else {
             if (_.isObject(lenses)) {
                 _.forEach(_.values(lenses), function (lens) {
-                    newObj = lens.over(newObj, func);
+                    newObj = lens.map(newObj, func);
                 });
             }
         }
@@ -53,7 +53,7 @@ over = function (lenses) {
 
 /**
  * A `MultiLens` is a `Lens` that can view on multiple things at once. It takes
- * an array of `Lens`es or an object with `Lens`es as values; `get`, `set` and `over`
+ * an array of `Lens`es or an object with `Lens`es as values; `get`, `set` and `map`
  * run corresponding functions over the input object for each internal lens.
  *
  * @param {object|Array} lenses Lenses used to view on input objects.
@@ -92,7 +92,7 @@ MultiLens = function (lenses, flags) {
     }
 
     this.base = Lens;
-    this.base(get(lenses), over(lenses), flags);
+    this.base(get(lenses), map(lenses), flags);
 };
 
 MultiLens.prototype = new Lens;

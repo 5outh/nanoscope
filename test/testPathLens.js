@@ -36,15 +36,15 @@ describe('PathLens', function () {
         });
     });
 
-    describe('#over', function () {
+    describe('#map', function () {
         it('should turn testJS.a.b into cat', function () {
-            testLens.over(testJS, function (attr) { return attr + 'at'; }).a.b.should.equal('cat');
+            testLens.map(testJS, function (attr) { return attr + 'at'; }).a.b.should.equal('cat');
         });
 
         it('should not modify a deeply nested value if it doesnt exist', function () {
             var lens = new PathLens('a.b.c.d.e.f');
 
-            lens.over(testJS, function (attr) { return attr; }).a.b.should.not.have.property('c');
+            lens.map(testJS, function (attr) { return attr; }).a.b.should.not.have.property('c');
         });
     });
 

@@ -21,9 +21,9 @@ describe('IdLens', function () {
         });
     });
 
-    describe('#over', function () {
+    describe('#map', function () {
         it('should square the internal element', function () {
-            lens.over(10, function (val) { return Math.pow(val, 2) }).should.equal(100);
+            lens.map(10, function (val) { return Math.pow(val, 2) }).should.equal(100);
         });
     });
 });

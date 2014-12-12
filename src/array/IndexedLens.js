@@ -8,7 +8,7 @@ var _ = require('lodash'),
     IndexedLens,
 
     get,
-    over;
+    map;
 
 /**
  * Get the element at a specific index of an array
@@ -44,10 +44,10 @@ get = function (index, unsafe) {
  * add an element to the end.
  *
  * @param {int} index The index to map over
- * @returns {Function} The over function required to construct a Lens
+ * @returns {Function} The map function required to construct a Lens
  * @param {boolean} unsafe If true, throw an error if index isn't valid.
  */
-over = function (index, unsafe) {
+map = function (index, unsafe) {
     return function (arr, func) {
         var newArr = _.cloneDeep(arr);
 
@@ -81,7 +81,7 @@ over = function (index, unsafe) {
  */
 IndexedLens = function (index, unsafe) {
     this.base = Lens;
-    this.base(get(index, unsafe), over(index, unsafe), { _index: index });
+    this.base(get(index, unsafe), map(index, unsafe), { _index: index });
 };
 
 IndexedLens.prototype = new Lens;

@@ -24,7 +24,7 @@ describe('Setter', function () {
         });
 
         it('should have the same over function as before', function () {
-            Setter.fromLens(testLens).over.should.equal(testLens.over);
+            Setter.fromLens(testLens).map.should.equal(testLens.map);
         });
 
         it('should have the same set function as before', function () {
@@ -44,7 +44,7 @@ describe('Setter', function () {
 
 
         it('should multiply the first element by 10', function () {
-            setter.over(testArr, function (attr) { return attr * 10; })[0].should.equal(10);
+            setter.map(testArr, function (attr) { return attr * 10; })[0].should.equal(10);
         });
 
         it('should set the first element to 100', function () {
@@ -75,7 +75,7 @@ describe('Setter', function () {
             try {
                 setGetLens.set(100, 200);
             } catch (ex) {
-                ex.message.should.equal('over not permitted in a Getter');
+                ex.message.should.equal('map not permitted in a Getter');
             }
         });
     });

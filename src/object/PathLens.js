@@ -25,7 +25,7 @@ var _ = require('lodash'),
     Lens = require('../Lens'),
 
     get,
-    over,
+    map,
 
     getPaths,
 
@@ -67,7 +67,7 @@ get = function (path, unsafe) {
  * @param {boolean} unsafe If true, fails if element at path doesn't exist
  * @returns {Function}
  */
-over = function (path, unsafe) {
+map = function (path, unsafe) {
     return function (obj, func) {
         var prevObj = _.cloneDeep(obj),
             initialObj = obj,
@@ -139,7 +139,7 @@ over = function (path, unsafe) {
  */
 PathLens = function (path, unsafe) {
     this.base = Lens;
-    this.base(get(path, unsafe), over(path, unsafe), { _path: path });
+    this.base(get(path, unsafe), map(path, unsafe), { _path: path });
 };
 
 PathLens.prototype = new Lens;

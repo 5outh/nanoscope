@@ -5,13 +5,13 @@ var _ = require('lodash'),
 
     Getter,
 
-    over;
+    map;
 
 /**
- * Never allow `over` in a getter
+ * Never allow `map` in a getter
  */
-over = function () {
-    throw new Error('over not permitted in a Getter');
+map = function () {
+    throw new Error('map not permitted in a Getter');
 };
 
 /**
@@ -31,13 +31,13 @@ Getter = function (get, options) {
     }
 
     this.base = Lens;
-    this.base(get, over, opts);
+    this.base(get, map, opts);
 };
 
 Getter.prototype = new Lens;
 
 /**
- * Construct a `Getter` from a `Lens` by overwriting its over and set functions.
+ * Construct a `Getter` from a `Lens` by overwriting its map and set functions.
  *
  * @param {Lens} lens The `Lens` to convert to a `Getter`.
  */
