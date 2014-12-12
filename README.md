@@ -17,12 +17,11 @@ code and use right out of the box, that provide things like:
 
 `Lens`es support the following operations:
 
-- `get`
-- `set`
-- `over`
-- `view`
-- `blur`
-- `compose`
+- `get`, which gets the value at the focus of the `Lens`
+- `set`, which sets the value at the focus of the `Lens`
+- `over`, which maps a function over the focus of the `Lens`
+- `view`, which sets the view of the `Lens` to a new value
+- `compose`, which composes the `Lens` with another lens, allowing sequencing of actions.
 
 Assuming `headLens` is a `Lens` that focuses on the first element of an array, they can be used like this:
 
@@ -38,7 +37,12 @@ headLens.view([1, 2, 3]).set(99); // [99, 2, 3]
 headLens.over([1, 2, 3], function (elem) { return elem * 10; }); // [10, 2, 3]
 // or
 headLens.view([1, 2, 3]).over(function (elem) { return elem * 10; }); // [10, 2, 3]
+
+headLens.compose(headLens).view[['what'], 2, 3]).get() // 'what'
 ```
+
+Of particular interest is `compose`, which allows us to compose a `headLens` with a `headLens` to focus on an array's first
+element *of it's first element*.
 
 ### Making your own `Lens`es
 Consider a `Lens` that views an array and focuses on its first element.
