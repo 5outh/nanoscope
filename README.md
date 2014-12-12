@@ -38,7 +38,7 @@ headLens.over([1, 2, 3], function (elem) { return elem * 10; }); // [10, 2, 3]
 // or
 headLens.view([1, 2, 3]).over(function (elem) { return elem * 10; }); // [10, 2, 3]
 
-headLens.compose(headLens).view[['what'], 2, 3]).get() // 'what'
+headLens.compose(headLens).view([['what'], 2, 3]).get() // 'what'
 ```
 
 Of particular interest is `compose`, which allows us to compose a `headLens` with a `headLens` to focus on an array's first
@@ -77,6 +77,15 @@ We can construct a `Lens` from these bindings like so:
 var nanoscope = require('nanoscope'),
     headLens = new nanoscope.Lens(get, over);
 ```
+
+All valid `Lens`es must also satisfy the so-called "Lens Laws":
+
+1. set-get (you get what you put in): `lens.get(a, lens.set(a, b)) = b`
+2. get-set (putting what is there doesn't change anything): `lens.set(a, lens.get(a)) = a`
+3. set-set (setting twice is the same as setting once): `lens.set(c, lens.set(b, a)) = lens.set(c, a)`
+
+These laws ensure that `over`, `set` and `get` behave in the manner you'd expect. If you can convince yourself 
+that these laws are satisfied, you can rest easy knowing your `Lens` is well-behaved.
 
 ## TODO
 - Documentation (incl. lens laws)!
