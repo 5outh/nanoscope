@@ -19,7 +19,7 @@ code and use right out of the box, that provide things like:
 
 - `get`, which gets the value at the focus of the `Lens`
 - `set`, which sets the value at the focus of the `Lens`
-- `over`, which maps a function over the focus of the `Lens`
+- `map`, which maps a function over the focus of the `Lens`
 - `view`, which sets the view of the `Lens` to a new value
 - `compose`, which composes the `Lens` with another lens, allowing sequencing of actions.
 
@@ -34,9 +34,9 @@ headLens.set([1, 2, 3], 99); // [99, 2, 3]
 // or
 headLens.view([1, 2, 3]).set(99); // [99, 2, 3]
 
-headLens.over([1, 2, 3], function (elem) { return elem * 10; }); // [10, 2, 3]
+headLens.map([1, 2, 3], function (elem) { return elem * 10; }); // [10, 2, 3]
 // or
-headLens.view([1, 2, 3]).over(function (elem) { return elem * 10; }); // [10, 2, 3]
+headLens.view([1, 2, 3]).map(function (elem) { return elem * 10; }); // [10, 2, 3]
 
 headLens.compose(headLens).view([['what'], 2, 3]).get() // 'what'
 ```
@@ -54,10 +54,10 @@ var get = function (arr) {
 };
 ```
 
-...and `over` might be defined like so:
+...and `map` might be defined like so:
 
 ```js
-var over = function (arr, func) {
+var map = function (arr, func) {
     var newArr = _.cloneDeep(arr);
     newArr[0] = func(newArr[0]);
     return newArr;
@@ -75,7 +75,7 @@ We can construct a `Lens` from these bindings like so:
 
 ```js
 var nanoscope = require('nanoscope'),
-    headLens = new nanoscope.Lens(get, over);
+    headLens = new nanoscope.Lens(get, map);
 ```
 
 All valid `Lens`es must also satisfy the so-called "Lens Laws":
@@ -84,7 +84,7 @@ All valid `Lens`es must also satisfy the so-called "Lens Laws":
 2. get-set (putting what is there doesn't change anything): `lens.set(a, lens.get(a)) = a`
 3. set-set (setting twice is the same as setting once): `lens.set(c, lens.set(b, a)) = lens.set(c, a)`
 
-These laws ensure that `over`, `set` and `get` behave in the manner you'd expect. If you can convince yourself 
+These laws ensure that `map`, `set` and `get` behave in the manner you'd expect. If you can convince yourself
 that these laws are satisfied, you can rest easy knowing your `Lens` is well-behaved.
 
 ## TODO

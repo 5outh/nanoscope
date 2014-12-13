@@ -15,14 +15,14 @@ get = function () {
 };
 
 /**
- * A `Setter` is a `Lens` that only supports setting and mapping. A `Setter` is constructed with a single function (`over`).
+ * A `Setter` is a `Lens` that only supports setting and mapping. A `Setter` is constructed with a single function (`map`).
  *
- * @param {function} over Function that maps over the view of the Lens and returns the result.
+ * @param {function} map Function that maps over the view of the Lens and returns the result.
  * @param {object} options Additional flags to set in the Lens.
  * @returns {Lens}
  * @constructor
  */
-Setter = function (over, options) {
+Setter = function (map, options) {
     var opts = { _setter: true};
 
     if (_.isObject(options)) {
@@ -30,7 +30,7 @@ Setter = function (over, options) {
     }
 
     this.base = Lens;
-    this.base(get, over, opts);
+    this.base(get, map, opts);
 };
 
 Setter.prototype = new Lens;

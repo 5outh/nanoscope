@@ -8,10 +8,10 @@ var _ = require('lodash'),
  * three basic operations:
  *
  * 1. `get`, which takes an object and gets a piece of it,
- * 2. `over`, which takes an object and maps a function over it, and
+ * 2. `map`, which takes an object and maps a function over it, and
  * 3. `set`, which takes an object and sets it to some value.
  *
- * To construct a `Lens`, you must provide both a `get` function and an `over` function. `set` is a special case of `over`, so you
+ * To construct a `Lens`, you must provide both a `get` function and an `map` function. `set` is a special case of `map`, so you
  * don't need to explicitly define it.
  *
  * As a simple example, the following constructs a `Lens` that focuses on the first element of an array:
@@ -36,22 +36,22 @@ var _ = require('lodash'),
  * These laws ensure that the getting and setting behavior make sense in the usual way.
  *
  * @param {function} get Get the value you want from the structure
- * @param {function} over Map a function over the value and return the modified structure
+ * @param {function} map Map a function map the value and return the modified structure
  * @param {object} flags Additional properties to add to `Lens` if specified
  * @returns {Lens}
  * @constructor
  */
-Lens = function (get, over, flags) {
+Lens = function (get, map, flags) {
     var self = this;
 
     // guard against no `new`
     if (!(self instanceof Lens)) {
-        return new Lens(get, over, flags);
+        return new Lens(get, map, flags);
     }
 
     self._flags = flags || {};
     self._get = get;
-    self._over = over;
+    self._over = map;
 
     return self;
 };
@@ -73,7 +73,7 @@ Lens.prototype.get = function (obj) {
  * @param {function} func The function to call on the view of the Lens
  * @returns {Lens}
  */
-Lens.prototype.over = function (obj, func) {
+Lens.prototype.map = function (obj, func) {
     // If a view exists and a second argument isn't provided, use the view.
     if (this._view && !func) {
         return this._over(this._view, obj);

@@ -39,10 +39,10 @@ describe('Lens', function () {
         });
     });
 
-    describe('#over', function () {
+    describe('#map', function () {
         it('should turn testJS.a.b into cat', function () {
-            testLens.over(testJS, function (attr) { return attr + 'at'; }).a.b.should.equal('cat');
-            testLens.view(testJS).over(function (attr) { return attr + 'at'; }).a.b.should.equal('cat');
+            testLens.map(testJS, function (attr) { return attr + 'at'; }).a.b.should.equal('cat');
+            testLens.view(testJS).map(function (attr) { return attr + 'at'; }).a.b.should.equal('cat');
         });
     });
 
@@ -56,7 +56,7 @@ describe('Lens', function () {
 
             testLens.get(testJS).should.equal('c');
             testLens.set(testJS, 9).a.b.should.equal(9);
-            testLens.over(testJS, function (attr) { return attr + 'at'; }).a.b.should.equal('cat');
+            testLens.map(testJS, function (attr) { return attr + 'at'; }).a.b.should.equal('cat');
         });
     });
 

@@ -37,9 +37,9 @@ describe('Compose', function () {
         });
     });
 
-    describe('#over', function () {
+    describe('#map', function () {
         it('should multiply testArr[1][0] by 10', function () {
-            compositeLens.over(testArr, function (attr) { return attr * 10; })[1][0].should.equal(10);
+            compositeLens.map(testArr, function (attr) { return attr * 10; })[1][0].should.equal(10);
         });
     });
 });

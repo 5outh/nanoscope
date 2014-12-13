@@ -38,9 +38,9 @@ describe('Getter', function () {
 
         it('should throw an error', function () {
             try {
-                getter.over(testArr, function () {});
+                getter.map(testArr, function () {});
             } catch (ex) {
-                ex.message.should.equal('over not permitted in a Getter');
+                ex.message.should.equal('map not permitted in a Getter');
             }
         });
     });
@@ -60,7 +60,7 @@ describe('Getter', function () {
             try {
                 getSetLens.set(100, 200);
             } catch (ex) {
-                ex.message.should.equal('over not permitted in a Getter');
+                ex.message.should.equal('map not permitted in a Getter');
             }
         });
     });

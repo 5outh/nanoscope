@@ -2,7 +2,7 @@
 
 var Lens = require('../Lens'),
     get,
-    over;
+    map;
 
 get = function (lensA, lensB) {
     return function (obj) {
@@ -10,12 +10,12 @@ get = function (lensA, lensB) {
     };
 };
 
-over = function (lensA, lensB) {
+map = function (lensA, lensB) {
     return function (obj, func) {
-        return lensA.over(
+        return lensA.map(
             obj,
             function () {
-                return lensB.over(lensA.get(obj), func);
+                return lensB.map(lensA.get(obj), func);
             }
         );
     };
@@ -31,7 +31,7 @@ over = function (lensA, lensB) {
  * );
  * ```
  *
- * Then `arrIJLens.get`, `.set`, and `.over` first call the appropriate function for the first `Lens`, then
+ * Then `arrIJLens.get`, `.set`, and `.map` first call the appropriate function for the first `Lens`, then
  * the appropriate function for the second `Lens` and return the result.
  *
  * @param {Lens} lensA The first `Lens` to call functions on
@@ -41,7 +41,7 @@ over = function (lensA, lensB) {
  */
 var Compose = function (lensA, lensB) {
     this.base = Lens;
-    this.base(get(lensA, lensB), over(lensA, lensB), { _lensA: lensA, _lensB: lensB });
+    this.base(get(lensA, lensB), map(lensA, lensB), { _lensA: lensA, _lensB: lensB });
 };
 
 Compose.prototype = new Lens;

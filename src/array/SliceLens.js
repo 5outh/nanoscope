@@ -6,7 +6,7 @@ var _ = require('lodash'),
     utils = require('./utils'),
 
     get,
-    over,
+    map,
 
     SliceLens;
 
@@ -34,7 +34,7 @@ get = function (i, j) {
  * @param {int} j The end of the slice (may be negative)
  * @returns {Function}
  */
-over = function (i, j) {
+map = function (i, j) {
     return function (arr, func) {
         var newArr = [],
             slicedArr,
@@ -125,7 +125,7 @@ SliceLens = function (i, j) {
     };
 
     this.base = Lens;
-    this.base(get(i, j), over(i, j), flags);
+    this.base(get(i, j), map(i, j), flags);
 };
 
 SliceLens.prototype = new Lens;

@@ -20,7 +20,7 @@ describe('Optional', function () {
                     Getter.fromLens(new IdLens())
                 ).set(10, 20);
             } catch (ex) {
-                ex.message.should.equal('over not permitted in a Getter');
+                ex.message.should.equal('map not permitted in a Getter');
             }
         });
     });

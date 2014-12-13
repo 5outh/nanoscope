@@ -149,7 +149,7 @@ describe('SliceLens', function () {
         });
     });
 
-    describe('#over', function () {
+    describe('#map', function () {
         var testArr;
 
         beforeEach(function () {
@@ -160,7 +160,7 @@ describe('SliceLens', function () {
             var lens = new SliceLens('-2:'),
                 res;
 
-            res = lens.over(testArr, function (arr) {
+            res = lens.map(testArr, function (arr) {
                 return _.map(arr, function (val) { return Math.pow(val, 2); });
             });
 
@@ -171,7 +171,7 @@ describe('SliceLens', function () {
             var lens = new SliceLens('0:'),
                 res;
 
-            res = lens.over(testArr, function (arr) {
+            res = lens.map(testArr, function (arr) {
                 return arr.length;
             });
 
@@ -182,7 +182,7 @@ describe('SliceLens', function () {
             var lens = new SliceLens('0:3'),
                 res;
 
-            res = lens.over(testArr, function (arr) {
+            res = lens.map(testArr, function (arr) {
                 var sum = 0;
 
                 _.forEach(arr, function (elem) {
