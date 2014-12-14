@@ -44,6 +44,34 @@ headLens.compose(headLens).view([['what'], 2, 3]).get() // 'what'
 Of particular interest is `compose`, which allows us to compose a `headLens` with a `headLens` to focus on an array's first
 element *of it's first element*.
 
+### IndexedLens
+
+TODO
+
+### SliceLens
+
+TODO
+
+### PathLens
+
+TODO
+
+### Optional
+
+TODO
+
+### Compose
+
+TODO
+
+### MultiLens
+
+TODO
+
+### Getters and Setters
+
+TODO
+
 ### Making your own `Lens`es
 Consider a `Lens` that views an array and focuses on its first element.
 The `get` function for this `Lens` might look like this:
