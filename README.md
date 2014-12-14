@@ -46,7 +46,25 @@ element *of it's first element*.
 
 ### IndexedLens
 
-TODO
+`IndexedLenses` allow you to focus on a single element of an array. `headLens` as shown above can be built using an
+`IndexedLens` like so:
+
+```js
+var headLens = new nanoscope.IndexedLens(0);
+```
+
+This means that we are focusing on the `0`-th element of an array. `IndexedLens`es are *safe* by default, which means
+that they will not throw errors when you try to access elements out of range. For example, `headLens.view([]).get()`
+will not throw an error. To make an *unsafe* `IndexedLens`, just use the `Unsafe` constructor:
+
+```js
+var unsafeHeadLens = new nanoscope.IndexedLens.Unsafe(0);
+```
+
+In an unsafe `IndexedLens`, the following operations will throw an error:
+
+- `get()`, if the index is greater than or equal to the length of the array, and
+- `set()`, if the index is strictly greater than the length of the array (you may tack on items to the end of an array)
 
 ### SliceLens
 
