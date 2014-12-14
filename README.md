@@ -46,14 +46,14 @@ element *of it's first element*.
 
 ### IndexedLens
 
-`IndexedLenses` allow you to focus on a single element of an array. `headLens` as shown above can be built using an
+`IndexedLenses` focus on a single element of an array, specified by its index. `headLens` as shown above can be built using an
 `IndexedLens` like so:
 
 ```js
 var headLens = new nanoscope.IndexedLens(0);
 ```
 
-This means that we are focusing on the `0`-th element of an array. `IndexedLens`es are *safe* by default, which means
+This means that we are focusing on the `0`-th element of an array. `IndexedLenses` are *safe* by default, which means
 that they will not throw errors when you try to access elements out of range. For example, `headLens.view([]).get()`
 will not throw an error. To make an *unsafe* `IndexedLens`, just use the `Unsafe` constructor:
 
@@ -68,7 +68,50 @@ In an unsafe `IndexedLens`, the following operations will throw an error:
 
 ### SliceLens
 
-TODO
+`SliceLenses` focus on a subarray within an array. They can be constructed in two ways:
+
+1. By specifying `start` (inclusive) and `end` (exclusive) indices in the constructor, like so:
+
+```js
+var firstTwo = new nanoscope.SliceLens(0, 2);
+```
+
+2. By specifying a python-style slice as a string as a single argument:
+
+```js
+var firstTwo = new nanoscope.SliceLens('0:2');
+```
+
+By using the second syntax, you can use any of the python type variants using `:`. For example:
+
+```js
+// a `Lens` that focuses on everything but the first element
+var tailLens = new nanoscope.SliceLens(':-1');
+
+// a `Lens` that focuses on everything but the last element
+var initLens = new nanoscope.SliceLens('1:');
+```
+
+Negative indices are accepted, which count backwards from the end of the list.
+
+`SliceLenses` can be used not only to modify the elements in each slice, but it can also modify the length of the slice.
+For example:
+
+```js
+initLens.view([1, 2, 3, 4]).map(
+    function (arr) {
+        return _.map(
+            arr,
+            function (elem) {
+            return elem * 2;
+        })
+    });
+// [1, 4, 6, 4]
+
+// assume `sum` sums the elements in a list
+initLens.view([1, 2, 3, 4]).map(sum);
+// [6, 4]
+```
 
 ### PathLens
 
