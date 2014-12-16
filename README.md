@@ -144,15 +144,14 @@ new nanoscope.PathLens('a.b.c.d.e.f').focus(testObject).set('foo');
 
 Note that in the last call we're overwriting `testObject.a.b.c`; this is by design, but something to be aware of.
 If you prefer that your `PathLens` throw errors when keys in the path don't exist, you can use the `PathLens.Unsafe`
-constructor instead; these are constructed in the same way, and take an optional `errorHandler` function that is
-called on errors. For instance,
+constructor instead; these are constructed in the same way:
 
 ```js
-new nanoscope.PathLens.Unsafe('a.b.c.d.e.f', console.log).focus(testObject).get();
-// => logs 'TypeError: Cannot read property 'e' of undefined
+new nanoscope.PathLens.Unsafe('a.b.c.d.e.f').focus(testObject).get();
+// => TypeError: Cannot read property 'e' of undefined
 ```
 
-One other thing to note is that when using `over` in a `PathLens`, if:
+One other thing to note is that when using `over` in any `PathLens`, if:
 
 1. You are accessing a field that didn't originally exist, *and*
 2. Your function returns `undefined` or `null`,
@@ -169,11 +168,41 @@ new nanoscope.PathLens('a.b.c.e.f.g').focus({}).over(function (elem) { return el
 { a: { b: { c: { d: { e: { f: { g: undefined } } } } } } }
 ```
 
-Instead, it will not modify the object and return `{}`.
+Instead, it will not modify the object and, in this case, simply return `{}`.
 
 ### Optional
 
-TODO
+`Optional` `Lenses` wrap any `Lens` in a function that catches any errors that may happen along the way. They are
+constructed with the `Optional` constructor, which takes any `Lens` as an argument, along with an optional `errorHandler`
+function, This function will be called on any errors that may occur during the execution of any `Lens` operations,
+and if omitted, these errors will cause `get` to silently return `null`, and `set`/`map` to silently
+return the object passed in. `errorHandler` may also be a default value that you would prefer
+to return upon any errors.
+
+For example, we can take an `Unsafe IndexedLens` and wrap it in `Optional` in order to handle incoming errors as they
+are thrown:
+
+```js
+var Optional = nanoscope.Optional,
+    IndexedLens = nanoscope.IndexedLens,
+    lens;
+
+lens = new Optional( new IndexedLens.Unsafe(10) );
+lens.focus([]).get(); // => null
+lens.focus([]).set(0); // => []
+
+lens = new Optional( new IndexedLens.Unsafe(10), 'FAIL!' );
+lens.focus([]).get(); // => 'FAIL!'
+lens.focus([]).set(0); // => 'FAIL!'
+
+lens = new Optional( new IndexedLens.Unsafe(10), console.log);
+lens.focus([]).get(); // => logs 'Error: Array index 10 out of range', returns undefined
+lens.focus([]).set(0); // => logs 'Error: Array index 10 out of range', returns undefined
+```
+
+One major thing to note is that `Optional Lenses` do **not** catch errors from calls to unimplemented functions in
+`Getters` and `Setters`. That is, calling `setter.get`` and `getter.set` will still fail. This is by design, as these types
+of errors are logical in nature and should be caught by the programmer in all cases.
 
 ### Compose
 

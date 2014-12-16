@@ -40,7 +40,7 @@ Optional = function (lens, errorHandler) {
                 if (_.isFunction(errorHandler)) {
                     return errorHandler(ex);
                 }
-                return errorHandler;
+                return errorHandler || null;
             }
         };
     }
@@ -54,7 +54,8 @@ Optional = function (lens, errorHandler) {
                 if (_.isFunction(errorHandler)) {
                     return errorHandler(ex);
                 }
-                return errorHandler;
+                // Return original object if failing
+                return errorHandler || obj;
             }
         };
     }
