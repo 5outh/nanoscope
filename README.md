@@ -129,16 +129,16 @@ var testObject = {
     }
 };
 
-new nanoscope.PathLens('a.b.c').focus(testObject).get();
+new nanoscope.PathLens('a.b.c').view(testObject).get();
 // => 100
 
-new nanoscope.PathLens('a.b.c.d.e.f').focus(testObject).get();
+new nanoscope.PathLens('a.b.c.d.e.f').view(testObject).get();
 // => null
 
-new nanoscope.PathLens('a.b.c').focus(testObject).set('foo');
+new nanoscope.PathLens('a.b.c').view(testObject).set('foo');
 // => testObject.a.b.c == 'foo'
 
-new nanoscope.PathLens('a.b.c.d.e.f').focus(testObject).set('foo');
+new nanoscope.PathLens('a.b.c.d.e.f').view(testObject).set('foo');
 // => testObject.a.b.c.d.e.f == 'foo'
 ```
 
@@ -147,7 +147,7 @@ If you prefer that your `PathLens` throw errors when keys in the path don't exis
 constructor instead; these are constructed in the same way:
 
 ```js
-new nanoscope.PathLens.Unsafe('a.b.c.d.e.f').focus(testObject).get();
+new nanoscope.PathLens.Unsafe('a.b.c.d.e.f').view(testObject).get();
 // => TypeError: Cannot read property 'e' of undefined
 ```
 
@@ -159,7 +159,7 @@ One other thing to note is that when using `over` in any `PathLens`, if:
 your structure will be unmodified. This prevents things like:
 
 ```js
-new nanoscope.PathLens('a.b.c.e.f.g').focus({}).over(function (elem) { return elem * 2; });
+new nanoscope.PathLens('a.b.c.e.f.g').view({}).over(function (elem) { return elem * 2; });
 ```
 
 ... from producing this:
@@ -188,26 +188,48 @@ var Optional = nanoscope.Optional,
     lens;
 
 lens = new Optional( new IndexedLens.Unsafe(10) );
-lens.focus([]).get(); // => null
-lens.focus([]).set(0); // => []
+lens.view([]).get(); // => null
+lens.view([]).set(0); // => []
 
 lens = new Optional( new IndexedLens.Unsafe(10), 'FAIL!' );
-lens.focus([]).get(); // => 'FAIL!'
-lens.focus([]).set(0); // => 'FAIL!'
+lens.view([]).get(); // => 'FAIL!'
+lens.view([]).set(0); // => 'FAIL!'
 
 lens = new Optional( new IndexedLens.Unsafe(10), console.log);
-lens.focus([]).get(); // => logs 'Error: Array index 10 out of range', returns undefined
-lens.focus([]).set(0); // => logs 'Error: Array index 10 out of range', returns undefined
+lens.view([]).get(); // => logs 'Error: Array index 10 out of range', returns undefined
+lens.view([]).set(0); // => logs 'Error: Array index 10 out of range', returns undefined
 ```
 
 One major thing to note is that `Optional Lenses` do **not** catch errors from calls to unimplemented functions in
-`Getters` and `Setters`. That is, calling `setter.get`` and `getter.set` will still fail. This is by design, as these types
+`Getters` and `Setters`. That is, calling `setter.get` and `getter.set` will still fail. This is by design, as these types
 of errors are logical in nature and should be caught by the programmer in all cases.
 
 ### Compose
 
-TODO
+`Compose` is a wrapper (like `Optional`) that takes two `Lenses` and returns a new `Lens` that first focuses on the
+focus of the first `Lens`, and then on the second, in sequence. The `compose()` method constructs a `Compose` `Lens` under
+the hood, so the behavior is exactly the same. For a short example, consider an object with an array for one of the keys:
 
+```js
+var obj = {
+    a: {
+        anArray: [99, 2, 3, 4]
+    }
+}
+```
+
+And say that we want a `Lens` that focuses on the second object in `anArray`. We can easily accomplish this with
+composite lenses:
+
+```js
+var lensA = new nanoscope.PathLens('a.anArray'),
+    lensB = new nanoscope.IndexedLens(1),
+    composite = new nanoscope.Compose(lensA, lensB)
+    // or composite = lensA.compose(lensB);
+
+composite.view(obj).get(); // => 2
+composite.view(obj).set(1); // => { a: { anArray: [1, 2, 3, 4] } }
+```
 ### MultiLens
 
 TODO
