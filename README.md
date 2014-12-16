@@ -91,10 +91,10 @@ By using the second syntax, you can use any of the python type variants using `:
 
 ```js
 // a `Lens` that focuses on everything but the first element
-var tailLens = new nanoscope.SliceLens(':-1');
+var tailLens = new nanoscope.SliceLens('1:');
 
 // a `Lens` that focuses on everything but the last element
-var initLens = new nanoscope.SliceLens('1:');
+var initLens = new nanoscope.SliceLens(':-1');
 ```
 
 Negative indices are accepted, which count backwards from the end of the list.
