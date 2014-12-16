@@ -109,9 +109,9 @@ initLens.view([1, 2, 3, 4]).map(
             arr,
             function (elem) {
                 return elem * 2;
-            })
-        }
-    );
+            }
+        )
+    });
 // => [1, 4, 6, 4]
 
 // Assume `sum` sums the elements in a list
