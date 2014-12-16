@@ -46,7 +46,7 @@ headLens.compose(lastLens).view([1, 2, 3]).get(); // => [1, 3]
 ```
 
 Of particular interest is `compose`, which allows us to compose a `headLens` with a `headLens` to focus on an array's first
-element *of it's first element*, and `add`, which allows us to focus on both the first and second elements of the array
+element *of it's first element*, and `add`, which allows us to focus on both the first and last elements of the array
 in parallel.
 
 ### IndexedLens
@@ -331,7 +331,7 @@ var nanoscope = require('nanoscope'),
 
 All valid `Lens`es must also satisfy the so-called "Lens Laws":
 
-1. set-get (you get what you put in): `lens.get(a, lens.set(a, b)) = b`
+1. set-get (you get what you put in): `lens.get(lens.set(a, b)) = b`
 2. get-set (putting what is there doesn't change anything): `lens.set(a, lens.get(a)) = a`
 3. set-set (setting twice is the same as setting once): `lens.set(c, lens.set(b, a)) = lens.set(c, a)`
 
@@ -339,7 +339,8 @@ These laws ensure that `map`, `set` and `get` behave in the manner you'd expect.
 that these laws are satisfied, you can rest easy knowing your `Lens` is well-behaved.
 
 ## TODO
-- Documentation (incl. lens laws)!
+- Add addMany and composeMany
+- <s>Documentation (incl. lens laws)!<s>
 - <s>Unsafe `PathLens`</s>
 - <s>Use actual inheritance instead of making up my own</s>
 - <s>Change 'options' to 'flags' and put flags in own sub-property instead of
