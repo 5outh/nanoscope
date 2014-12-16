@@ -26,19 +26,19 @@ code and use right out of the box, that provide things like:
 Assuming `headLens` is a `Lens` that focuses on the first element of an array, they can be used like this:
 
 ```js
-headLens.get([1, 2, 3]); // 1
+headLens.get([1, 2, 3]); // => 1
 // or
-headLens.view([1, 2, 3]).get(); // 1
+headLens.view([1, 2, 3]).get(); // =>  1
 
-headLens.set([1, 2, 3], 99); // [99, 2, 3]
+headLens.set([1, 2, 3], 99); // =>  [99, 2, 3]
 // or
-headLens.view([1, 2, 3]).set(99); // [99, 2, 3]
+headLens.view([1, 2, 3]).set(99); // =>  [99, 2, 3]
 
-headLens.map([1, 2, 3], function (elem) { return elem * 10; }); // [10, 2, 3]
+headLens.map([1, 2, 3], function (elem) { return elem * 10; }); // =>  [10, 2, 3]
 // or
-headLens.view([1, 2, 3]).map(function (elem) { return elem * 10; }); // [10, 2, 3]
+headLens.view([1, 2, 3]).map(function (elem) { return elem * 10; }); // =>  [10, 2, 3]
 
-headLens.compose(headLens).view([['what'], 2, 3]).get() // 'what'
+headLens.compose(headLens).view([['what'], 2, 3]).get() // =>  'what'
 ```
 
 Of particular interest is `compose`, which allows us to compose a `headLens` with a `headLens` to focus on an array's first
@@ -103,19 +103,73 @@ initLens.view([1, 2, 3, 4]).map(
         return _.map(
             arr,
             function (elem) {
-            return elem * 2;
-        })
-    });
-// [1, 4, 6, 4]
+                return elem * 2;
+            })
+        }
+    );
+// => [1, 4, 6, 4]
 
-// assume `sum` sums the elements in a list
+// Assume `sum` sums the elements in a list
 initLens.view([1, 2, 3, 4]).map(sum);
-// [6, 4]
+// => [6, 4]
 ```
 
 ### PathLens
 
-TODO
+`PathLenses` are used to access nested data inside dynamic objects. They are constructed by passing a string representation
+of the path followed to get to the element to focus on, separated by `.`. They are safe by default; this is best illustrated
+by an example.
+
+```js
+var testObject = {
+    a : {
+        b: {
+            c : 100
+        }
+    }
+};
+
+new nanoscope.PathLens('a.b.c').focus(testObject).get();
+// => 100
+
+new nanoscope.PathLens('a.b.c.d.e.f').focus(testObject).get();
+// => null
+
+new nanoscope.PathLens('a.b.c').focus(testObject).set('foo');
+// => testObject.a.b.c == 'foo'
+
+new nanoscope.PathLens('a.b.c.d.e.f').focus(testObject).set('foo');
+// => testObject.a.b.c.d.e.f == 'foo'
+```
+
+Note that in the last call we're overwriting `testObject.a.b.c`; this is by design, but something to be aware of.
+If you prefer that your `PathLens` throw errors when keys in the path don't exist, you can use the `PathLens.Unsafe`
+constructor instead; these are constructed in the same way, and take an optional `errorHandler` function that is
+called on errors. For instance,
+
+```js
+new nanoscope.PathLens.Unsafe('a.b.c.d.e.f', console.log).focus(testObject).get();
+// => logs 'TypeError: Cannot read property 'e' of undefined
+```
+
+One other thing to note is that when using `over` in a `PathLens`, if:
+
+1. You are accessing a field that didn't originally exist, *and*
+2. Your function returns `undefined` or `null`,
+
+your structure will be unmodified. This prevents things like:
+
+```js
+new nanoscope.PathLens('a.b.c.e.f.g').focus({}).over(function (elem) { return elem * 2; });
+```
+
+... from producing this:
+
+```js
+{ a: { b: { c: { d: { e: { f: { g: undefined } } } } } } }
+```
+
+Instead, it will not modify the object and return `{}`.
 
 ### Optional
 
