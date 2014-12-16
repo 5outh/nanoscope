@@ -104,7 +104,7 @@
     
         
 
-        <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">()</span><span class="type-signature"></span></h4>
+        <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">(index, unsafe)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
         
     
@@ -113,7 +113,7 @@
 
     
     <div class="description">
-        <p>Never allow <code>get</code> in a setter</p>
+        <p>Get the element at a specific index of an array</p>
     </div>
     
 
@@ -123,6 +123,77 @@
 
     
 
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The index to get</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>unsafe</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>If true, throw an error if index is invalid</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
     
 
     
@@ -157,7 +228,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Setter.js.html">Setter.js</a>, <a href="Setter.js.html#line13">line 13</a>
+        <a href="array_IndexedLens.js.html">array/IndexedLens.js</a>, <a href="array_IndexedLens.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -180,6 +251,28 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>The get function required to construct a Lens</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">function</span>
+
+
+    </dd>
+</dl>
+
+        
 
     
 </dd>
@@ -340,185 +433,6 @@
     <h5>Returns:</h5>
     
             
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">function</span>
-
-
-    </dd>
-</dl>
-
-        
-
-    
-</dd>
-
-        
-            
-<dt>
-    
-        
-
-        <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">(index, unsafe)</span><span class="type-signature"> &rarr; {function}</span></h4>
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Get the element at a specific index of an array</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The index to get</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>unsafe</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>If true, throw an error if index is invalid</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-    
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="array_IndexedLens.js.html">array/IndexedLens.js</a>, <a href="array_IndexedLens.js.html#line20">line 20</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>The get function required to construct a Lens</p>
-</div>
-
 
 
 <dl>
@@ -722,6 +636,92 @@
     
         
 
+        <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">()</span><span class="type-signature"></span></h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Never allow <code>get</code> in a setter</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Setter.js.html">Setter.js</a>, <a href="Setter.js.html#line13">line 13</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        
+
         <h4 class="name" id="IdLens"><span class="type-signature"></span>IdLens<span class="signature">()</span><span class="type-signature"></span></h4>
 
         
@@ -731,7 +731,7 @@
 
     
     <div class="description">
-        <p>The simplest possible <code>Lens</code>: operates on a single object; <code>get</code> returns the object and <code>over</code> applies a function to it
+        <p>The simplest possible <code>Lens</code>: operates on a single object; <code>get</code> returns the object and <code>map</code> applies a function to it
 and returns the result.</p>
     </div>
     
@@ -809,7 +809,7 @@ and returns the result.</p>
     
         
 
-        <h4 class="name" id="over"><span class="type-signature"></span>over<span class="signature">(index, unsafe)</span><span class="type-signature"> &rarr; {function}</span></h4>
+        <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">(index, unsafe)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
         
     
@@ -962,7 +962,7 @@ add an element to the end.</p>
     
             
 <div class="param-desc">
-    <p>The over function required to construct a Lens</p>
+    <p>The map function required to construct a Lens</p>
 </div>
 
 
@@ -990,7 +990,268 @@ add an element to the end.</p>
     
         
 
-        <h4 class="name" id="over"><span class="type-signature"></span>over<span class="signature">(path, unsafe)</span><span class="type-signature"> &rarr; {function}</span></h4>
+        <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">()</span><span class="type-signature"></span></h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Never allow <code>map</code> in a getter</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Getter.js.html">Getter.js</a>, <a href="Getter.js.html#line13">line 13</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        
+
+        <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">(i, j)</span><span class="type-signature"> &rarr; {function}</span></h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Map a function over a slice of an array and return the modified array.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>i</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The start of the slice (may be negative)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>j</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The end of the slice (may be negative)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="array_SliceLens.js.html">array/SliceLens.js</a>, <a href="array_SliceLens.js.html#line37">line 37</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">function</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        
+
+        <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">(path, unsafe)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
         
     
@@ -1162,267 +1423,6 @@ add an element to the end.</p>
     
 </dd>
 
-        
-            
-<dt>
-    
-        
-
-        <h4 class="name" id="over"><span class="type-signature"></span>over<span class="signature">()</span><span class="type-signature"></span></h4>
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Never allow <code>over</code> in a getter</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Getter.js.html">Getter.js</a>, <a href="Getter.js.html#line13">line 13</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    
-        
-
-        <h4 class="name" id="over"><span class="type-signature"></span>over<span class="signature">(i, j)</span><span class="type-signature"> &rarr; {function}</span></h4>
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Map a function over a slice of an array and return the modified array.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>i</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The start of the slice (may be negative)</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>j</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The end of the slice (may be negative)</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-    
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="array_SliceLens.js.html">array/SliceLens.js</a>, <a href="array_SliceLens.js.html#line37">line 37</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">function</span>
-
-
-    </dd>
-</dl>
-
-        
-
-    
-</dd>
-
         </dl>
     
 
@@ -1439,13 +1439,13 @@ add an element to the end.</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Compose.html">Compose</a></li><li><a href="Getter.html">Getter</a></li><li><a href="IndexedLens.html">IndexedLens</a></li><li><a href="IndexedLens.Unsafe.html">Unsafe</a></li><li><a href="Lens.html">Lens</a></li><li><a href="MultiLens.html">MultiLens</a></li><li><a href="Optional.html">Optional</a></li><li><a href="PathLens.html">PathLens</a></li><li><a href="PathLens.Unsafe.html">Unsafe</a></li><li><a href="Setter.html">Setter</a></li><li><a href="SliceLens.html">SliceLens</a></li></ul><h3>Global</h3><ul><li><a href="global.html#get">get</a></li><li><a href="global.html#IdLens">IdLens</a></li><li><a href="global.html#over">over</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Compose.html">Compose</a></li><li><a href="Getter.html">Getter</a></li><li><a href="IndexedLens.html">IndexedLens</a></li><li><a href="IndexedLens.Unsafe.html">Unsafe</a></li><li><a href="Lens.html">Lens</a></li><li><a href="MultiLens.html">MultiLens</a></li><li><a href="Optional.html">Optional</a></li><li><a href="PathLens.html">PathLens</a></li><li><a href="PathLens.Unsafe.html">Unsafe</a></li><li><a href="Setter.html">Setter</a></li><li><a href="SliceLens.html">SliceLens</a></li></ul><h3>Global</h3><ul><li><a href="global.html#get">get</a></li><li><a href="global.html#IdLens">IdLens</a></li><li><a href="global.html#map">map</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a> on Thu Dec 11 2014 18:35:06 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a> on Tue Dec 16 2014 10:10:29 GMT-0800 (PST)
 </footer>
 
 <script> prettyPrint(); </script>

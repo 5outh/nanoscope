@@ -47,39 +47,199 @@
 <h2>A Lens Library for Javascript</h2><h3>What is a Lens?</h3><p>A <code>Lens</code> is a construct that allow you to peer into data structures and modify their contents. At base level, a <code>Lens</code>
 consists of a getter and a mapping function over a specific sub-part of your data. <code>Lens</code>es allow you to modify data
 in interesting ways with minimal code, and <code>nanoscope</code> contains many useful <code>Lens</code>es that you can plug into your existing
-code and use, that provide things like:</p>
+code and use right out of the box, that provide things like:</p>
 <ul>
 <li>Safe traversal of deeply nested data structures</li>
 <li>Easy access and modification of single array elements</li>
 <li>Access and modification of complete array slices, including modifications of size</li>
-<li>A wrapper for safe access of data through any <code>Lens</code></li>
+<li>A wrapper for safe access and modification of data through any <code>Lens</code></li>
 </ul>
 <h3>The <code>Lens</code> Interface</h3><p><code>Lens</code>es support the following operations:</p>
 <ul>
-<li><code>get</code></li>
-<li><code>set</code></li>
-<li><code>over</code></li>
-<li><code>view</code></li>
-<li><code>blur</code></li>
-<li><code>compose</code></li>
+<li><code>get</code>, which gets the value at the focus of the <code>Lens</code></li>
+<li><code>set</code>, which sets the value at the focus of the <code>Lens</code></li>
+<li><code>map</code>, which maps a function over the focus of the <code>Lens</code></li>
+<li><code>view</code>, which sets the view of the <code>Lens</code> to a new value</li>
+<li><code>compose</code>, which composes the <code>Lens</code> with another lens, allowing sequencing of actions.</li>
+<li><code>add</code>, which adds another <code>Lens</code> focus to the lens, allowing multiple focal points.</li>
 </ul>
 <p>Assuming <code>headLens</code> is a <code>Lens</code> that focuses on the first element of an array, they can be used like this:</p>
-<pre class="prettyprint source lang-js"><code>headLens.get([1, 2, 3]); // 1
+<pre class="prettyprint source lang-js"><code>headLens.get([1, 2, 3]); // => 1
 // or
-headLens.view([1, 2, 3]).get(); // 1
+headLens.view([1, 2, 3]).get(); // =>  1
 
-headLens.set([1, 2, 3], 99); // [99, 2, 3]
+headLens.set([1, 2, 3], 99); // =>  [99, 2, 3]
 // or
-headLens.view([1, 2, 3]).set(99); // [99, 2, 3]
+headLens.view([1, 2, 3]).set(99); // =>  [99, 2, 3]
 
-headLens.over([1, 2, 3], function (elem) { return elem * 10; }); // [10, 2, 3]
+headLens.map([1, 2, 3], function (elem) { return elem * 10; }); // =>  [10, 2, 3]
 // or
-headLens.view([1, 2, 3]).over(function (elem) { return elem * 10; }); // [10, 2, 3]</code></pre><h3>Making your own <code>Lens</code>es</h3><p>Consider a <code>Lens</code> that views an array and focuses on its first element.
+headLens.view([1, 2, 3]).map(function (elem) { return elem * 10; }); // =>  [10, 2, 3]
+
+headLens.compose(headLens).view([['what'], 2, 3]).get(); // =>  'what'
+
+// Assume lastLens focuses on the last element
+headLens.compose(lastLens).view([1, 2, 3]).get(); // => [1, 3]</code></pre><p>Of particular interest is <code>compose</code>, which allows us to compose a <code>headLens</code> with a <code>headLens</code> to focus on an array's first
+element <em>of it's first element</em>, and <code>add</code>, which allows us to focus on both the first and second elements of the array
+in parallel.</p>
+<h3>IndexedLens</h3><p><code>IndexedLenses</code> focus on a single element of an array, specified by its index. <code>headLens</code> as shown above can be built using an
+<code>IndexedLens</code> like so:</p>
+<pre class="prettyprint source lang-js"><code>var headLens = new nanoscope.IndexedLens(0);</code></pre><p>This means that we are focusing on the <code>0</code>-th element of an array. <code>IndexedLenses</code> are <em>safe</em> by default, which means
+that they will not throw errors when you try to access elements out of range. For example, <code>headLens.view([]).get()</code>
+will not throw an error. To make an <em>unsafe</em> <code>IndexedLens</code>, just use the <code>Unsafe</code> constructor:</p>
+<pre class="prettyprint source lang-js"><code>var unsafeHeadLens = new nanoscope.IndexedLens.Unsafe(0);</code></pre><p>In an unsafe <code>IndexedLens</code>, the following operations will throw an error:</p>
+<ul>
+<li><code>get()</code>, if the index is greater than or equal to the length of the array, and</li>
+<li><code>set()</code>, if the index is strictly greater than the length of the array (you may tack on items to the end of an array)</li>
+</ul>
+<h3>SliceLens</h3><p><code>SliceLenses</code> focus on a subarray within an array. They can be constructed in two ways:</p>
+<ol>
+<li>By specifying <code>start</code> (inclusive) and <code>end</code> (exclusive) indices in the constructor, like so:</li>
+</ol>
+<pre class="prettyprint source lang-js"><code>var firstTwo = new nanoscope.SliceLens(0, 2);</code></pre><ol>
+<li>By specifying a python-style slice as a string as a single argument:</li>
+</ol>
+<pre class="prettyprint source lang-js"><code>var firstTwo = new nanoscope.SliceLens('0:2');</code></pre><p>By using the second syntax, you can use any of the python type variants using <code>:</code>. For example:</p>
+<pre class="prettyprint source lang-js"><code>// a `Lens` that focuses on everything but the first element
+var tailLens = new nanoscope.SliceLens(':-1');
+
+// a `Lens` that focuses on everything but the last element
+var initLens = new nanoscope.SliceLens('1:');</code></pre><p>Negative indices are accepted, which count backwards from the end of the list.</p>
+<p><code>SliceLenses</code> can be used not only to modify the elements in each slice, but it can also modify the length of the slice.
+For example:</p>
+<pre class="prettyprint source lang-js"><code>initLens.view([1, 2, 3, 4]).map(
+    function (arr) {
+        return _.map(
+            arr,
+            function (elem) {
+                return elem * 2;
+            })
+        }
+    );
+// => [1, 4, 6, 4]
+
+// Assume `sum` sums the elements in a list
+initLens.view([1, 2, 3, 4]).map(sum);
+// => [6, 4]</code></pre><h3>PathLens</h3><p><code>PathLenses</code> are used to access nested data inside dynamic objects. They are constructed by passing a string representation
+of the path followed to get to the element to focus on, separated by <code>.</code>. They are safe by default; this is best illustrated
+by an example.</p>
+<pre class="prettyprint source lang-js"><code>var testObject = {
+    a : {
+        b: {
+            c : 100
+        }
+    }
+};
+
+new nanoscope.PathLens('a.b.c').view(testObject).get();
+// => 100
+
+new nanoscope.PathLens('a.b.c.d.e.f').view(testObject).get();
+// => null
+
+new nanoscope.PathLens('a.b.c').view(testObject).set('foo');
+// => testObject.a.b.c == 'foo'
+
+new nanoscope.PathLens('a.b.c.d.e.f').view(testObject).set('foo');
+// => testObject.a.b.c.d.e.f == 'foo'</code></pre><p>Note that in the last call we're overwriting <code>testObject.a.b.c</code>; this is by design, but something to be aware of.
+If you prefer that your <code>PathLens</code> throw errors when keys in the path don't exist, you can use the <code>PathLens.Unsafe</code>
+constructor instead; these are constructed in the same way:</p>
+<pre class="prettyprint source lang-js"><code>new nanoscope.PathLens.Unsafe('a.b.c.d.e.f').view(testObject).get();
+// => TypeError: Cannot read property 'e' of undefined</code></pre><p>One other thing to note is that when using <code>over</code> in any <code>PathLens</code>, if:</p>
+<ol>
+<li>You are accessing a field that didn't originally exist, <em>and</em></li>
+<li>Your function returns <code>undefined</code> or <code>null</code>,</li>
+</ol>
+<p>your structure will be unmodified. This prevents things like:</p>
+<pre class="prettyprint source lang-js"><code>new nanoscope.PathLens('a.b.c.e.f.g').view({}).over(function (elem) { return elem * 2; });</code></pre><p>... from producing this:</p>
+<pre class="prettyprint source lang-js"><code>{ a: { b: { c: { d: { e: { f: { g: undefined } } } } } } }</code></pre><p>Instead, it will not modify the object and, in this case, simply return <code>{}</code>.</p>
+<h3>Optional</h3><p><code>Optional</code> <code>Lenses</code> wrap any <code>Lens</code> in a function that catches any errors that may happen along the way. They are
+constructed with the <code>Optional</code> constructor, which takes any <code>Lens</code> as an argument, along with an optional <code>errorHandler</code>
+function, This function will be called on any errors that may occur during the execution of any <code>Lens</code> operations,
+and if omitted, these errors will cause <code>get</code> to silently return <code>null</code>, and <code>set</code>/<code>map</code> to silently
+return the object passed in. <code>errorHandler</code> may also be a default value that you would prefer
+to return upon any errors.</p>
+<p>For example, we can take an <code>Unsafe IndexedLens</code> and wrap it in <code>Optional</code> in order to handle incoming errors as they
+are thrown:</p>
+<pre class="prettyprint source lang-js"><code>var Optional = nanoscope.Optional,
+    IndexedLens = nanoscope.IndexedLens,
+    lens;
+
+lens = new Optional( new IndexedLens.Unsafe(10) );
+lens.view([]).get(); // => null
+lens.view([]).set(0); // => []
+
+lens = new Optional( new IndexedLens.Unsafe(10), 'FAIL!' );
+lens.view([]).get(); // => 'FAIL!'
+lens.view([]).set(0); // => 'FAIL!'
+
+lens = new Optional( new IndexedLens.Unsafe(10), console.log);
+lens.view([]).get(); // => logs 'Error: Array index 10 out of range', returns undefined
+lens.view([]).set(0); // => logs 'Error: Array index 10 out of range', returns undefined</code></pre><p>One major thing to note is that <code>Optional Lenses</code> do <strong>not</strong> catch errors from calls to unimplemented functions in
+<code>Getters</code> and <code>Setters</code>. That is, calling <code>setter.get</code> and <code>getter.set</code> will still fail. This is by design, as these types
+of errors are logical in nature and should be caught by the programmer in all cases.</p>
+<h3>Compose</h3><p><code>Compose</code> is a wrapper (like <code>Optional</code>) that takes two <code>Lenses</code> and returns a new <code>Lens</code> that first focuses on the
+focus of the first <code>Lens</code>, and then on the second, in sequence. The <code>compose()</code> method constructs a <code>Compose</code> <code>Lens</code> under
+the hood, so the behavior is exactly the same. For a short example, consider an object with an array for one of the keys:</p>
+<pre class="prettyprint source lang-js"><code>var obj = {
+    a: {
+        anArray: [99, 2, 3, 4]
+    }
+}</code></pre><p>And say that we want a <code>Lens</code> that focuses on the second object in <code>anArray</code>. We can easily accomplish this with
+composite lenses:</p>
+<pre class="prettyprint source lang-js"><code>var lensA = new nanoscope.PathLens('a.anArray'),
+    lensB = new nanoscope.IndexedLens(1),
+    composite = new nanoscope.Compose(lensA, lensB)
+    // or composite = lensA.compose(lensB);
+
+composite.view(obj).get(); // => 2
+composite.view(obj).set(1); // => { a: { anArray: [99, 1, 3, 4] } }</code></pre><p><code>composite</code> first looks at the focus of <code>lensA</code>, then at the focus of <code>lensB</code> starting at the focus of <code>lensA</code> and uses
+this as its own focus.</p>
+<h3>MultiLens</h3><p><code>MultiLenses</code> allow you to focus on many different things at once and return them all at once. <code>MultiLens</code> is a sort of
+concurrent version of <code>Compose</code>. It takes either an Array of <code>Lenses</code> or an object with <code>Lenses</code> as values, and produces
+a <code>Lens</code> whose focus is all of the focuses in this argument. If the argument is an object, <code>get</code> will name each of the outputs
+in an object; if not, it will return an array of unnamed results. <code>set</code> and <code>map</code> will set <em>every</em> focus of the lens.</p>
+<p><code>MultiLenses</code> can also be constructed using the <code>add</code> method in any <code>Lens</code>, just like <code>compose</code> above.</p>
+<p>Here is a simple example of a <code>MultiLens</code> in action:</p>
+<pre class="prettyprint source lang-js"><code>var arrayLenses = [
+            new nanoscope.IndexedLens(0),
+            new nanoscope.IndexedLens(1)
+    ],
+    objectLenses = {
+        head: new nanoscope.IndexedLens(0),
+        last: new nanoscope.IndexedLens(-1)
+    },
+    // A MultiLens built from an Array
+    arrayMultiLens = new nanoscope.MultiLens(arrayLenses),
+    // or arrayMultiLens = new nanoscope.IndexedLens(0).add(new nanoscope.IndexedLens(1));
+    // A MultiLens built from an Object
+    objectMultiLens = new nanoscope.MultiLens(objectLenses);
+
+arrayMultiLens.view([1, 2]).get(); // => [1, 2]
+arrayMultiLens.view([1, 2]).set('g'); // => ['g', 'g']
+
+objectMultiLens.view([1, 2, 3]).get(); // => { head: 1, last: 3 }
+objectMultiLens.view([1, 2, 3]).set('g'); // => ['g', 2, 'g']</code></pre><h3>Getters and Setters</h3><p><code>Getters</code> are <code>Lenses</code> that only support <code>get()</code>, and <code>Setters</code> are <code>Lenses</code> that only support <code>over</code> and <code>set</code>.
+<code>Getters</code> and <code>Setters</code> are constructed with <code>get</code> functions and <code>over</code> functions <em>only</em>, respectively. They can also be
+constructed by using the <code>fromLens</code> static function in <code>Getter</code> and <code>Setter</code>, which simply replaces the old <code>over</code>/<code>get</code>
+operations in the original <code>Lens</code>. Constructing your own <code>Lenses</code>, <code>Getters</code> and <code>Setters</code> is described below, but here is
+an example of how <code>fromLens</code> works:</p>
+<pre class="prettyprint source lang-js"><code>var Getter = nanoscope.Getter,
+    Setter = nanoscope.Setter,
+    IndexedLens = nanoscope.IndexedLens;
+
+Getter.fromLens(new IndexedLens(0)).view([1]).get(); // => 1
+Getter.fromLens(new IndexedLens(0)).view([1]).set(10); // => Error: map not permitted in a Getter
+
+Setter.fromLens(new IndexedLens(0)).view([1]).set(10); // => [10]
+Setter.fromLens(new IndexedLens(0)).view([1]).get(); // => Error: get not permitted in a Setter</code></pre><p>These are useful when you want to restrict access to certain parts of your structures, but still use any <code>Lenses</code>
+to access data in one or more ways.</p>
+<h3>Making your own <code>Lens</code>es</h3><p>Consider a <code>Lens</code> that views an array and focuses on its first element.
 The <code>get</code> function for this <code>Lens</code> might look like this:</p>
 <pre class="prettyprint source lang-js"><code>var get = function (arr) {
     return arr[0];
-};</code></pre><p>...and <code>over</code> might be defined like so:</p>
-<pre class="prettyprint source lang-js"><code>var over = function (arr, func) {
+};</code></pre><p>...and <code>map</code> might be defined like so:</p>
+<pre class="prettyprint source lang-js"><code>var map = function (arr, func) {
     var newArr = _.cloneDeep(arr);
     newArr[0] = func(newArr[0]);
     return newArr;
@@ -92,7 +252,15 @@ access to data.</li>
 </ol>
 <p>We can construct a <code>Lens</code> from these bindings like so:</p>
 <pre class="prettyprint source lang-js"><code>var nanoscope = require('nanoscope'),
-    headLens = new nanoscope.Lens(get, over);</code></pre><h2>TODO</h2><ul>
+    headLens = new nanoscope.Lens(get, map);</code></pre><p>All valid <code>Lens</code>es must also satisfy the so-called &quot;Lens Laws&quot;:</p>
+<ol>
+<li>set-get (you get what you put in): <code>lens.get(a, lens.set(a, b)) = b</code></li>
+<li>get-set (putting what is there doesn't change anything): <code>lens.set(a, lens.get(a)) = a</code></li>
+<li>set-set (setting twice is the same as setting once): <code>lens.set(c, lens.set(b, a)) = lens.set(c, a)</code></li>
+</ol>
+<p>These laws ensure that <code>map</code>, <code>set</code> and <code>get</code> behave in the manner you'd expect. If you can convince yourself
+that these laws are satisfied, you can rest easy knowing your <code>Lens</code> is well-behaved.</p>
+<h2>TODO</h2><ul>
 <li>Documentation (incl. lens laws)!</li>
 <li><s>Unsafe <code>PathLens</code></s></li>
 <li><s>Use actual inheritance instead of making up my own</s></li>
@@ -113,13 +281,13 @@ top-level (i.e. <code>_flags: { _index: 0}</code> instead of just <code>_index: 
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Compose.html">Compose</a></li><li><a href="Getter.html">Getter</a></li><li><a href="IndexedLens.html">IndexedLens</a></li><li><a href="IndexedLens.Unsafe.html">Unsafe</a></li><li><a href="Lens.html">Lens</a></li><li><a href="MultiLens.html">MultiLens</a></li><li><a href="Optional.html">Optional</a></li><li><a href="PathLens.html">PathLens</a></li><li><a href="PathLens.Unsafe.html">Unsafe</a></li><li><a href="Setter.html">Setter</a></li><li><a href="SliceLens.html">SliceLens</a></li></ul><h3>Global</h3><ul><li><a href="global.html#get">get</a></li><li><a href="global.html#IdLens">IdLens</a></li><li><a href="global.html#over">over</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Compose.html">Compose</a></li><li><a href="Getter.html">Getter</a></li><li><a href="IndexedLens.html">IndexedLens</a></li><li><a href="IndexedLens.Unsafe.html">Unsafe</a></li><li><a href="Lens.html">Lens</a></li><li><a href="MultiLens.html">MultiLens</a></li><li><a href="Optional.html">Optional</a></li><li><a href="PathLens.html">PathLens</a></li><li><a href="PathLens.Unsafe.html">Unsafe</a></li><li><a href="Setter.html">Setter</a></li><li><a href="SliceLens.html">SliceLens</a></li></ul><h3>Global</h3><ul><li><a href="global.html#get">get</a></li><li><a href="global.html#IdLens">IdLens</a></li><li><a href="global.html#map">map</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a> on Thu Dec 11 2014 18:35:06 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a> on Tue Dec 16 2014 10:10:29 GMT-0800 (PST)
 </footer>
 
 <script> prettyPrint(); </script>

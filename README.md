@@ -22,6 +22,7 @@ code and use right out of the box, that provide things like:
 - `map`, which maps a function over the focus of the `Lens`
 - `view`, which sets the view of the `Lens` to a new value
 - `compose`, which composes the `Lens` with another lens, allowing sequencing of actions.
+- `add`, which adds another `Lens` focus to the lens, allowing multiple focal points.
 
 Assuming `headLens` is a `Lens` that focuses on the first element of an array, they can be used like this:
 
@@ -38,11 +39,15 @@ headLens.map([1, 2, 3], function (elem) { return elem * 10; }); // =>  [10, 2, 3
 // or
 headLens.view([1, 2, 3]).map(function (elem) { return elem * 10; }); // =>  [10, 2, 3]
 
-headLens.compose(headLens).view([['what'], 2, 3]).get() // =>  'what'
+headLens.compose(headLens).view([['what'], 2, 3]).get(); // =>  'what'
+
+// Assume lastLens focuses on the last element
+headLens.compose(lastLens).view([1, 2, 3]).get(); // => [1, 3]
 ```
 
 Of particular interest is `compose`, which allows us to compose a `headLens` with a `headLens` to focus on an array's first
-element *of it's first element*.
+element *of it's first element*, and `add`, which allows us to focus on both the first and second elements of the array
+in parallel.
 
 ### IndexedLens
 
@@ -228,7 +233,7 @@ var lensA = new nanoscope.PathLens('a.anArray'),
     // or composite = lensA.compose(lensB);
 
 composite.view(obj).get(); // => 2
-composite.view(obj).set(1); // => { a: { anArray: [1, 2, 3, 4] } }
+composite.view(obj).set(1); // => { a: { anArray: [99, 1, 3, 4] } }
 ```
 
 `composite` first looks at the focus of `lensA`, then at the focus of `lensB` starting at the focus of `lensA` and uses
