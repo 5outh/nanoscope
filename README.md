@@ -241,6 +241,8 @@ concurrent version of `Compose`. It takes either an Array of `Lenses` or an obje
 a `Lens` whose focus is all of the focuses in this argument. If the argument is an object, `get` will name each of the outputs
 in an object; if not, it will return an array of unnamed results. `set` and `map` will set *every* focus of the lens.
 
+`MultiLenses` can also be constructed using the `add` method in any `Lens`, just like `compose` above.
+
 Here is a simple example of a `MultiLens` in action:
 
 ```js
@@ -254,6 +256,7 @@ var arrayLenses = [
     },
     // A MultiLens built from an Array
     arrayMultiLens = new nanoscope.MultiLens(arrayLenses),
+    // or arrayMultiLens = new nanoscope.IndexedLens(0).add(new nanoscope.IndexedLens(1));
     // A MultiLens built from an Object
     objectMultiLens = new nanoscope.MultiLens(objectLenses);
 
@@ -266,7 +269,26 @@ objectMultiLens.view([1, 2, 3]).set('g'); // => ['g', 2, 'g']
 
 ### Getters and Setters
 
-TODO
+`Getters` are `Lenses` that only support `get()`, and `Setters` are `Lenses` that only support `over` and `set`.
+`Getters` and `Setters` are constructed with `get` functions and `over` functions *only*, respectively. They can also be
+constructed by using the `fromLens` static function in `Getter` and `Setter`, which simply replaces the old `over`/`get`
+operations in the original `Lens`. Constructing your own `Lenses`, `Getters` and `Setters` is described below, but here is
+an example of how `fromLens` works:
+
+```js
+var Getter = nanoscope.Getter,
+    Setter = nanoscope.Setter,
+    IndexedLens = nanoscope.IndexedLens;
+
+Getter.fromLens(new IndexedLens(0)).view([1]).get(); // => 1
+Getter.fromLens(new IndexedLens(0)).view([1]).set(10); // => Error: map not permitted in a Getter
+
+Setter.fromLens(new IndexedLens(0)).view([1]).set(10); // => [10]
+Setter.fromLens(new IndexedLens(0)).view([1]).get(); // => Error: get not permitted in a Setter
+```
+
+These are useful when you want to restrict access to certain parts of your structures, but still use any `Lenses`
+to access data in one or more ways.
 
 ### Making your own `Lens`es
 Consider a `Lens` that views an array and focuses on its first element.
