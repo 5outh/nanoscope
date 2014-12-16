@@ -77,6 +77,20 @@ describe('Lens', function () {
         });
     });
 
+    describe('#add', function () {
+        it('should add the lens to another lens', function () {
+            var multi = new IndexedLens(0).add(new IndexedLens(1)),
+                arr = [1, 2, 3];
+
+            utils.testArrayEquals(multi.view(arr).get(), [1, 2]);
+
+            utils.testArrayEquals(
+                multi.view(arr).set(100),
+                [100, 100, 3]
+            );
+        });
+    });
+
     describe('#blur', function () {
         beforeEach(function () {
             testLens.view(10);

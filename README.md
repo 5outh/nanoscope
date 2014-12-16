@@ -230,9 +230,39 @@ var lensA = new nanoscope.PathLens('a.anArray'),
 composite.view(obj).get(); // => 2
 composite.view(obj).set(1); // => { a: { anArray: [1, 2, 3, 4] } }
 ```
+
+`composite` first looks at the focus of `lensA`, then at the focus of `lensB` starting at the focus of `lensA` and uses
+this as its own focus.
+
 ### MultiLens
 
-TODO
+`MultiLenses` allow you to focus on many different things at once and return them all at once. `MultiLens` is a sort of
+concurrent version of `Compose`. It takes either an Array of `Lenses` or an object with `Lenses` as values, and produces
+a `Lens` whose focus is all of the focuses in this argument. If the argument is an object, `get` will name each of the outputs
+in an object; if not, it will return an array of unnamed results. `set` and `map` will set *every* focus of the lens.
+
+Here is a simple example of a `MultiLens` in action:
+
+```js
+var arrayLenses = [
+            new nanoscope.IndexedLens(0),
+            new nanoscope.IndexedLens(1)
+    ],
+    objectLenses = {
+        head: new nanoscope.IndexedLens(0),
+        last: new nanoscope.IndexedLens(-1)
+    },
+    // A MultiLens built from an Array
+    arrayMultiLens = new nanoscope.MultiLens(arrayLenses),
+    // A MultiLens built from an Object
+    objectMultiLens = new nanoscope.MultiLens(objectLenses);
+
+arrayMultiLens.view([1, 2]).get(); // => [1, 2]
+arrayMultiLens.view([1, 2]).set('g'); // => ['g', 'g']
+
+objectMultiLens.view([1, 2, 3]).get(); // => { head: 1, last: 3 }
+objectMultiLens.view([1, 2, 3]).set('g'); // => ['g', 2, 'g']
+```
 
 ### Getters and Setters
 

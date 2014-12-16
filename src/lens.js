@@ -140,4 +140,15 @@ Lens.prototype.compose = function (otherLens) {
     return new Compose(this, otherLens, _.extend(this.getFlags(), otherLens.getFlags()));
 };
 
+/**
+ * Add a new focus to this `Lens` by providing another `Lens` with which to focus with.
+ *
+ * @param otherLens The `Lens` to add to this `Lens`
+ * @returns {MultiLens}
+ */
+Lens.prototype.add = function (otherLens) {
+    var MultiLens = require('./combinator/MultiLens');
+    return new MultiLens([this, otherLens], _.extend(this.getFlags(), otherLens.getFlags()));
+};
+
 module.exports = Lens;
