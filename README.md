@@ -1,6 +1,12 @@
 <img src="NanoscopeLogo.png" width="400px"></img>
 ## A Lens Library for Javascript
 
+Installation is easy:
+
+```
+$ npm install nanoscope
+```
+
 ### What is a Lens?
 
 A `Lens` is a construct that allow you to peer into data structures and modify their contents. At base level, a `Lens`
