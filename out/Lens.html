@@ -1,57 +1,138 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>JSDoc: Class: Lens</title>
+	<meta charset="utf-8">
+	<title>nanoscope Class: Lens</title>
 
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.spacelab.css">
+
 </head>
 
 <body>
+<div class="container-fluid">
+	<div class="navbar navbar-fixed-top ">
+		<div class="navbar-inner">
+			<a class="brand" href="index.html">nanoscope</a>
+			<ul class="nav">
+				
+				<li class="dropdown">
+					<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b
+						class="caret"></b></a>
 
-<div id="main">
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="Compose.html">Compose</a>
+						</li>
+						
+						<li>
+							<a href="Getter.html">Getter</a>
+						</li>
+						
+						<li>
+							<a href="IndexedLens.html">IndexedLens</a>
+						</li>
+						
+						<li>
+							<a href="IndexedLens.Unsafe.html">IndexedLens.Unsafe</a>
+						</li>
+						
+						<li>
+							<a href="Lens.html">Lens</a>
+						</li>
+						
+						<li>
+							<a href="MultiLens.html">MultiLens</a>
+						</li>
+						
+						<li>
+							<a href="Optional.html">Optional</a>
+						</li>
+						
+						<li>
+							<a href="PathLens.html">PathLens</a>
+						</li>
+						
+						<li>
+							<a href="PathLens.Unsafe.html">PathLens.Unsafe</a>
+						</li>
+						
+						<li>
+							<a href="Setter.html">Setter</a>
+						</li>
+						
+						<li>
+							<a href="SliceLens.html">SliceLens</a>
+						</li>
+						
 
-    <h1 class="page-title">Class: Lens</h1>
+					</ul>
+				</li>
+				
+				<li class="dropdown">
+					<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b
+						class="caret"></b></a>
 
-    
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="global.html#get">get</a>
+						</li>
+						
+						<li>
+							<a href="global.html#IdLens">IdLens</a>
+						</li>
+						
+						<li>
+							<a href="global.html#map">map</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+
+	<div class="row-fluid">
+
+		
+		<div class="span8">
+			
+				<div id="main">
+					
 
 
-
-
+	<h1 class="page-title">Class: Lens</h1>
 <section>
 
 <header>
-    
-        <h2>
-        Lens
-        </h2>
-        
+    <h2>
+    Lens
+    </h2>
     
 </header>
 
 <article>
     <div class="container-overview">
     
-        
-<dt>
+
     
         
-        <h2>Constructor</h2>
-        
-
-        <h4 class="name" id="Lens"><span class="type-signature"></span>new Lens<span class="signature">(get, map, flags)</span><span class="type-signature"> &rarr; {<a href="Lens.html">Lens</a>}</span></h4>
-
-        
+<dt>
+    <h4 class="name" id="Lens"><span class="type-signature"></span>new Lens<span class="signature">(get, map, flags)</span><span class="type-signature"> &rarr; {<a href="Lens.html">Lens</a>}</span></h4>
+    
     
 </dt>
 <dd>
-
+    
     
     <div class="description">
         <p>A <code>Lens</code> is a construct that allows you to 'peer into' some structure and operate on sub-parts of it. A <code>Lens</code> supports
@@ -82,34 +163,32 @@ don't need to explicitly define it.</p>
     
 
     
-
     
-
     
-
+    
     
         <h5>Parameters:</h5>
         
 
-<table class="params">
+<table class="params table table-striped">
     <thead>
-    <tr>
-        
-        <th>Name</th>
-        
+	<tr>
+		
+		<th>Name</th>
+		
 
-        <th>Type</th>
+		<th>Type</th>
 
-        
+		
 
-        
+		
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
+		<th class="last">Description</th>
+	</tr>
+	</thead>
 
-    <tbody>
-    
+	<tbody>
+	
 
         <tr>
             
@@ -132,7 +211,7 @@ don't need to explicitly define it.</p>
             <td class="description last"><p>Get the value you want from the structure</p></td>
         </tr>
 
-    
+	
 
         <tr>
             
@@ -155,7 +234,7 @@ don't need to explicitly define it.</p>
             <td class="description last"><p>Map a function map the value and return the modified structure</p></td>
         </tr>
 
-    
+	
 
         <tr>
             
@@ -178,65 +257,52 @@ don't need to explicitly define it.</p>
             <td class="description last"><p>Additional properties to add to <code>Lens</code> if specified</p></td>
         </tr>
 
-    
-    </tbody>
+	
+	</tbody>
 </table>
-    
 
     
-
-
+    
+    
 <dl class="details">
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
 
-    
 
-    
+	
 
-    
+	
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line44">line 44</a>
-    </li></ul></dd>
-    
+	
 
-    
-
-    
-
-    
+	
 </dl>
 
-
+    
     
 
     
 
     
-
     
-
     
-
+    
     
     <h5>Returns:</h5>
     
@@ -244,19 +310,20 @@ don't need to explicitly define it.</p>
 
 
 <dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
 <span class="param-type"><a href="Lens.html">Lens</a></span>
 
 
-    </dd>
+	</dd>
 </dl>
 
-        
 
+        
+    
     
 </dd>
 
@@ -269,7 +336,7 @@ don't need to explicitly define it.</p>
 
     
 
-     
+    
 
     
 
@@ -281,16 +348,12 @@ don't need to explicitly define it.</p>
         <dl>
             
 <dt>
+    <h4 class="name" id="add"><span class="type-signature"></span>add<span class="signature">(otherLens)</span><span class="type-signature"> &rarr; {<a href="MultiLens.html">MultiLens</a>}</span></h4>
     
-        
-
-        <h4 class="name" id="add"><span class="type-signature"></span>add<span class="signature">(otherLens)</span><span class="type-signature"> &rarr; {<a href="MultiLens.html">MultiLens</a>}</span></h4>
-
-        
     
 </dt>
 <dd>
-
+    
     
     <div class="description">
         <p>Add a new focus to this <code>Lens</code> by providing another <code>Lens</code> with which to focus with.</p>
@@ -298,34 +361,32 @@ don't need to explicitly define it.</p>
     
 
     
-
     
-
     
-
+    
     
         <h5>Parameters:</h5>
         
 
-<table class="params">
+<table class="params table table-striped">
     <thead>
-    <tr>
-        
-        <th>Name</th>
-        
+	<tr>
+		
+		<th>Name</th>
+		
 
-        <th>Type</th>
+		<th>Type</th>
 
-        
+		
 
-        
+		
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
+		<th class="last">Description</th>
+	</tr>
+	</thead>
 
-    <tbody>
-    
+	<tbody>
+	
 
         <tr>
             
@@ -343,65 +404,52 @@ don't need to explicitly define it.</p>
             <td class="description last"><p>The <code>Lens</code> to add to this <code>Lens</code></p></td>
         </tr>
 
-    
-    </tbody>
+	
+	</tbody>
 </table>
-    
 
     
-
-
+    
+    
 <dl class="details">
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
 
-    
 
-    
+	
 
-    
+	
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line164">line 164</a>
-    </li></ul></dd>
-    
+	
 
-    
-
-    
-
-    
+	
 </dl>
 
-
+    
     
 
     
 
     
-
     
-
     
-
+    
     
     <h5>Returns:</h5>
     
@@ -409,35 +457,32 @@ don't need to explicitly define it.</p>
 
 
 <dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
 <span class="param-type"><a href="MultiLens.html">MultiLens</a></span>
 
 
-    </dd>
+	</dd>
 </dl>
 
-        
 
+        
+    
     
 </dd>
 
         
             
 <dt>
+    <h4 class="name" id="addMany"><span class="type-signature"></span>addMany<span class="signature">(otherLenses)</span><span class="type-signature"> &rarr; {<a href="Lens.html">Lens</a>}</span></h4>
     
-        
-
-        <h4 class="name" id="addMany"><span class="type-signature"></span>addMany<span class="signature">(otherLenses)</span><span class="type-signature"> &rarr; {<a href="Lens.html">Lens</a>}</span></h4>
-
-        
     
 </dt>
 <dd>
-
+    
     
     <div class="description">
         <p>Add many new focuses to this <code>Lens</code> by providing an array of other lenses to focus with.</p>
@@ -445,34 +490,32 @@ don't need to explicitly define it.</p>
     
 
     
-
     
-
     
-
+    
     
         <h5>Parameters:</h5>
         
 
-<table class="params">
+<table class="params table table-striped">
     <thead>
-    <tr>
-        
-        <th>Name</th>
-        
+	<tr>
+		
+		<th>Name</th>
+		
 
-        <th>Type</th>
+		<th>Type</th>
 
-        
+		
 
-        
+		
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
+		<th class="last">Description</th>
+	</tr>
+	</thead>
 
-    <tbody>
-    
+	<tbody>
+	
 
         <tr>
             
@@ -490,65 +533,52 @@ don't need to explicitly define it.</p>
             <td class="description last"></td>
         </tr>
 
-    
-    </tbody>
+	
+	</tbody>
 </table>
-    
 
     
-
-
+    
+    
 <dl class="details">
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
 
-    
 
-    
+	
 
-    
+	
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line175">line 175</a>
-    </li></ul></dd>
-    
+	
 
-    
-
-    
-
-    
+	
 </dl>
 
-
+    
     
 
     
 
     
-
     
-
     
-
+    
     
     <h5>Returns:</h5>
     
@@ -556,35 +586,32 @@ don't need to explicitly define it.</p>
 
 
 <dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
 <span class="param-type"><a href="Lens.html">Lens</a></span>
 
 
-    </dd>
+	</dd>
 </dl>
 
-        
 
+        
+    
     
 </dd>
 
         
             
 <dt>
+    <h4 class="name" id="blur"><span class="type-signature"></span>blur<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Lens.html">Lens</a>}</span></h4>
     
-        
-
-        <h4 class="name" id="blur"><span class="type-signature"></span>blur<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Lens.html">Lens</a>}</span></h4>
-
-        
     
 </dt>
 <dd>
-
+    
     
     <div class="description">
         <p>Reset the view of the <code>Lens</code>.</p>
@@ -592,67 +619,51 @@ don't need to explicitly define it.</p>
     
 
     
-
     
-
     
-
     
-
     
-
-
+    
+    
 <dl class="details">
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
 
-    
 
-    
+	
 
-    
+	
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line118">line 118</a>
-    </li></ul></dd>
-    
+	
 
-    
-
-    
-
-    
+	
 </dl>
 
-
+    
     
 
     
 
     
-
     
-
     
-
+    
     
     <h5>Returns:</h5>
     
@@ -664,35 +675,32 @@ don't need to explicitly define it.</p>
 
 
 <dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
 <span class="param-type"><a href="Lens.html">Lens</a></span>
 
 
-    </dd>
+	</dd>
 </dl>
 
-        
 
+        
+    
     
 </dd>
 
         
             
 <dt>
+    <h4 class="name" id="compose"><span class="type-signature"></span>compose<span class="signature">(otherLens)</span><span class="type-signature"> &rarr; {<a href="Compose.html">Compose</a>}</span></h4>
     
-        
-
-        <h4 class="name" id="compose"><span class="type-signature"></span>compose<span class="signature">(otherLens)</span><span class="type-signature"> &rarr; {<a href="Compose.html">Compose</a>}</span></h4>
-
-        
     
 </dt>
 <dd>
-
+    
     
     <div class="description">
         <p>Compose this lens with another <code>Lens</code></p>
@@ -700,34 +708,32 @@ don't need to explicitly define it.</p>
     
 
     
-
     
-
     
-
+    
     
         <h5>Parameters:</h5>
         
 
-<table class="params">
+<table class="params table table-striped">
     <thead>
-    <tr>
-        
-        <th>Name</th>
-        
+	<tr>
+		
+		<th>Name</th>
+		
 
-        <th>Type</th>
+		<th>Type</th>
 
-        
+		
 
-        
+		
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
+		<th class="last">Description</th>
+	</tr>
+	</thead>
 
-    <tbody>
-    
+	<tbody>
+	
 
         <tr>
             
@@ -750,65 +756,52 @@ don't need to explicitly define it.</p>
             <td class="description last"><p>The <code>Lens</code> to compose this one with</p></td>
         </tr>
 
-    
-    </tbody>
+	
+	</tbody>
 </table>
-    
 
     
-
-
+    
+    
 <dl class="details">
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
 
-    
 
-    
+	
 
-    
+	
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line138">line 138</a>
-    </li></ul></dd>
-    
+	
 
-    
-
-    
-
-    
+	
 </dl>
 
-
+    
     
 
     
 
     
-
     
-
     
-
+    
     
     <h5>Returns:</h5>
     
@@ -816,35 +809,32 @@ don't need to explicitly define it.</p>
 
 
 <dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
 <span class="param-type"><a href="Compose.html">Compose</a></span>
 
 
-    </dd>
+	</dd>
 </dl>
 
-        
 
+        
+    
     
 </dd>
 
         
             
 <dt>
+    <h4 class="name" id="composeMany"><span class="type-signature"></span>composeMany<span class="signature">(otherLenses)</span><span class="type-signature"> &rarr; {<a href="Lens.html">Lens</a>}</span></h4>
     
-        
-
-        <h4 class="name" id="composeMany"><span class="type-signature"></span>composeMany<span class="signature">(otherLenses)</span><span class="type-signature"> &rarr; {<a href="Lens.html">Lens</a>}</span></h4>
-
-        
     
 </dt>
 <dd>
-
+    
     
     <div class="description">
         <p>Compose this lens with many other Lenses, specified by an array in which to order them.</p>
@@ -852,34 +842,32 @@ don't need to explicitly define it.</p>
     
 
     
-
     
-
     
-
+    
     
         <h5>Parameters:</h5>
         
 
-<table class="params">
+<table class="params table table-striped">
     <thead>
-    <tr>
-        
-        <th>Name</th>
-        
+	<tr>
+		
+		<th>Name</th>
+		
 
-        <th>Type</th>
+		<th>Type</th>
 
-        
+		
 
-        
+		
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
+		<th class="last">Description</th>
+	</tr>
+	</thead>
 
-    <tbody>
-    
+	<tbody>
+	
 
         <tr>
             
@@ -897,65 +885,52 @@ don't need to explicitly define it.</p>
             <td class="description last"></td>
         </tr>
 
-    
-    </tbody>
+	
+	</tbody>
 </table>
-    
 
     
-
-
+    
+    
 <dl class="details">
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
 
-    
 
-    
+	
 
-    
+	
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line149">line 149</a>
-    </li></ul></dd>
-    
+	
 
-    
-
-    
-
-    
+	
 </dl>
 
-
+    
     
 
     
 
     
-
     
-
     
-
+    
     
     <h5>Returns:</h5>
     
@@ -963,35 +938,32 @@ don't need to explicitly define it.</p>
 
 
 <dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
 <span class="param-type"><a href="Lens.html">Lens</a></span>
 
 
-    </dd>
+	</dd>
 </dl>
 
-        
 
+        
+    
     
 </dd>
 
         
             
 <dt>
+    <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">(obj)</span><span class="type-signature"> &rarr; {*}</span></h4>
     
-        
-
-        <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">(obj)</span><span class="type-signature"> &rarr; {*}</span></h4>
-
-        
     
 </dt>
 <dd>
-
+    
     
     <div class="description">
         <p>Get the value this <code>Lens</code> focuses on from an object</p>
@@ -999,34 +971,32 @@ don't need to explicitly define it.</p>
     
 
     
-
     
-
     
-
+    
     
         <h5>Parameters:</h5>
         
 
-<table class="params">
+<table class="params table table-striped">
     <thead>
-    <tr>
-        
-        <th>Name</th>
-        
+	<tr>
+		
+		<th>Name</th>
+		
 
-        <th>Type</th>
+		<th>Type</th>
 
-        
+		
 
-        
+		
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
+		<th class="last">Description</th>
+	</tr>
+	</thead>
 
-    <tbody>
-    
+	<tbody>
+	
 
         <tr>
             
@@ -1049,65 +1019,52 @@ don't need to explicitly define it.</p>
             <td class="description last"><p>The object to run the <code>Lens</code> on</p></td>
         </tr>
 
-    
-    </tbody>
+	
+	</tbody>
 </table>
-    
 
     
-
-
+    
+    
 <dl class="details">
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
 
-    
 
-    
+	
 
-    
+	
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line65">line 65</a>
-    </li></ul></dd>
-    
+	
 
-    
-
-    
-
-    
+	
 </dl>
 
-
+    
     
 
     
 
     
-
     
-
     
-
+    
     
     <h5>Returns:</h5>
     
@@ -1115,35 +1072,32 @@ don't need to explicitly define it.</p>
 
 
 <dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
 <span class="param-type">*</span>
 
 
-    </dd>
+	</dd>
 </dl>
 
-        
 
+        
+    
     
 </dd>
 
         
             
 <dt>
+    <h4 class="name" id="getFlags"><span class="type-signature"></span>getFlags<span class="signature">()</span><span class="type-signature"> &rarr; {*}</span></h4>
     
-        
-
-        <h4 class="name" id="getFlags"><span class="type-signature"></span>getFlags<span class="signature">()</span><span class="type-signature"> &rarr; {*}</span></h4>
-
-        
     
 </dt>
 <dd>
-
+    
     
     <div class="description">
         <p>Get any extra set options in a Lens</p>
@@ -1151,67 +1105,51 @@ don't need to explicitly define it.</p>
     
 
     
-
     
-
     
-
     
-
     
-
-
+    
+    
 <dl class="details">
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
 
-    
 
-    
+	
 
-    
+	
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line128">line 128</a>
-    </li></ul></dd>
-    
+	
 
-    
-
-    
-
-    
+	
 </dl>
 
-
+    
     
 
     
 
     
-
     
-
     
-
+    
     
     <h5>Returns:</h5>
     
@@ -1219,35 +1157,32 @@ don't need to explicitly define it.</p>
 
 
 <dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
 <span class="param-type">*</span>
 
 
-    </dd>
+	</dd>
 </dl>
 
-        
 
+        
+    
     
 </dd>
 
         
             
 <dt>
+    <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">(obj, func)</span><span class="type-signature"> &rarr; {<a href="Lens.html">Lens</a>}</span></h4>
     
-        
-
-        <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">(obj, func)</span><span class="type-signature"> &rarr; {<a href="Lens.html">Lens</a>}</span></h4>
-
-        
     
 </dt>
 <dd>
-
+    
     
     <div class="description">
         <p>Run a function over the view of the <code>Lens</code> and return the modified structure</p>
@@ -1255,34 +1190,32 @@ don't need to explicitly define it.</p>
     
 
     
-
     
-
     
-
+    
     
         <h5>Parameters:</h5>
         
 
-<table class="params">
+<table class="params table table-striped">
     <thead>
-    <tr>
-        
-        <th>Name</th>
-        
+	<tr>
+		
+		<th>Name</th>
+		
 
-        <th>Type</th>
+		<th>Type</th>
 
-        
+		
 
-        
+		
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
+		<th class="last">Description</th>
+	</tr>
+	</thead>
 
-    <tbody>
-    
+	<tbody>
+	
 
         <tr>
             
@@ -1305,7 +1238,7 @@ don't need to explicitly define it.</p>
             <td class="description last"><p>The object to run the <code>Lens</code> on</p></td>
         </tr>
 
-    
+	
 
         <tr>
             
@@ -1328,65 +1261,52 @@ don't need to explicitly define it.</p>
             <td class="description last"><p>The function to call on the view of the Lens</p></td>
         </tr>
 
-    
-    </tbody>
+	
+	</tbody>
 </table>
-    
 
     
-
-
+    
+    
 <dl class="details">
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
 
-    
 
-    
+	
 
-    
+	
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line76">line 76</a>
-    </li></ul></dd>
-    
+	
 
-    
-
-    
-
-    
+	
 </dl>
 
-
+    
     
 
     
 
     
-
     
-
     
-
+    
     
     <h5>Returns:</h5>
     
@@ -1394,35 +1314,32 @@ don't need to explicitly define it.</p>
 
 
 <dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
 <span class="param-type"><a href="Lens.html">Lens</a></span>
 
 
-    </dd>
+	</dd>
 </dl>
 
-        
 
+        
+    
     
 </dd>
 
         
             
 <dt>
+    <h4 class="name" id="set"><span class="type-signature"></span>set<span class="signature">(obj, val)</span><span class="type-signature"> &rarr; {<a href="Lens.html">Lens</a>}</span></h4>
     
-        
-
-        <h4 class="name" id="set"><span class="type-signature"></span>set<span class="signature">(obj, val)</span><span class="type-signature"> &rarr; {<a href="Lens.html">Lens</a>}</span></h4>
-
-        
     
 </dt>
 <dd>
-
+    
     
     <div class="description">
         <p>Set the view of the <code>Lens</code> to something new and return the modified structure</p>
@@ -1430,34 +1347,32 @@ don't need to explicitly define it.</p>
     
 
     
-
     
-
     
-
+    
     
         <h5>Parameters:</h5>
         
 
-<table class="params">
+<table class="params table table-striped">
     <thead>
-    <tr>
-        
-        <th>Name</th>
-        
+	<tr>
+		
+		<th>Name</th>
+		
 
-        <th>Type</th>
+		<th>Type</th>
 
-        
+		
 
-        
+		
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
+		<th class="last">Description</th>
+	</tr>
+	</thead>
 
-    <tbody>
-    
+	<tbody>
+	
 
         <tr>
             
@@ -1480,7 +1395,7 @@ don't need to explicitly define it.</p>
             <td class="description last"><p>The object to run the Lens on</p></td>
         </tr>
 
-    
+	
 
         <tr>
             
@@ -1503,65 +1418,52 @@ don't need to explicitly define it.</p>
             <td class="description last"><p>The value to set</p></td>
         </tr>
 
-    
-    </tbody>
+	
+	</tbody>
 </table>
-    
 
     
-
-
+    
+    
 <dl class="details">
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
 
-    
 
-    
+	
 
-    
+	
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line92">line 92</a>
-    </li></ul></dd>
-    
+	
 
-    
-
-    
-
-    
+	
 </dl>
 
-
+    
     
 
     
 
     
-
     
-
     
-
+    
     
     <h5>Returns:</h5>
     
@@ -1569,35 +1471,32 @@ don't need to explicitly define it.</p>
 
 
 <dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
 <span class="param-type"><a href="Lens.html">Lens</a></span>
 
 
-    </dd>
+	</dd>
 </dl>
 
-        
 
+        
+    
     
 </dd>
 
         
             
 <dt>
+    <h4 class="name" id="view"><span class="type-signature"></span>view<span class="signature">(view)</span><span class="type-signature"> &rarr; {<a href="Lens.html">Lens</a>}</span></h4>
     
-        
-
-        <h4 class="name" id="view"><span class="type-signature"></span>view<span class="signature">(view)</span><span class="type-signature"> &rarr; {<a href="Lens.html">Lens</a>}</span></h4>
-
-        
     
 </dt>
 <dd>
-
+    
     
     <div class="description">
         <p>Force the <code>Lens</code> to <code>view</code> a new object</p>
@@ -1605,34 +1504,32 @@ don't need to explicitly define it.</p>
     
 
     
-
     
-
     
-
+    
     
         <h5>Parameters:</h5>
         
 
-<table class="params">
+<table class="params table table-striped">
     <thead>
-    <tr>
-        
-        <th>Name</th>
-        
+	<tr>
+		
+		<th>Name</th>
+		
 
-        <th>Type</th>
+		<th>Type</th>
 
-        
+		
 
-        
+		
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
+		<th class="last">Description</th>
+	</tr>
+	</thead>
 
-    <tbody>
-    
+	<tbody>
+	
 
         <tr>
             
@@ -1655,65 +1552,52 @@ don't need to explicitly define it.</p>
             <td class="description last"><p>The object to view a Lens on</p></td>
         </tr>
 
-    
-    </tbody>
+	
+	</tbody>
 </table>
-    
 
     
-
-
+    
+    
 <dl class="details">
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
+	
 
-    
 
-    
 
-    
+	
 
-    
+	
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Lens.js.html">Lens.js</a>, <a href="Lens.js.html#line108">line 108</a>
-    </li></ul></dd>
-    
+	
 
-    
-
-    
-
-    
+	
 </dl>
 
-
+    
     
 
     
 
     
-
     
-
     
-
+    
     
     <h5>Returns:</h5>
     
@@ -1725,19 +1609,20 @@ don't need to explicitly define it.</p>
 
 
 <dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
 <span class="param-type"><a href="Lens.html">Lens</a></span>
 
 
-    </dd>
+	</dd>
 </dl>
 
-        
 
+        
+    
     
 </dd>
 
@@ -1754,19 +1639,96 @@ don't need to explicitly define it.</p>
 
 
 
-</div>
+				</div>
 
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Compose.html">Compose</a></li><li><a href="Getter.html">Getter</a></li><li><a href="IndexedLens.html">IndexedLens</a></li><li><a href="IndexedLens.Unsafe.html">Unsafe</a></li><li><a href="Lens.html">Lens</a></li><li><a href="MultiLens.html">MultiLens</a></li><li><a href="Optional.html">Optional</a></li><li><a href="PathLens.html">PathLens</a></li><li><a href="PathLens.Unsafe.html">Unsafe</a></li><li><a href="Setter.html">Setter</a></li><li><a href="SliceLens.html">SliceLens</a></li></ul><h3>Global</h3><ul><li><a href="global.html#get">get</a></li><li><a href="global.html#IdLens">IdLens</a></li><li><a href="global.html#map">map</a></li></ul>
-</nav>
+				<div class="clearfix"></div>
+				<footer>
+					
+					
+		<span class="jsdoc-message">
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a>
+		on 2014-12-17T09:37:57-05:00 using the <a
+			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		</span>
+				</footer>
+			</div>
 
-<br clear="both">
+			
+			<div class="span3">
+				<div id="toc"></div>
+			</div>
+			
+			<br clear="both">
+		</div>
 
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a> on Wed Dec 17 2014 09:18:53 GMT-0500 (EST)
-</footer>
+	</div>
+	<!--<script src="scripts/sunlight.js"></script>-->
+	<script src="scripts/docstrap.lib.js"></script>
+	<script src="scripts/bootstrap-dropdown.js"></script>
+	<script src="scripts/toc.js"></script>
 
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+	<script>
+		$( function () {
+			$( "[id*='$']" ).each( function () {
+				var $this = $( this );
+
+				$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+			} );
+
+			$( "#toc" ).toc( {
+				anchorName  : function ( i, heading, prefix ) {
+					return $( heading ).attr( "id" ) || ( prefix + i );
+				},
+				selectors   : "h1,h2,h3,h4",
+				showAndHide : false,
+				scrollTo    : "100px"
+			} );
+
+			$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+			$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+			$( '.dropdown-toggle' ).dropdown();
+//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
+
+			$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+				var $this = $( this );
+
+				var example = $this.find( "code" );
+				exampleText = example.html();
+				var lang = /{@lang (.*?)}/.exec( exampleText );
+				if ( lang && lang[1] ) {
+					exampleText = exampleText.replace( lang[0], "" );
+					example.html( exampleText );
+					lang = lang[1];
+				} else {
+					lang = "javascript";
+				}
+
+				if ( lang ) {
+
+					$this
+						.addClass( "sunlight-highlight-" + lang )
+						.addClass( "linenums" )
+						.html( example.html() );
+
+				}
+			} );
+
+			Sunlight.highlightAll( {
+				lineNumbers : false,
+				showMenu : true,
+				enableDoclinks : true
+			} );
+		} );
+	 </script>
+
+
+
+	<!--Navigation and Symbol Display-->
+	
+
+
+	<!--Google Analytics-->
+	
+
 </body>
 </html>

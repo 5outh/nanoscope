@@ -1,6 +1,4 @@
-<a href="https://github.com/5outh/nanoscope"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
-
-<img src="NanoscopeLogo.png" width="400px"></img>
+<a href="https://github.com/5outh/nanoscope"><img src="NanoscopeLogo.png" width="400px"></img></a>
 ## A Lens Library for Javascript
 
 Installation is easy:
@@ -345,15 +343,3 @@ All valid `Lens`es must also satisfy the so-called "Lens Laws":
 
 These laws ensure that `map`, `set` and `get` behave in the manner you'd expect. If you can convince yourself
 that these laws are satisfied, you can rest easy knowing your `Lens` is well-behaved.
-
-## TODO
-- Add addMany and composeMany
-- <s>Documentation (incl. lens laws)!<s>
-- <s>Unsafe `PathLens`</s>
-- <s>Use actual inheritance instead of making up my own</s>
-- <s>Change 'options' to 'flags' and put flags in own sub-property instead of
-top-level (i.e. `_flags: { _index: 0}` instead of just `_index: 0`)</s>
-- <s>Identity Lens</s>
-- <s>MultiLenses (View multiple things at once return them all)</s>
-- <s>SliceLenses (View index ranges of arrays)</s>
-- <s>Lens derivation from objects (`PathLens`es) and arrays (`IndexedLens`es)</s>

@@ -13,7 +13,9 @@
     "parser": "gfm"
   },
   "templates": {
-    "theme": "amelia",
+    "systemName": "nanoscope",
+    "theme": "spacelab",
+    "navType": "vertical",
     "cleverLinks": true,
     "monospaceLinks": true,
     "default": {

@@ -1,32 +1,122 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+	<meta charset="utf-8">
+	<title>nanoscope Index</title>
 
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.spacelab.css">
+
 </head>
 
 <body>
+<div class="container-fluid">
+	<div class="navbar navbar-fixed-top ">
+		<div class="navbar-inner">
+			<a class="brand" href="index.html">nanoscope</a>
+			<ul class="nav">
+				
+				<li class="dropdown">
+					<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b
+						class="caret"></b></a>
 
-<div id="main">
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="Compose.html">Compose</a>
+						</li>
+						
+						<li>
+							<a href="Getter.html">Getter</a>
+						</li>
+						
+						<li>
+							<a href="IndexedLens.html">IndexedLens</a>
+						</li>
+						
+						<li>
+							<a href="IndexedLens.Unsafe.html">IndexedLens.Unsafe</a>
+						</li>
+						
+						<li>
+							<a href="Lens.html">Lens</a>
+						</li>
+						
+						<li>
+							<a href="MultiLens.html">MultiLens</a>
+						</li>
+						
+						<li>
+							<a href="Optional.html">Optional</a>
+						</li>
+						
+						<li>
+							<a href="PathLens.html">PathLens</a>
+						</li>
+						
+						<li>
+							<a href="PathLens.Unsafe.html">PathLens.Unsafe</a>
+						</li>
+						
+						<li>
+							<a href="Setter.html">Setter</a>
+						</li>
+						
+						<li>
+							<a href="SliceLens.html">SliceLens</a>
+						</li>
+						
 
-    <h1 class="page-title">Home</h1>
+					</ul>
+				</li>
+				
+				<li class="dropdown">
+					<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b
+						class="caret"></b></a>
 
-    
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="global.html#get">get</a>
+						</li>
+						
+						<li>
+							<a href="global.html#IdLens">IdLens</a>
+						</li>
+						
+						<li>
+							<a href="global.html#map">map</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+
+	<div class="row-fluid">
+
+		
+		<div class="span8">
+			
+				<div id="main">
+					
+
+
+	
+	<span class="page-title">Index</span>
+	
+	
 
 
 
-    
-
-
-    <h3> </h3>
 
 
 
@@ -36,15 +126,15 @@
 
 
 
-
-    
-
-
+	
+	
 
 
-    <section>
-        <article><p><a href="https://github.com/5outh/nanoscope"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a></p>
-<p><img src="NanoscopeLogo.png" width="400px"></img></p>
+
+
+
+    <section class="readme-section">
+        <article><p><a href="https://github.com/5outh/nanoscope"><img src="NanoscopeLogo.png" width="400px"></img></a></p>
 <h2>A Lens Library for Javascript</h2><p>Installation is easy:</p>
 <pre class="prettyprint source"><code>$ npm install nanoscope</code></pre><h3>What is a Lens?</h3><p>A <code>Lens</code> is a construct that allow you to peer into data structures and modify their contents. At base level, a <code>Lens</code>
 consists of a getter and a mapping function over a specific sub-part of your data. <code>Lens</code>es allow you to modify data
@@ -261,19 +351,7 @@ access to data.</li>
 <li>set-set (setting twice is the same as setting once): <code>lens.set(c, lens.set(b, a)) = lens.set(c, a)</code></li>
 </ol>
 <p>These laws ensure that <code>map</code>, <code>set</code> and <code>get</code> behave in the manner you'd expect. If you can convince yourself
-that these laws are satisfied, you can rest easy knowing your <code>Lens</code> is well-behaved.</p>
-<h2>TODO</h2><ul>
-<li>Add addMany and composeMany</li>
-<li><s>Documentation (incl. lens laws)!<s></li>
-<li><s>Unsafe <code>PathLens</code></s></li>
-<li><s>Use actual inheritance instead of making up my own</s></li>
-<li><s>Change 'options' to 'flags' and put flags in own sub-property instead of
-top-level (i.e. <code>_flags: { _index: 0}</code> instead of just <code>_index: 0</code>)</s></li>
-<li><s>Identity Lens</s></li>
-<li><s>MultiLenses (View multiple things at once return them all)</s></li>
-<li><s>SliceLenses (View index ranges of arrays)</s></li>
-<li><s>Lens derivation from objects (<code>PathLens</code>es) and arrays (<code>IndexedLens</code>es)</s></li>
-</ul></article>
+that these laws are satisfied, you can rest easy knowing your <code>Lens</code> is well-behaved.</p></article>
     </section>
 
 
@@ -281,19 +359,97 @@ top-level (i.e. <code>_flags: { _index: 0}</code> instead of just <code>_index: 
 
 
 
-</div>
 
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Compose.html">Compose</a></li><li><a href="Getter.html">Getter</a></li><li><a href="IndexedLens.html">IndexedLens</a></li><li><a href="IndexedLens.Unsafe.html">Unsafe</a></li><li><a href="Lens.html">Lens</a></li><li><a href="MultiLens.html">MultiLens</a></li><li><a href="Optional.html">Optional</a></li><li><a href="PathLens.html">PathLens</a></li><li><a href="PathLens.Unsafe.html">Unsafe</a></li><li><a href="Setter.html">Setter</a></li><li><a href="SliceLens.html">SliceLens</a></li></ul><h3>Global</h3><ul><li><a href="global.html#get">get</a></li><li><a href="global.html#IdLens">IdLens</a></li><li><a href="global.html#map">map</a></li></ul>
-</nav>
+				</div>
 
-<br clear="both">
+				<div class="clearfix"></div>
+				<footer>
+					
+					
+		<span class="jsdoc-message">
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a>
+		on 2014-12-17T09:37:57-05:00 using the <a
+			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		</span>
+				</footer>
+			</div>
 
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a> on Wed Dec 17 2014 09:18:53 GMT-0500 (EST)
-</footer>
+			
+			<div class="span3">
+				<div id="toc"></div>
+			</div>
+			
+			<br clear="both">
+		</div>
 
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+	</div>
+	<!--<script src="scripts/sunlight.js"></script>-->
+	<script src="scripts/docstrap.lib.js"></script>
+	<script src="scripts/bootstrap-dropdown.js"></script>
+	<script src="scripts/toc.js"></script>
+
+	<script>
+		$( function () {
+			$( "[id*='$']" ).each( function () {
+				var $this = $( this );
+
+				$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+			} );
+
+			$( "#toc" ).toc( {
+				anchorName  : function ( i, heading, prefix ) {
+					return $( heading ).attr( "id" ) || ( prefix + i );
+				},
+				selectors   : "h1,h2,h3,h4",
+				showAndHide : false,
+				scrollTo    : "100px"
+			} );
+
+			$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+			$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+			$( '.dropdown-toggle' ).dropdown();
+//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
+
+			$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+				var $this = $( this );
+
+				var example = $this.find( "code" );
+				exampleText = example.html();
+				var lang = /{@lang (.*?)}/.exec( exampleText );
+				if ( lang && lang[1] ) {
+					exampleText = exampleText.replace( lang[0], "" );
+					example.html( exampleText );
+					lang = lang[1];
+				} else {
+					lang = "javascript";
+				}
+
+				if ( lang ) {
+
+					$this
+						.addClass( "sunlight-highlight-" + lang )
+						.addClass( "linenums" )
+						.html( example.html() );
+
+				}
+			} );
+
+			Sunlight.highlightAll( {
+				lineNumbers : false,
+				showMenu : true,
+				enableDoclinks : true
+			} );
+		} );
+	 </script>
+
+
+
+	<!--Navigation and Symbol Display-->
+	
+
+
+	<!--Google Analytics-->
+	
+
 </body>
 </html>
