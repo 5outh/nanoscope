@@ -141,6 +141,21 @@ Lens.prototype.compose = function (otherLens) {
 };
 
 /**
+ * Compose this lens with many other Lenses, specified by an array in which to order them.
+ *
+ * @param otherLenses
+ * @returns {Lens}
+ */
+Lens.prototype.composeMany = function (otherLenses) {
+    var lens = this;
+
+    _.forEach(otherLenses, function (otherLens) {
+        lens = lens.compose(otherLens);
+    });
+    return lens;
+};
+
+/**
  * Add a new focus to this `Lens` by providing another `Lens` with which to focus with.
  *
  * @param otherLens The `Lens` to add to this `Lens`
@@ -149,6 +164,21 @@ Lens.prototype.compose = function (otherLens) {
 Lens.prototype.add = function (otherLens) {
     var MultiLens = require('./combinator/MultiLens');
     return new MultiLens([this, otherLens], _.extend(this.getFlags(), otherLens.getFlags()));
+};
+
+/**
+ * Add many new focuses to this `Lens` by providing an array of other lenses to focus with.
+ *
+ * @param otherLenses
+ * @returns {Lens}
+ */
+Lens.prototype.addMany = function (otherLenses) {
+    var lens = this;
+
+    _.forEach(otherLenses, function (otherLens) {
+        lens = lens.add(otherLens);
+    });
+    return lens;
 };
 
 module.exports = Lens;
