@@ -48,7 +48,7 @@ headLens.view([1, 2, 3]).map(function (elem) { return elem * 10; }); // =>  [10,
 headLens.compose(headLens).view([['what'], 2, 3]).get(); // =>  'what'
 
 // Assume lastLens focuses on the last element
-headLens.compose(lastLens).view([1, 2, 3]).get(); // => [1, 3]
+headLens.add(lastLens).view([1, 2, 3]).get(); // => [1, 3]
 ```
 
 Of particular interest is `compose`, which allows us to compose a `headLens` with a `headLens` to focus on an array's first
