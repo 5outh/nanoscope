@@ -68,8 +68,6 @@ describe('Lens', function () {
 
             composed.view(obj).get().should.equal(1);
 
-            console.log(composed.view(obj).set(100));
-
             utils.testArrayEquals(
                 composed.view(obj).set(100).a.b,
                 [100, 2, 3]
