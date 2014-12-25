@@ -48,7 +48,7 @@ headLens.view([1, 2, 3]).map(function (elem) { return elem * 10; }); // =>  [10,
 headLens.compose(headLens).view([['what'], 2, 3]).get(); // =>  'what'
 
 // Assume lastLens focuses on the last element
-headLens.compose(lastLens).view([1, 2, 3]).get(); // => [1, 3]
+headLens.add(lastLens).view([1, 2, 3]).get(); // => [1, 3]
 ```
 
 Of particular interest is `compose`, which allows us to compose a `headLens` with a `headLens` to focus on an array's first
@@ -343,15 +343,3 @@ All valid `Lens`es must also satisfy the so-called "Lens Laws":
 
 These laws ensure that `map`, `set` and `get` behave in the manner you'd expect. If you can convince yourself
 that these laws are satisfied, you can rest easy knowing your `Lens` is well-behaved.
-
-## TODO
-- Add addMany and composeMany
-- <s>Documentation (incl. lens laws)!<s>
-- <s>Unsafe `PathLens`</s>
-- <s>Use actual inheritance instead of making up my own</s>
-- <s>Change 'options' to 'flags' and put flags in own sub-property instead of
-top-level (i.e. `_flags: { _index: 0}` instead of just `_index: 0`)</s>
-- <s>Identity Lens</s>
-- <s>MultiLenses (View multiple things at once return them all)</s>
-- <s>SliceLenses (View index ranges of arrays)</s>
-- <s>Lens derivation from objects (`PathLens`es) and arrays (`IndexedLens`es)</s>
