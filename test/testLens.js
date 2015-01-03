@@ -75,6 +75,24 @@ describe('Lens', function () {
         });
     });
 
+    describe('#composeMany', function () {
+        it('should compose several lenses when given an array argument', function () {
+            var headLens = new IndexedLens(0),
+                composed = headLens.composeMany([headLens, headLens]),
+                arr = [[[1]]];
+
+            composed.view(arr).get().should.equal(1);
+        });
+
+        it('should compose several lenses when given variable-length argument', function () {
+            var headLens = new IndexedLens(0),
+                composed = headLens.composeMany(headLens, headLens),
+                arr = [[[1]]];
+
+            composed.view(arr).get().should.equal(1);
+        });
+    });
+
     describe('#add', function () {
         it('should add the lens to another lens', function () {
             var multi = new IndexedLens(0).add(new IndexedLens(1)),
@@ -86,6 +104,22 @@ describe('Lens', function () {
                 multi.view(arr).set(100),
                 [100, 100, 3]
             );
+        });
+    });
+
+    describe('#addMany', function () {
+        it('should add several lenses when given an array argument', function () {
+            var composed = new IndexedLens(0).addMany([new IndexedLens(1), new IndexedLens(2)]),
+                arr = [1, 2, 3];
+
+            utils.testArrayEquals(composed.view(arr).get(), [1, 2, 3]);
+        });
+
+        it('should add several lenses when given variable-length argument', function () {
+            var composed = new IndexedLens(0).addMany(new IndexedLens(1), new IndexedLens(2)),
+                arr = [1, 2, 3];
+
+            utils.testArrayEquals(composed.view(arr).get(), [1, 2, 3]);
         });
     });
 

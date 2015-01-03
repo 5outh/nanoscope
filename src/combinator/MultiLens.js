@@ -97,4 +97,25 @@ MultiLens = function (lenses, flags) {
 
 MultiLens.prototype = new Lens;
 
+/**
+ * Add a new focus to this `Lens` by providing another `Lens` with which to focus with.
+ *
+ * @param otherLens The `Lens` to add to this `Lens`
+ * @returns {MultiLens}
+ */
+MultiLens.prototype.add = function (otherLens) {
+    var lenses = this._lenses,
+        flags = _.extend(this.getFlags(), otherLens.getFlags());
+
+    if (_.isArray(lenses)) {
+        lenses.push(otherLens);
+    } else if (_.isObject(lenses)) {
+        if (_.isObject(otherLens)) {
+            lenses = _.extend(lenses, otherLens);
+        }
+    }
+
+    return new MultiLens(lenses, flags);
+};
+
 module.exports = MultiLens;

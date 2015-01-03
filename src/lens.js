@@ -147,11 +147,18 @@ Lens.prototype.compose = function (otherLens) {
  * @returns {Lens}
  */
 Lens.prototype.composeMany = function (otherLenses) {
-    var lens = this;
+    var args = arguments,
+        lens = this;
+
+    // Support variable length args
+    if (args.length > 1) {
+        otherLenses = args;
+    }
 
     _.forEach(otherLenses, function (otherLens) {
         lens = lens.compose(otherLens);
     });
+
     return lens;
 };
 
@@ -173,11 +180,18 @@ Lens.prototype.add = function (otherLens) {
  * @returns {Lens}
  */
 Lens.prototype.addMany = function (otherLenses) {
-    var lens = this;
+    var args = arguments,
+        lens = this;
+
+    // Support variable length args
+    if (args.length > 1) {
+        otherLenses = args;
+    }
 
     _.forEach(otherLenses, function (otherLens) {
         lens = lens.add(otherLens);
     });
+
     return lens;
 };
 

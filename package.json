@@ -27,6 +27,9 @@
     "steeltoe": "^1.0.1"
   },
   "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-mocha": "^2.0.0",
+    "gulp-watch": "^3.0.0",
     "ink-docstrap": "^0.4.12",
     "should": "^4.3.0"
   }
