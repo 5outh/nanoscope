@@ -1,6 +1,6 @@
 "use strict";
 
-var IdLens = require('../src/IdLens');
+var IdLens = require('../lib/primitives/IdLens');
 
 describe('IdLens', function () {
     var lens;

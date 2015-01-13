@@ -142,10 +142,21 @@ map = function (path, unsafe) {
  */
 PathLens = function (path, unsafe) {
     this.base = Lens;
-    this.base(get(path, unsafe), map(path, unsafe), { _path: path });
+    this.base(get(path, unsafe), map(path, unsafe), { _path: path, _baseCtor: this.constructor });
 };
 
 PathLens.prototype = new Lens;
+
+PathLens.prototype.add = function (otherLens) {
+    var MultiLens = require('../combinator/MultiLens');
+
+    if (otherLens instanceof Lens) {
+        return new MultiLens([this, otherLens], this.getFlags());
+    }
+
+    // If the Lens being added is not a Lens, construct it using the PathLens constructor
+    return new MultiLens([this, new PathLens(otherLens)], this.getFlags());
+};
 
 /**
  * Helper function for building all paths in an object

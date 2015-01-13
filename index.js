@@ -5,7 +5,7 @@ module.exports = {
     IndexedLens: require('./src/array/IndexedLens'),
     SliceLens: require('./src/array/SliceLens'),
     PathLens: require('./src/object/PathLens'),
-    IdLens: require('./src/IdLens'),
+    IdLens: require('./lib/primitives/IdLens'),
 
     // Composite Lenses
     Compose: require('./src/combinator/Compose'),
