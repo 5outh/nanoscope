@@ -1,8 +1,8 @@
 var Lens = require('../src/Lens'),
-    Optional = require('../src/combinator/Optional'),
+    Optional = require('../src/Optional'),
     Getter = require('../src/Getter'),
     Setter = require('../src/Setter'),
-    IndexedLens = require('../src/array/IndexedLens'),
+    IndexedLens = require('../src/IndexedLens'),
     IdLens = require('../lib/primitives/IdLens'),
     utils = require('./utils');
 

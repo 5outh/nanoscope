@@ -1,7 +1,7 @@
 "use strict";
 
 var _ = require('lodash'),
-    Lens = require('./../Lens'),
+    Lens = require('./Lens'),
 
     get,
     map,

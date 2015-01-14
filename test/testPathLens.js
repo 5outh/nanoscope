@@ -1,7 +1,7 @@
 "use strict";
 
 var _ = require('lodash'),
-    PathLens = require('../src/object/PathLens'),
+    PathLens = require('../src/PathLens'),
     utils = require('./utils');
 
 describe('PathLens', function () {

@@ -1,8 +1,8 @@
 "use strict";
 
 var _ = require('lodash'),
-    IndexedLens = require('../src/array/IndexedLens'),
-    Compose = require('../src/combinator/Compose');
+    IndexedLens = require('../src/IndexedLens'),
+    Compose = require('../src/Compose');
 
 describe('Compose', function () {
     var testArr, compositeLens;

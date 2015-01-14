@@ -2,15 +2,15 @@ module.exports = {
     Lens: require('./src/Lens'),
 
     // Predefined Lenses
-    IndexedLens: require('./src/array/IndexedLens'),
-    SliceLens: require('./src/array/SliceLens'),
-    PathLens: require('./src/object/PathLens'),
+    IndexedLens: require('./src/IndexedLens'),
+    SliceLens: require('./src/SliceLens'),
+    PathLens: require('./src/PathLens'),
     IdLens: require('./lib/primitives/IdLens'),
 
     // Composite Lenses
-    Compose: require('./src/combinator/Compose'),
-    Optional: require('./src/combinator/Optional'),
-    MultiLens: require('./src/combinator/MultiLens'),
+    Compose: require('./src/Compose'),
+    Optional: require('./src/Optional'),
+    MultiLens: require('./src/MultiLens'),
 
     // Special Cases
     Getter: require('./src/Getter'),

@@ -1,7 +1,7 @@
 "use strict";
 
 var _ = require('lodash'),
-    SliceLens = require('../src/array/SliceLens'),
+    SliceLens = require('../src/SliceLens'),
     utils = require('./utils');
 
 describe('SliceLens', function () {

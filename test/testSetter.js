@@ -1,7 +1,7 @@
 "use strict";
 
 var _ = require('lodash'),
-    IndexedLens = require('../src/array/IndexedLens'),
+    IndexedLens = require('../src/IndexedLens'),
     Setter = require('../src/Setter'),
     Getter = require('../src/Getter'),
     IdLens = require('../lib/primitives/IdLens');
