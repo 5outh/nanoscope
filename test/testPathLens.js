@@ -153,5 +153,13 @@ describe('PathLens', function () {
                 }
             });
         });
+
+        it('should still throw errors if unsafe flag is set', function () {
+            var failLens = new PathLens.Unsafe('b').composePath('d.e').view(obj);
+
+            expect(function () {
+                failLens.get();
+            }).to.throw(TypeError, 'Cannot read property \'e\' of undefined');
+        });
     });
 });
