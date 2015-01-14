@@ -108,6 +108,70 @@ describe('PluckLens', function () {
     });
 
     describe('#map', function () {
-        // TODO
+        var obj = {
+                _a : {
+                    _b: {
+                        c: 2
+                    }
+                },
+                d: 3
+            },
+            double = function (elem) {
+                return elem * 2;
+            };
+
+        it('should map the correct properties with a pluck array', function () {
+            var pluckLens = new PluckLens(['d']);
+
+            expect(pluckLens.view(obj).map(double)).to.eql({
+                _a: {
+                    _b: {
+                        c: 2
+                    }
+                },
+                d: 6
+            });
+        });
+
+        it('should map the correct properties with a pluck regex', function () {
+            var pluckLens = new PluckLens(/^[a-z]$/);
+
+            expect(pluckLens.view(obj).map(double)).to.eql({
+                _a: {
+                    _b: {
+                        c: 2
+                    }
+                },
+                d: 6
+            });
+        });
+
+        it('should map the correct properties with a pluck function', function () {
+            var pluckLens = new PluckLens(function (prop) {
+                return prop.match(/^[a-z]$/);
+            });
+
+            expect(pluckLens.view(obj).map(double)).to.eql({
+                _a: {
+                    _b: {
+                        c: 2
+                    }
+                },
+                d: 6
+            });
+        });
+
+        it('should map recursively if the recursive flag is on', function () {
+            var pluckLens = new PluckLens.Recursive(/^[a-z]$/);
+
+            expect(pluckLens.view(obj).map(double)).to.eql({
+                _a: {
+                    _b: {
+                        c: 4
+                    }
+                },
+                d: 6
+            });
+        });
     });
 });

@@ -52,9 +52,43 @@ get = function (plucker, recursive, object) {
     };
 };
 
-map = function (plucker, recursive) {
-    return function (obj, func) {
-        return obj;
+map = function (plucker, recursive, object) {
+    return function (viewedObject, func) {
+
+        if (_.isUndefined(object)) {
+            object = _.cloneDeep(viewedObject);
+        }
+
+        _.forEach(_.keys(viewedObject), function (property) {
+
+            if (_.isRegExp(plucker)) {
+
+                if (property.match(plucker)) {
+                    object[property] = func(viewedObject[property]);
+                }
+
+            } else if (_.isArray(plucker)) {
+
+                if (_.contains(plucker, property)) {
+                    object[property] = func(viewedObject[property]);
+                }
+
+            } else if (_.isFunction(plucker)) {
+
+                if (plucker(property)) {
+                    object[property] = func(viewedObject[property]);
+                }
+
+            } else {
+                throw new Error('Plucker must be one of: Regex, Array, or Function');
+            }
+
+            if (recursive && _.isObject(viewedObject[property])) {
+                map(plucker, recursive, object[property])(viewedObject[property], func);
+            }
+        });
+
+        return object;
     };
 };
 
