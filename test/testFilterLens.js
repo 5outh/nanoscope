@@ -18,12 +18,18 @@ describe('FilterLens', function () {
     });
 
     describe('#get', function () {
-        it('should get the even elements', function () {
+        it('should get the even elements with a filter function', function () {
             var lens = new FilterLens(function (elem) {
                 return (elem % 2 === 0);
             });
 
             utils.testArrayEquals(lens.view([1, 2, 3, 4, 5, 6]).get(), [2, 4, 6]);
+        });
+
+        it('should get the alpha elements with a filter regex', function () {
+            var lens = new FilterLens(/^[a-zA-Z]*$/);
+
+            utils.testArrayEquals(lens.view(['abc', 'abD', 'a8b', '889']).get(), ['abc', 'abD']);
         });
     });
 
@@ -36,6 +42,17 @@ describe('FilterLens', function () {
             utils.testArrayEquals(
                 lens.view([1, 2, 3, 4, 5, 6]).map(function (elem) { return elem * 2; }),
                 [1, 4, 3, 8, 5, 12]
+            );
+        });
+
+        it('should map only the alpha elements with a filter regex', function () {
+            var lens = new FilterLens(/^[a-zA-Z]*$/);
+
+            utils.testArrayEquals(
+                lens.view(['abc', 'abD', 'a8b', '889']).map(function (str) {
+                    return str.toUpperCase();
+                }),
+                ['ABC', 'ABD', 'a8b', '889']
             );
         });
     });

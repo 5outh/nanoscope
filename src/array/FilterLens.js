@@ -15,8 +15,16 @@ var _ = require('lodash'),
  */
 get = function (filter) {
     return function (arr) {
-        // Return only the elements that are truthy from the filter function
-        return _.filter(arr, filter);
+        if (_.isFunction(filter)) {
+            // Return only the elements that are truthy from the filter function
+            return _.filter(arr, filter);
+        }
+
+        if (_.isRegExp(filter)) {
+            return _.filter(arr, function (elem) {
+                return elem.match(filter);
+            });
+        }
     };
 };
 
@@ -30,7 +38,13 @@ map = function (filter) {
     return function (arr, func) {
         // Only map elements that are truthy from the filter function
         return _.map(_.cloneDeep(arr), function (elem) {
-            return filter(elem) ? func(elem) : elem;
+            if (_.isFunction(filter)) {
+                return filter(elem) ? func(elem) : elem;
+            }
+
+            if (_.isRegExp(filter)) {
+                return elem.match(filter) ? func(elem) : elem;
+            }
         });
     };
 };
