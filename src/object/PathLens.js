@@ -22,7 +22,7 @@
 var _ = require('lodash'),
     steelToe = require('steeltoe'),
 
-    Lens = require('./Lens'),
+    Lens = require('../Lens'),
 
     get,
     map,
@@ -148,7 +148,7 @@ PathLens = function (path, unsafe) {
 PathLens.prototype = new Lens;
 
 PathLens.prototype.add = function (otherLens) {
-    var MultiLens = require('MultiLens');
+    var MultiLens = require('../combinator/MultiLens');
 
     if (otherLens instanceof Lens) {
         return new MultiLens([this, otherLens], this.getFlags());

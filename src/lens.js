@@ -155,7 +155,7 @@ Lens.prototype.addFlag = function (flag) {
  * @returns {Compose}
  */
 Lens.prototype.compose = function (otherLens) {
-    var Compose = require('./Compose');
+    var Compose = require('./combinator/Compose');
     return new Compose(this, otherLens, _.extend(this.getFlags(), otherLens.getFlags()));
 };
 
@@ -188,7 +188,7 @@ Lens.prototype.composeMany = function (otherLenses) {
  * @returns {MultiLens}
  */
 Lens.prototype.add = function (otherLens) {
-    var MultiLens = require('./MultiLens');
+    var MultiLens = require('./combinator/MultiLens');
 
     return new MultiLens([this, otherLens], _.extend(this.getFlags(), otherLens.getFlags()));
 };
