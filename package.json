@@ -4,7 +4,7 @@
   "description": "Experimental lenses in Javascript",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha -R list"
   },
   "repository": {
     "type": "git",
