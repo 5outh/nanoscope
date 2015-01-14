@@ -1,4 +1,5 @@
 <img src="NanoscopeLogo.png" width="400px"></img>
+<img src="https://travis-ci.org/5outh/nanoscope.svg?branch=master"></img>
 ## A Lens Library for Javascript
 
 Installation is easy:
