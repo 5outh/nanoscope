@@ -4,7 +4,7 @@
   "description": "Experimental lenses in Javascript",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha -R list"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "gulp-mocha": "^2.0.0",
     "gulp-watch": "^3.0.0",
     "ink-docstrap": "^0.4.12",
+    "mocha": "^2.1.0",
     "should": "^4.3.0"
   }
 }

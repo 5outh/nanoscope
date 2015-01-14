@@ -3,7 +3,7 @@ var Lens = require('../src/Lens'),
     Getter = require('../src/Getter'),
     Setter = require('../src/Setter'),
     IndexedLens = require('../src/array/IndexedLens'),
-    IdLens = require('../src/IdLens'),
+    IdLens = require('../lib/primitives/IdLens'),
     utils = require('./utils');
 
 describe('Optional', function () {

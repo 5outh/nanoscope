@@ -1,8 +1,4 @@
 "use strict";
-
-var _ = require('lodash'),
-    Lens;
-
 /**
  * A `Lens` is a construct that allows you to 'peer into' some structure and operate on sub-parts of it. A `Lens` supports
  * three basic operations:
@@ -41,6 +37,10 @@ var _ = require('lodash'),
  * @returns {Lens}
  * @constructor
  */
+
+var _ = require('lodash'),
+    Lens;
+
 Lens = function (get, map, flags) {
     var self = this;
 
@@ -130,6 +130,25 @@ Lens.prototype.getFlags = function () {
 };
 
 /**
+ * Get a specific flag from a Lens
+ *
+ * @param flag
+ * @returns {*}
+ */
+Lens.prototype.getFlag = function (flag) {
+    return this._flags.flag;
+};
+
+/**
+ * Add a flag to the Lens
+ *
+ * @param {*} flag
+ */
+Lens.prototype.addFlag = function (flag) {
+    this._flags = _.extend(this._flags, flag);
+};
+
+/**
  * Compose this lens with another `Lens`
  *
  * @param {Lens} otherLens The `Lens` to compose this one with
@@ -170,6 +189,7 @@ Lens.prototype.composeMany = function (otherLenses) {
  */
 Lens.prototype.add = function (otherLens) {
     var MultiLens = require('./combinator/MultiLens');
+
     return new MultiLens([this, otherLens], _.extend(this.getFlags(), otherLens.getFlags()));
 };
 

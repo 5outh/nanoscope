@@ -105,7 +105,16 @@ MultiLens.prototype = new Lens;
  */
 MultiLens.prototype.add = function (otherLens) {
     var lenses = this._lenses,
-        flags = _.extend(this.getFlags(), otherLens.getFlags());
+        flags = this.getFlags(),
+        lensConstructor;
+
+    if (this.getFlag('_baseCtor')) {
+        lensConstructor = this.getFlag('_baseCtor');
+        this.addFlag({ _baseCtor: lensConstructor });
+        otherLens = lensConstructor(otherLens);
+    }
+
+    flags = _.extend(flags, otherLens.getFlags());
 
     if (_.isArray(lenses)) {
         lenses.push(otherLens);
