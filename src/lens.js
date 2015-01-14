@@ -1,8 +1,4 @@
 "use strict";
-
-var _ = require('lodash'),
-    Lens;
-
 /**
  * A `Lens` is a construct that allows you to 'peer into' some structure and operate on sub-parts of it. A `Lens` supports
  * three basic operations:
@@ -41,6 +37,10 @@ var _ = require('lodash'),
  * @returns {Lens}
  * @constructor
  */
+
+var _ = require('lodash'),
+    Lens;
+
 Lens = function (get, map, flags) {
     var self = this;
 
