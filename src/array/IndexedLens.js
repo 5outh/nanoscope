@@ -2,8 +2,8 @@
 
 var _ = require('lodash'),
 
-    Lens = require('../Lens.js'),
-    utils = require('./utils'),
+    Lens = requireFromRoot('src/Lens'),
+    utils = requireFromRoot('src/array/utils'),
 
     IndexedLens,
 
