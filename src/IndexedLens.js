@@ -10,6 +10,11 @@ var _ = require('lodash'),
     get,
     map;
 
+(function () {
+    Lens = require('../Lens');
+    utils = require('./utils');
+}());
+
 /**
  * Get the element at a specific index of an array
  *
