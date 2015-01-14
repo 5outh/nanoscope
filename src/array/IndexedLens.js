@@ -2,7 +2,7 @@
 
 var _ = require('lodash'),
 
-    Lens = require('../Lens'),
+    Lens = require('../Lens.js'),
     utils = require('./utils'),
 
     IndexedLens,
