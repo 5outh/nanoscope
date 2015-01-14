@@ -2,13 +2,18 @@
 
 var _ = require('lodash'),
 
-    Lens = requireFromRoot('src/Lens'),
-    utils = requireFromRoot('src/array/utils'),
+    Lens,
+    utils,
 
     IndexedLens,
 
     get,
     map;
+
+(function () {
+    Lens = require('../Lens');
+    utils = require('./utils');
+}());
 
 /**
  * Get the element at a specific index of an array

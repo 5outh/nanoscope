@@ -1,9 +1,3 @@
-// Require from the root of the project
-global.requireFromRoot = function (path) {
-    "use strict";
-    return require(__dirname + '/' + path);
-};
-
 module.exports = {
     Lens: require('./src/Lens'),
 
