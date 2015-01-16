@@ -136,7 +136,7 @@ Lens.prototype.getFlags = function () {
  * @returns {*}
  */
 Lens.prototype.getFlag = function (flag) {
-    return this._flags.flag;
+    return this._flags[flag];
 };
 
 /**

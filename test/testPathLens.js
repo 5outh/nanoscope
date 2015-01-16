@@ -115,4 +115,51 @@ describe('PathLens', function () {
             utils.testArrayEquals(lenses['a.b.c.d.e'].get(obj), [1, 2, 3, 4, 5]);
         });
     });
+
+    describe('#addPath', function () {
+        var obj = { a: 1, b : { c: 2 }},
+            lens = new PathLens('a').addPath('b.c').view(obj);
+
+        it('should get properly', function () {
+            utils.testArrayEquals(
+                lens.get(),
+                [1, 2]
+            );
+        });
+
+        it('should map properly', function () {
+            expect(lens.map(function (elem) { return elem * 2; })).to.eql({
+                a: 2,
+                b: {
+                    c: 4
+                }
+            });
+        });
+    });
+
+    describe('#composePath', function () {
+        var obj = { a: 1, b : { c: 2 }},
+            lens = new PathLens('b').composePath('c').view(obj);
+
+        it('should get properly', function () {
+            expect(lens.get()).to.equal(2);
+        });
+
+        it('should map properly', function () {
+            expect(lens.map(function (elem) { return elem * 2; })).to.eql({
+                a: 1,
+                b: {
+                    c: 4
+                }
+            });
+        });
+
+        it('should still throw errors if unsafe flag is set', function () {
+            var failLens = new PathLens.Unsafe('b').composePath('d.e').view(obj);
+
+            expect(function () {
+                failLens.get();
+            }).to.throw(TypeError, 'Cannot read property \'e\' of undefined');
+        });
+    });
 });

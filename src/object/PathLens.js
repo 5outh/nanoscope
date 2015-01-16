@@ -142,21 +142,10 @@ map = function (path, unsafe) {
  */
 PathLens = function (path, unsafe) {
     this.base = Lens;
-    this.base(get(path, unsafe), map(path, unsafe), { _path: path, _baseCtor: this.constructor });
+    this.base(get(path, unsafe), map(path, unsafe), { _path: path, _unsafe: unsafe || false });
 };
 
 PathLens.prototype = new Lens;
-
-PathLens.prototype.add = function (otherLens) {
-    var MultiLens = require('../combinator/MultiLens');
-
-    if (otherLens instanceof Lens) {
-        return new MultiLens([this, otherLens], this.getFlags());
-    }
-
-    // If the Lens being added is not a Lens, construct it using the PathLens constructor
-    return new MultiLens([this, new PathLens(otherLens)], this.getFlags());
-};
 
 /**
  * Helper function for building all paths in an object
@@ -215,6 +204,26 @@ PathLens.deriveLenses = function (obj) {
     });
 
     return lenses;
+};
+
+/**
+ * Add a path to a PathLens (safety preserved)
+ *
+ * @param path
+ * @returns {*}
+ */
+PathLens.prototype.addPath = function (path) {
+    return this.add(new PathLens(path, this.getFlag('_unsafe')));
+};
+
+/**
+ * Concatenate the path of this PathLens with another path (safety preserved)
+ *
+ * @param path
+ * @returns {Compose}
+ */
+PathLens.prototype.composePath = function (path) {
+    return this.compose(new PathLens(path, this.getFlag('_unsafe')));
 };
 
 /**
