@@ -139,5 +139,4 @@ Lens.prototype.composeIndex = function (index) {
     return this.compose(new IndexedLens(index, this.getFlag('_unsafeIndex')));
 };
 
-
 module.exports = IndexedLens;

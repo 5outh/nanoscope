@@ -8,6 +8,14 @@ var _ = require('lodash'),
     get,
     map;
 
+/**
+ * Pluck properties of an object based on regular expression, an array of properties or filtering function.
+ *
+ * @param plucker
+ * @param recursive
+ * @param object
+ * @returns {Function}
+ */
 get = function (plucker, recursive, object) {
     if (_.isUndefined(object)) {
         object = {};
@@ -52,6 +60,14 @@ get = function (plucker, recursive, object) {
     };
 };
 
+/**
+ * Map plucked properties of an object based on regular expression, an array of properties or filtering function.
+ *
+ * @param plucker
+ * @param recursive
+ * @param object
+ * @returns {Function}
+ */
 map = function (plucker, recursive, object) {
     return function (viewedObject, func) {
 
@@ -92,6 +108,17 @@ map = function (plucker, recursive, object) {
     };
 };
 
+/**
+ * A PluckLens is a Lens that focuses only on specified properties of an object, based on one of:
+ *
+ * - An array of specific properties to pluck,
+ * - A Regular Expression,
+ * - or a filtering function that is run on each property (plucks properties for which the filter returns true)
+ *
+ * @param plucker
+ * @param recursive
+ * @constructor
+ */
 PluckLens = function (plucker, recursive) {
     // Clean up flag
     if (!recursive) {
@@ -104,8 +131,35 @@ PluckLens = function (plucker, recursive) {
 
 PluckLens.prototype = new Lens;
 
+/**
+ * Pluck all the way down, instead of just on the top-level of an object.
+ *
+ * @param plucker
+ * @returns {PluckLens}
+ * @constructor
+ */
 PluckLens.Recursive = function (plucker) {
     return new PluckLens(plucker, true);
+};
+
+/**
+ * Add a Pluck to a Lens (preserves recursive, but can be specified in options)
+ *
+ * @param plucker
+ * @returns {MultiLens}
+ */
+Lens.prototype.addPluck = function (plucker, options) {
+    return this.add(new PluckLens(plucker, (options && options.recursive) || this.getFlag('_recursivePluck')));
+};
+
+/**
+ * Compose a Lens with a Pluck (preserves recursive, but can be specified in options)
+ *
+ * @param plucker
+ * @returns {Compose}
+ */
+Lens.prototype.composePluck = function (plucker, options) {
+    return this.compose(new PluckLens(plucker, (options && options.recursive) || this.getFlag('_recursivePluck')));
 };
 
 module.exports = PluckLens;
