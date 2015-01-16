@@ -215,40 +215,4 @@ Lens.prototype.addMany = function (otherLenses) {
     return lens;
 };
 
-/**
- * Add a path to a PathLens (safety preserved)
- *
- * @param path
- * @returns {*}
- */
-Lens.prototype.addPath = function (path) {
-    var PathLens = require('./object/PathLens');
-
-    return this.add(new PathLens(path, this.getFlag('_unsafe')));
-};
-
-/**
- * Concatenate the path of this PathLens with another path (safety preserved)
- *
- * @param path
- * @returns {Compose}
- */
-Lens.prototype.composePath = function (path) {
-    var PathLens = require('./object/PathLens');
-
-    return this.compose(new PathLens(path, this.getFlag('_unsafePath')));
-};
-
-Lens.prototype.addIndex = function (index) {
-    var IndexedLens = require('./object/IndexedLens');
-
-    return this.add(new IndexedLens(index, this.getFlag('_unsafe')));
-};
-
-Lens.prototype.composeIndex = function (path) {
-    var PathLens = require('./object/PathLens');
-
-    return this.compose(new PathLens(path, this.getFlag('_unsafe')));
-};
-
 module.exports = Lens;
