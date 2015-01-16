@@ -236,8 +236,19 @@ Lens.prototype.addPath = function (path) {
 Lens.prototype.composePath = function (path) {
     var PathLens = require('./object/PathLens');
 
-    return this.compose(new PathLens(path, this.getFlag('_unsafe')));
+    return this.compose(new PathLens(path, this.getFlag('_unsafePath')));
 };
 
+Lens.prototype.addIndex = function (index) {
+    var IndexedLens = require('./object/IndexedLens');
+
+    return this.add(new IndexedLens(index, this.getFlag('_unsafe')));
+};
+
+Lens.prototype.composeIndex = function (path) {
+    var PathLens = require('./object/PathLens');
+
+    return this.compose(new PathLens(path, this.getFlag('_unsafe')));
+};
 
 module.exports = Lens;

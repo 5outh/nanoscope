@@ -142,7 +142,7 @@ map = function (path, unsafe) {
  */
 PathLens = function (path, unsafe) {
     this.base = Lens;
-    this.base(get(path, unsafe), map(path, unsafe), { _path: path, _unsafe: unsafe || false });
+    this.base(get(path, unsafe), map(path, unsafe), { _path: path, _unsafePath: unsafe || false });
 };
 
 PathLens.prototype = new Lens;
