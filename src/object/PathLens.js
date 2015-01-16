@@ -142,7 +142,7 @@ map = function (path, unsafe) {
  */
 PathLens = function (path, unsafe) {
     this.base = Lens;
-    this.base(get(path, unsafe), map(path, unsafe), { _path: path, _unsafe: unsafe || false });
+    this.base(get(path, unsafe), map(path, unsafe), { _path: path, _unsafePath: unsafe || false });
 };
 
 PathLens.prototype = new Lens;
@@ -207,26 +207,6 @@ PathLens.deriveLenses = function (obj) {
 };
 
 /**
- * Add a path to a PathLens (safety preserved)
- *
- * @param path
- * @returns {*}
- */
-PathLens.prototype.addPath = function (path) {
-    return this.add(new PathLens(path, this.getFlag('_unsafe')));
-};
-
-/**
- * Concatenate the path of this PathLens with another path (safety preserved)
- *
- * @param path
- * @returns {Compose}
- */
-PathLens.prototype.composePath = function (path) {
-    return this.compose(new PathLens(path, this.getFlag('_unsafe')));
-};
-
-/**
  * Construct an unsafe `PathLens` from a path (throws the usual errors)
  *
  * @param {string|Array} path The path to follow in an object
@@ -238,5 +218,28 @@ PathLens.Unsafe = function (path) {
 };
 
 PathLens.Unsafe.prototype = new PathLens;
+
+
+// Add stuff to Lens base
+
+/**
+ * Add a path to a Lens (safety preserved)
+ *
+ * @param path
+ * @returns {*}
+ */
+Lens.prototype.addPath = function (path) {
+    return this.add(new PathLens(path, this.getFlag('_unsafe')));
+};
+
+/**
+ * Concatenate the path of this Lens with another path (safety preserved)
+ *
+ * @param path
+ * @returns {Compose}
+ */
+Lens.prototype.composePath = function (path) {
+    return this.compose(new PathLens(path, this.getFlag('_unsafePath')));
+};
 
 module.exports = PathLens;

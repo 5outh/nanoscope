@@ -1,7 +1,9 @@
 "use strict";
 
 var _ = require('lodash'),
-    IndexedLens = require('../src/array/IndexedLens');
+    IndexedLens = require('../src/array/IndexedLens'),
+    PathLens = require('../src/object/PathLens'),
+    utils = require('./utils');
 
 describe('IndexedLens', function () {
     var testArr, testLens;
@@ -132,6 +134,34 @@ describe('IndexedLens', function () {
                 lens.getFlags()._index.should.equal(index);
                 lens.get(testArr).should.equal(testArr[index]);
             });
+        });
+    });
+
+    describe('#composeIndex', function () {
+        it('should properly compose', function () {
+            var arr = [[0]],
+                lens = new IndexedLens(0).composeIndex(0);
+
+            lens.view(arr).get().should.equal(0);
+        });
+
+        it('should work properly with a PathLens', function () {
+            var obj = {a: [0]},
+                lens = new PathLens('a').composeIndex(0);
+
+            lens.view(obj).get().should.equal(0);
+        });
+    });
+
+    describe('#addIndex', function () {
+        it('should properly add an index', function () {
+            var arr = [1, 2],
+                lens = new IndexedLens(0).addIndex(1);
+
+            utils.testArrayEquals(
+                lens.view(arr).get(),
+                [1, 2]
+            );
         });
     });
 });
