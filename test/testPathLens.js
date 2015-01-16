@@ -2,6 +2,7 @@
 
 var _ = require('lodash'),
     PathLens = require('../src/object/PathLens'),
+    headLens = require('../lib/indexed/headLens'),
     utils = require('./utils');
 
 describe('PathLens', function () {
@@ -140,6 +141,12 @@ describe('PathLens', function () {
     describe('#composePath', function () {
         var obj = { a: 1, b : { c: 2 }},
             lens = new PathLens('b').composePath('c').view(obj);
+
+        it('should compose properly with an IndexedLens', function () {
+            var arr = [{a: 'foo'}];
+
+            headLens.composePath('a').view(arr).get().should.equal('foo');
+        });
 
         it('should get properly', function () {
             expect(lens.get()).to.equal(2);

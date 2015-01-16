@@ -207,26 +207,6 @@ PathLens.deriveLenses = function (obj) {
 };
 
 /**
- * Add a path to a PathLens (safety preserved)
- *
- * @param path
- * @returns {*}
- */
-PathLens.prototype.addPath = function (path) {
-    return this.add(new PathLens(path, this.getFlag('_unsafe')));
-};
-
-/**
- * Concatenate the path of this PathLens with another path (safety preserved)
- *
- * @param path
- * @returns {Compose}
- */
-PathLens.prototype.composePath = function (path) {
-    return this.compose(new PathLens(path, this.getFlag('_unsafe')));
-};
-
-/**
  * Construct an unsafe `PathLens` from a path (throws the usual errors)
  *
  * @param {string|Array} path The path to follow in an object
