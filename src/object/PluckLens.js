@@ -149,7 +149,7 @@ PluckLens.Recursive = function (plucker) {
  * @returns {MultiLens}
  */
 Lens.prototype.addPluck = function (plucker, options) {
-    return this.add(new PluckLens(plucker, (options && options.recursive) || this.getFlag('_recursive')));
+    return this.add(new PluckLens(plucker, (options && options.recursive) || this.getFlag('_recursivePluck')));
 };
 
 /**
@@ -159,7 +159,7 @@ Lens.prototype.addPluck = function (plucker, options) {
  * @returns {Compose}
  */
 Lens.prototype.composePluck = function (plucker, options) {
-    return this.compose(new PluckLens(plucker, (options && options.recursive) || this.getFlag('_recursive')));
+    return this.compose(new PluckLens(plucker, (options && options.recursive) || this.getFlag('_recursivePluck')));
 };
 
 module.exports = PluckLens;

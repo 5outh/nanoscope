@@ -142,7 +142,7 @@ map = function (path, unsafe) {
  */
 PathLens = function (path, unsafe) {
     this.base = Lens;
-    this.base(get(path, unsafe), map(path, unsafe), { _path: path, _unsafe: unsafe || false });
+    this.base(get(path, unsafe), map(path, unsafe), { _path: path, _unsafePath: unsafe || false });
 };
 
 PathLens.prototype = new Lens;
@@ -212,8 +212,8 @@ PathLens.deriveLenses = function (obj) {
  * @param path
  * @returns {*}
  */
-PathLens.prototype.addPath = function (path, options) {
-    return this.add(new PathLens(path, (options && options.unsafe) || this.getFlag('_unsafe')));
+Lens.prototype.addPath = function (path, options) {
+    return this.add(new PathLens(path, (options && options.unsafe) || this.getFlag('_unsafePath')));
 };
 
 /**
@@ -222,8 +222,8 @@ PathLens.prototype.addPath = function (path, options) {
  * @param path
  * @returns {Compose}
  */
-PathLens.prototype.composePath = function (path, options) {
-    return this.compose(new PathLens(path, (options && options.unsafe) || this.getFlag('_unsafe')));
+Lens.prototype.composePath = function (path, options) {
+    return this.compose(new PathLens(path, (options && options.unsafe) || this.getFlag('_unsafePath')));
 };
 
 /**

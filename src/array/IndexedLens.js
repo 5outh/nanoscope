@@ -81,7 +81,7 @@ map = function (index, unsafe) {
  */
 IndexedLens = function (index, unsafe) {
     this.base = Lens;
-    this.base(get(index, unsafe), map(index, unsafe), { _index: index });
+    this.base(get(index, unsafe), map(index, unsafe), { _index: index, _unsafeIndex: unsafe || false });
 };
 
 IndexedLens.prototype = new Lens;
@@ -117,5 +117,26 @@ IndexedLens.deriveLenses = function (arr) {
     return lenses;
 };
 
+// Add stuff to Lens base
+
+/**
+ * Add an Index to a Lens
+ *
+ * @param index
+ * @returns {MultiLens}
+ */
+Lens.prototype.addIndex = function (index) {
+    return this.add(new IndexedLens(index, this.getFlag('_unsafeIndex')));
+};
+
+/**
+ * Compose a lens with an IndexedLens
+ *
+ * @param path
+ * @returns {Compose}
+ */
+Lens.prototype.composeIndex = function (index) {
+    return this.compose(new IndexedLens(index, this.getFlag('_unsafeIndex')));
+};
 
 module.exports = IndexedLens;

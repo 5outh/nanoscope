@@ -174,4 +174,37 @@ describe('PluckLens', function () {
             });
         });
     });
+
+    describe('#addPluck', function () {
+        it('should add a new pluck', function () {
+            var pluckLens = new PluckLens(/^[a-z]$/).addPluck(/^[A-Z]$/),
+                obj = { a: 0, A: 1, _b : 2 };
+
+            expect(pluckLens.view(obj).get()).to.eql([
+                { a: 0 },
+                { A: 1 }
+            ]);
+        });
+
+        it('should preserve recursion', function () {
+            var pluckLens = new PluckLens.Recursive(/^[a-z]$/).addPluck(/^[A-Z]$/),
+                obj = { a: { a: 0 }, A: { A: 1 }, _b : 2 };
+
+            expect(pluckLens.view(obj).get()).to.eql([
+                { a: { a: 0 } },
+                { A: { A: 1 } }
+            ]);
+        });
+    });
+
+    describe('#composePluck', function () {
+        it('should compose with a new pluck', function () {
+            var pluckLens = new PluckLens(/^[a-z]*$/).composePluck(/^[a-b]*$/),
+                obj = { ab: 0, A: 1, _b : 2 };
+
+            expect(pluckLens.view(obj).get()).to.eql({
+                ab: 0,
+            });
+        });
+    });
 });
