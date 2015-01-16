@@ -212,8 +212,8 @@ PathLens.deriveLenses = function (obj) {
  * @param path
  * @returns {*}
  */
-PathLens.prototype.addPath = function (path) {
-    return this.add(new PathLens(path, this.getFlag('_unsafe')));
+PathLens.prototype.addPath = function (path, options) {
+    return this.add(new PathLens(path, (options && options.unsafe) || this.getFlag('_unsafe')));
 };
 
 /**
@@ -222,8 +222,8 @@ PathLens.prototype.addPath = function (path) {
  * @param path
  * @returns {Compose}
  */
-PathLens.prototype.composePath = function (path) {
-    return this.compose(new PathLens(path, this.getFlag('_unsafe')));
+PathLens.prototype.composePath = function (path, options) {
+    return this.compose(new PathLens(path, (options && options.unsafe) || this.getFlag('_unsafe')));
 };
 
 /**
