@@ -105,21 +105,21 @@ MultiLens.prototype = new Lens;
  */
 MultiLens.prototype.add = function (otherLens) {
     var lenses = this._lenses,
-        flags = this.getFlags(),
-        lensConstructor;
+        flags = this.getFlags();
 
-    if (this.getFlag('_baseCtor')) {
-        lensConstructor = this.getFlag('_baseCtor');
-        this.addFlag({ _baseCtor: lensConstructor });
-        otherLens = lensConstructor(otherLens);
+    if (otherLens instanceof Lens) {
+        flags = _.extend(flags, otherLens.getFlags());
     }
-
-    flags = _.extend(flags, otherLens.getFlags());
 
     if (_.isArray(lenses)) {
         lenses.push(otherLens);
     } else if (_.isObject(lenses)) {
         if (_.isObject(otherLens)) {
+            // Assumes each value is a Lens
+            _.forEach(_.values(otherLens), function (lens) {
+                flags = _.extend(flags, lens.getFlags());
+            });
+
             lenses = _.extend(lenses, otherLens);
         }
     }
