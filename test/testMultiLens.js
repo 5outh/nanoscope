@@ -62,4 +62,12 @@ describe('MultiLens', function () {
             utils.testArrayEquals(objectMultiLens.map(testArr, addTen), [11, 2, 3, 4, 15]);
         });
     });
+
+    describe('#add', function () {
+        it('should add a field to the resulting object', function () {
+            var lens = objectMultiLens.add({ second: new IndexedLens(1) });
+
+            expect(lens.view(testArr).get()).to.eql({ head: 1, second: 2, last: 5 });
+        });
+    });
 });
