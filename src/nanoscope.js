@@ -20,6 +20,7 @@ var _ = require('lodash'),
     Getter = require('./base/Getter'),
     Setter = require('./base/Setter'),
 
+    addView,
     nanoscope,
     unsafe;
 
@@ -34,16 +35,34 @@ nanoscope = function (view) {
     this._view = view;
 };
 
+/**
+ * Add the nanoscope view to an options object
+ *
+ * @param options
+ * @returns {*}
+ */
+nanoscope.prototype.addView = function (options) {
+    return _.extend({ _view: this._view }, options);
+};
+
+nanoscope.prototype.filter = function (filter, options) {
+    return new FilterLens(filter, this.addView(options));
+};
+
 nanoscope.prototype.index = function (index, options) {
-    return new IndexedLens(index, _.extend({ _view: this._view }, options));
+    return new IndexedLens(index, this.addView(options));
 };
 
 nanoscope.prototype.unsafeIndex = function (index, options) {
-    return new IndexedLens.Unsafe(index, _.extend({ _view: this._view }, options));
+    return new IndexedLens.Unsafe(index, this.addView(options));
 };
 
 nanoscope.prototype.slice = function (i, j, options) {
-    return new SliceLens(i, j, _.extend({ _view: this._view }, options));
+    return new SliceLens(i, j, this.addView(options));
+};
+
+nanoscope.prototype.path = function () {
+
 };
 
 module.exports = nanoscope;

@@ -140,7 +140,9 @@ map = function (path, unsafe) {
  * @returns {Lens}
  * @constructor
  */
-PathLens = function (path, unsafe) {
+PathLens = function (path, options) {
+    var unsafe = options && options.unsafe;
+
     this.base = Lens;
     this.base(get(path, unsafe), map(path, unsafe), { _path: path, _unsafePath: unsafe || false });
 };
@@ -207,13 +209,30 @@ PathLens.deriveLenses = function (obj) {
 };
 
 /**
+ * Construct an unsafe `PathLens` from a path (throws the usual errors)
+ *
+ * @param {string|Array} path The path to follow in an object
+ * @constructor
+ */
+PathLens.Unsafe = function (path, options) {
+    this.base = PathLens;
+    this.base(path, _.extend({unsafe: true}, options));
+};
+
+PathLens.Unsafe.prototype = new PathLens;
+
+// Add stuff to Lens base
+
+/**
  * Add a path to a PathLens (safety preserved)
  *
  * @param path
  * @returns {*}
  */
 Lens.prototype.addPath = function (path, options) {
-    return this.add(new PathLens(path, (options && options.unsafe) || this.getFlag('_unsafePath')));
+    var unsafe = (options && options.unsafe) || this.getFlag('_unsafePath');
+
+    return this.add(new PathLens(path, _.extend({unsafe: unsafe}, options)));
 };
 
 /**
@@ -223,20 +242,9 @@ Lens.prototype.addPath = function (path, options) {
  * @returns {Compose}
  */
 Lens.prototype.composePath = function (path, options) {
-    return this.compose(new PathLens(path, (options && options.unsafe) || this.getFlag('_unsafePath')));
-};
+    var unsafe = (options && options.unsafe) || this.getFlag('_unsafePath');
 
-/**
- * Construct an unsafe `PathLens` from a path (throws the usual errors)
- *
- * @param {string|Array} path The path to follow in an object
- * @constructor
- */
-PathLens.Unsafe = function (path) {
-    this.base = PathLens;
-    this.base(path, true);
+    return this.compose(new PathLens(path, _.extend({unsafe: unsafe}, options)));
 };
-
-PathLens.Unsafe.prototype = new PathLens;
 
 module.exports = PathLens;

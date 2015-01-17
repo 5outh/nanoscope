@@ -49,9 +49,9 @@ map = function (filter) {
     };
 };
 
-FilterLens = function (filter) {
+FilterLens = function (filter, options) {
     this.base = Lens;
-    this.base(get(filter), map(filter), { _filter: filter });
+    this.base(get(filter), map(filter), _.extend({ _filter: filter }, options));
 };
 
 // Add functions to Lens base
@@ -75,6 +75,11 @@ Lens.prototype.addFilter = function (filter) {
 Lens.prototype.composeFilter = function (filter) {
     return this.compose(new FilterLens(filter));
 };
+
+/**
+ * Alias for composeFilter
+ */
+Lens.prototype.filter = Lens.prototype.composeFilter;
 
 FilterLens.prototype = new Lens;
 
