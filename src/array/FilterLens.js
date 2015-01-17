@@ -54,6 +54,16 @@ FilterLens = function (filter) {
     this.base(get(filter), map(filter), { _filter: filter });
 };
 
+// Add functions to Lens base
+
+Lens.prototype.addFilter = function (filter) {
+    return this.add(new FilterLens(filter));
+};
+
+Lens.prototype.composeFilter = function (filter) {
+    return this.compose(new FilterLens(filter));
+};
+
 FilterLens.prototype = new Lens;
 
 module.exports = FilterLens;
