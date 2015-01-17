@@ -20,7 +20,6 @@ var _ = require('lodash'),
     Getter = require('./base/Getter'),
     Setter = require('./base/Setter'),
 
-    addView,
     nanoscope,
     unsafe;
 

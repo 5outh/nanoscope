@@ -63,5 +63,17 @@ describe('nanoscope', function () {
                 }
             });
         });
+
+        it('should be able to compose lots of stuff', function () {
+            var lens = nanoscope({
+                a: [{b : 100, c: 0, B: 99}, 2, 3]
+            }),
+                value = lens.path('a').index(0).pluck(/[a-z]/).get();
+
+            expect(value).to.eql({
+                b: 100,
+                c: 0
+            });
+        });
     });
 });
