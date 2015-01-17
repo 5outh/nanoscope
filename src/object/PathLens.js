@@ -136,15 +136,16 @@ map = function (path, unsafe) {
  * either the `PathLens.Unsafe` constructor or by setting the unsafe parameter in the `PathLens` constructor to `true`.
  *
  * @param {string|Array} path Array or dot-delimited string describing a path to follow in an object
- * @param {boolean} unsafe If true, construct an unsafe version of
  * @returns {Lens}
  * @constructor
+ * @param options
  */
 PathLens = function (path, options) {
-    var unsafe = options && options.unsafe;
+    var unsafe = options && options.unsafe,
+        view = options && options._view;
 
     this.base = Lens;
-    this.base(get(path, unsafe), map(path, unsafe), { _path: path, _unsafePath: unsafe || false });
+    this.base(get(path, unsafe), map(path, unsafe), { _path: path, _unsafePath: unsafe || false, _view: view });
 };
 
 PathLens.prototype = new Lens;
@@ -213,6 +214,7 @@ PathLens.deriveLenses = function (obj) {
  *
  * @param {string|Array} path The path to follow in an object
  * @constructor
+ * @param options
  */
 PathLens.Unsafe = function (path, options) {
     this.base = PathLens;
@@ -246,5 +248,10 @@ Lens.prototype.composePath = function (path, options) {
 
     return this.compose(new PathLens(path, _.extend({unsafe: unsafe}, options)));
 };
+
+/**
+ * Alias for composePath
+ */
+Lens.prototype.path = Lens.prototype.composePath;
 
 module.exports = PathLens;

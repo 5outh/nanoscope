@@ -119,14 +119,17 @@ map = function (plucker, recursive, object) {
  * @param recursive
  * @constructor
  */
-PluckLens = function (plucker, recursive) {
+PluckLens = function (plucker, options) {
+    var recursive = options && options.recursive,
+        view = options && options._view;
+
     // Clean up flag
     if (!recursive) {
         recursive = false;
     }
 
     this.base = Lens;
-    this.base(get(plucker, recursive), map(plucker, recursive), { _pluck: plucker, _recursive: recursive });
+    this.base(get(plucker, recursive), map(plucker, recursive), { _pluck: plucker, _recursive: recursive, _view: view });
 };
 
 PluckLens.prototype = new Lens;
@@ -138,8 +141,8 @@ PluckLens.prototype = new Lens;
  * @returns {PluckLens}
  * @constructor
  */
-PluckLens.Recursive = function (plucker) {
-    return new PluckLens(plucker, true);
+PluckLens.Recursive = function (plucker, options) {
+    return new PluckLens(plucker, _.extend({recursive: true}, options));
 };
 
 /**
@@ -150,7 +153,9 @@ PluckLens.Recursive = function (plucker) {
  * @param options
  */
 Lens.prototype.addPluck = function (plucker, options) {
-    return this.add(new PluckLens(plucker, (options && options.recursive) || this.getFlag('_recursivePluck')));
+    var recursive = (options && options.recursive) || this.getFlag('_recursivePluck');
+
+    return this.add(new PluckLens(plucker, _.extend({recursive: recursive}, options)));
 };
 
 /**
@@ -161,7 +166,14 @@ Lens.prototype.addPluck = function (plucker, options) {
  * @param options
  */
 Lens.prototype.composePluck = function (plucker, options) {
-    return this.compose(new PluckLens(plucker, (options && options.recursive) || this.getFlag('_recursivePluck')));
+    var recursive = (options && options.recursive) || this.getFlag('_recursivePluck');
+
+    return this.compose(new PluckLens(plucker, _.extend({recursive: recursive}, options)));
 };
+
+/**
+ * Alias for composePluck
+ */
+Lens.prototype.pluck = Lens.prototype.composePluck;
 
 module.exports = PluckLens;

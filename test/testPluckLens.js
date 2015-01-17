@@ -13,7 +13,8 @@ describe('PluckLens', function () {
             pluckLens.should.have.properties({
                 _flags: {
                     _pluck: ['a', 'b'],
-                    _recursive: false
+                    _recursive: false,
+                    _view: undefined
                 }
             });
         });
@@ -25,7 +26,8 @@ describe('PluckLens', function () {
             pluckLens.should.have.properties({
                 _flags: {
                     _pluck: regex,
-                    _recursive: true
+                    _recursive: true,
+                    _view: undefined
                 }
             });
         });
@@ -37,7 +39,8 @@ describe('PluckLens', function () {
             pluckLens.should.have.properties({
                 _flags: {
                     _pluck: regex,
-                    _recursive: false
+                    _recursive: false,
+                    _view: undefined
                 }
             });
         });
@@ -49,7 +52,8 @@ describe('PluckLens', function () {
             pluckLens.should.have.properties({
                 _flags: {
                     _pluck: fn,
-                    _recursive: false
+                    _recursive: false,
+                    _view: undefined
                 }
             });
         });

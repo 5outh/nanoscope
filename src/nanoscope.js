@@ -61,8 +61,20 @@ nanoscope.prototype.slice = function (i, j, options) {
     return new SliceLens(i, j, this.addView(options));
 };
 
-nanoscope.prototype.path = function () {
+nanoscope.prototype.path = function (path, options) {
+    return new PathLens(path, this.addView(options));
+};
 
+nanoscope.prototype.unsafePath = function (path, options) {
+    return new PathLens.Unsafe(path, this.addView(options));
+};
+
+nanoscope.prototype.pluck = function (pluck, options) {
+    return new PluckLens(pluck, this.addView(options));
+};
+
+nanoscope.prototype.recursivePluck = function (pluck, options) {
+    return new PluckLens.Recursive(pluck, this.addView(options));
 };
 
 module.exports = nanoscope;

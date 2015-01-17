@@ -31,5 +31,37 @@ describe('nanoscope', function () {
 
             expect(lens.slice(1, 2).index(0).get()).to.eql(2);
         });
+
+        it('should do the same thing as a PathLens', function () {
+            var lens = nanoscope({ a: { b: 100 } });
+
+            expect(lens.path('a.b').get()).to.equal(100);
+        });
+
+        it('should do the same thing as an unsafe PathLens', function () {
+            var lens = nanoscope({ a: { b: 100 } });
+
+            expect(function () {
+                lens.unsafePath('a.b.c.d').get();
+            }).to.throw(TypeError, 'Cannot read property \'d\' of undefined');
+        });
+
+        it('should do the same thing as a PluckLens', function () {
+            var lens = nanoscope({ a: 100, A: 99 });
+
+            expect(lens.pluck(['a']).get()).to.eql({
+                a: 100
+            });
+        });
+
+        it('should do the same thing as a recursive PluckLens', function () {
+            var lens = nanoscope({ a: { b: 100, B: 99 }, A: 99});
+
+            expect(lens.recursivePluck(/[a-z]/).get()).to.eql({
+                a: {
+                    b: 100
+                }
+            });
+        });
     });
 });
