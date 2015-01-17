@@ -81,13 +81,18 @@ map = function (index, unsafe) {
  */
 IndexedLens = function (index, options) {
     var unsafe = options && options.unsafe,
-        view = options && options._view;
+        view = options && options._view,
+        flags = { _index: index, _unsafeIndex: unsafe || false };
+
+    if (view) {
+        flags = _.extend(flags, { _view: view });
+    }
 
     this.base = Lens;
     this.base(
         get(index, unsafe),
         map(index, unsafe),
-        { _index: index, _unsafeIndex: unsafe || false, _view: view }
+        flags
     );
 };
 
@@ -134,7 +139,7 @@ IndexedLens.deriveLenses = function (arr) {
  * @returns {MultiLens}
  */
 Lens.prototype.addIndex = function (index) {
-    return this.add(new IndexedLens(index, this.getFlag('_unsafeIndex')));
+    return this.add(new IndexedLens(index, { unsafe: this.getFlag('_unsafeIndex') }));
 };
 
 /**
@@ -144,7 +149,7 @@ Lens.prototype.addIndex = function (index) {
  * @returns {Compose}
  */
 Lens.prototype.composeIndex = function (index) {
-    return this.compose(new IndexedLens(index, this.getFlag('_unsafeIndex')));
+    return this.compose(new IndexedLens(index, { unsafe: this.getFlag('_unsafeIndex') }));
 };
 
 // Alias for `composeIndex`

@@ -156,7 +156,7 @@ Lens.prototype.addFlag = function (flag) {
  */
 Lens.prototype.compose = function (otherLens) {
     var Compose = require('./../combinator/Compose');
-    return new Compose(this, otherLens, _.extend(this.getFlags(), otherLens.getFlags()));
+    return new Compose(this, otherLens, _.extend(this.getFlags() || {}, otherLens.getFlags()));
 };
 
 /**

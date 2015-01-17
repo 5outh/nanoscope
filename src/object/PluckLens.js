@@ -121,15 +121,15 @@ map = function (plucker, recursive, object) {
  */
 PluckLens = function (plucker, options) {
     var recursive = options && options.recursive,
-        view = options && options._view;
+        view = options && options._view,
+        flags = { _pluck: plucker, _recursive: recursive || false };
 
-    // Clean up flag
-    if (!recursive) {
-        recursive = false;
+    if (view) {
+        flags._view = view;
     }
 
     this.base = Lens;
-    this.base(get(plucker, recursive), map(plucker, recursive), { _pluck: plucker, _recursive: recursive, _view: view });
+    this.base(get(plucker, recursive), map(plucker, recursive), flags);
 };
 
 PluckLens.prototype = new Lens;

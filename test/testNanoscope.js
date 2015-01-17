@@ -68,12 +68,14 @@ describe('nanoscope', function () {
             var lens = nanoscope({
                 a: [{b : 100, c: 0, B: 99}, 2, 3]
             }),
-                value = lens.path('a').index(0).pluck(/[a-z]/).get();
+                getValue = lens.path('a').index(0).pluck(/[a-z]/).get();
 
-            expect(value).to.eql({
+            expect(getValue).to.eql({
                 b: 100,
                 c: 0
             });
+
+            console.log(lens.path('a').index(0).pluck(/[a-z]/));
         });
     });
 });

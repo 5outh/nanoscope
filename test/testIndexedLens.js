@@ -150,6 +150,10 @@ describe('IndexedLens', function () {
                 lens = new PathLens('a').composeIndex(0);
 
             lens.view(obj).get().should.equal(0);
+
+            expect(lens.view(obj).set(100)).to.eql({
+                a:  [100]
+            });
         });
     });
 
