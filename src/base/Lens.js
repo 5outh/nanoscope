@@ -215,4 +215,20 @@ Lens.prototype.addMany = function (otherLenses) {
     return lens;
 };
 
+/**
+ * Turns a Lens into an Optional Lens
+ *
+ * @param errorHandler
+ * @returns {Optional}
+ */
+Lens.prototype.optional = function (errorHandler) {
+    var Optional = require('../combinator/Optional');
+
+    if (errorHandler) {
+        this._errorHandler = errorHandler;
+    }
+
+    return new Optional(this, errorHandler);
+};
+
 module.exports = Lens;
