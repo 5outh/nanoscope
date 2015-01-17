@@ -32,31 +32,18 @@ nanoscope = function (view) {
     }
 
     this._view = view;
-    this._lens = null;
 };
 
 nanoscope.prototype.index = function (index, options) {
-    this._lens = new IndexedLens(index, _.extend({ _view: this._view }, options));
-
-    return this;
+    return new IndexedLens(index, _.extend({ _view: this._view }, options));
 };
 
 nanoscope.prototype.unsafeIndex = function (index, options) {
-    this._lens = new IndexedLens.Unsafe(index, _.extend({ _view: this._view }, options));
-
-    return this;
+    return new IndexedLens.Unsafe(index, _.extend({ _view: this._view }, options));
 };
 
-nanoscope.prototype.get = function () {
-    return this._lens.get.apply(this._lens, arguments);
-};
-
-nanoscope.prototype.map = function () {
-    return this._lens.map.apply(this._lens, arguments);
-};
-
-nanoscope.prototype.set = function () {
-    return this._lens.set.apply(this._lens, arguments);
+nanoscope.prototype.slice = function (i, j, options) {
+    return new SliceLens(i, j, _.extend({ _view: this._view }, options));
 };
 
 module.exports = nanoscope;

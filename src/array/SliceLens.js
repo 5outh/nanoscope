@@ -79,8 +79,9 @@ map = function (i, j) {
  * @param {int} j The end of the Slice
  * @returns {SliceLens}
  * @constructor
+ * @param options
  */
-SliceLens = function (i, j) {
+SliceLens = function (i, j, options) {
     var range,
         flags;
 
@@ -125,9 +126,35 @@ SliceLens = function (i, j) {
     };
 
     this.base = Lens;
-    this.base(get(i, j), map(i, j), flags);
+    this.base(get(i, j), map(i, j), _.extend(flags, options || {}));
 };
 
 SliceLens.prototype = new Lens;
+
+// Add stuff to Lens base
+
+/**
+ * Add a slice to a Lens
+ *
+ * @param i
+ * @param j
+ * @param options
+ * @returns {MultiLens}
+ */
+Lens.prototype.addSlice = function (i, j, options) {
+    return this.add(new SliceLens(i, j, options));
+};
+
+/**
+ * Compose a Lens with a slice
+ *
+ * @param i
+ * @param j
+ * @param options
+ * @returns {Compose}
+ */
+Lens.prototype.composeSlice = function (i, j, options) {
+    return this.compose(new SliceLens(i, j, options));
+};
 
 module.exports = SliceLens;

@@ -13,11 +13,23 @@ describe('nanoscope', function () {
         });
 
         it('should do the same thing as an unsafe IndexedLens', function () {
-            var lens = nanoscope([1, 2, 3]).unsafeIndex(100);
+            var lens = nanoscope([1, 2, 3]);
 
             expect(function () {
-                lens.get();
+                lens.unsafeIndex(100).get();
             }).to.throw(Error, 'Attempt to access invalid index 100');
+        });
+
+        it('should do the same thing as a SliceLens', function () {
+            var lens = nanoscope([1, 2, 3]);
+
+            expect(lens.slice(0, 2).get()).to.eql([1, 2]);
+        });
+
+        it('should first slice, then index', function () {
+            var lens = nanoscope([1, 2, 3]);
+
+            expect(lens.slice(1, 2).index(0).get()).to.eql(2);
         });
     });
 });

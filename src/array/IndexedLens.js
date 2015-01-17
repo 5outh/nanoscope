@@ -140,11 +140,13 @@ Lens.prototype.addIndex = function (index) {
 /**
  * Compose a lens with an IndexedLens
  *
- * @param path
+ * @param index
  * @returns {Compose}
  */
 Lens.prototype.composeIndex = function (index) {
     return this.compose(new IndexedLens(index, this.getFlag('_unsafeIndex')));
 };
+
+Lens.prototype.index = Lens.prototype.composeIndex;
 
 module.exports = IndexedLens;
