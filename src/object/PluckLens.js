@@ -147,6 +147,7 @@ PluckLens.Recursive = function (plucker) {
  *
  * @param plucker
  * @returns {MultiLens}
+ * @param options
  */
 Lens.prototype.addPluck = function (plucker, options) {
     return this.add(new PluckLens(plucker, (options && options.recursive) || this.getFlag('_recursivePluck')));
@@ -157,6 +158,7 @@ Lens.prototype.addPluck = function (plucker, options) {
  *
  * @param plucker
  * @returns {Compose}
+ * @param options
  */
 Lens.prototype.composePluck = function (plucker, options) {
     return this.compose(new PluckLens(plucker, (options && options.recursive) || this.getFlag('_recursivePluck')));
