@@ -2,7 +2,7 @@
 
 var _ = require('lodash'),
 
-    Lens = require('../Lens'),
+    Lens = require('../base/Lens'),
     utils = require('./utils'),
 
     IndexedLens,
@@ -75,13 +75,20 @@ map = function (index, unsafe) {
  * An `IndexedLens` is a `Lens` that focuses on some index of an array.
  *
  * @param {int} index The index to view on
- * @param {boolean} unsafe If true, throws errors when index is out of range.
  * @returns {Lens}
  * @constructor
+ * @param options
  */
-IndexedLens = function (index, unsafe) {
+IndexedLens = function (index, options) {
+    var unsafe = options && options.unsafe,
+        view = options && options._view;
+
     this.base = Lens;
-    this.base(get(index, unsafe), map(index, unsafe), { _index: index, _unsafeIndex: unsafe || false });
+    this.base(
+        get(index, unsafe),
+        map(index, unsafe),
+        { _index: index, _unsafeIndex: unsafe || false, _view: view }
+    );
 };
 
 IndexedLens.prototype = new Lens;
@@ -93,10 +100,11 @@ IndexedLens.prototype = new Lens;
  * @param {int} index index The index to view on
  * @returns {Lens}
  * @constructor
+ * @param options
  */
-IndexedLens.Unsafe = function (index) {
+IndexedLens.Unsafe = function (index, options) {
     this.base = IndexedLens;
-    this.base(index, true);
+    this.base(index, {unsafe: true, _view: options && options._view});
 };
 
 IndexedLens.Unsafe.prototype = new IndexedLens;

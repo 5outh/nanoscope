@@ -1,6 +1,6 @@
 "use strict";
 
-var Lens = require('../Lens'),
+var Lens = require('../base/Lens'),
     get,
     map;
 

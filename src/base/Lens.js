@@ -44,14 +44,14 @@ var _ = require('lodash'),
 Lens = function (get, map, flags) {
     var self = this;
 
-    // guard against no `new`
-    if (!(self instanceof Lens)) {
-        return new Lens(get, map, flags);
-    }
-
     self._flags = flags || {};
     self._get = get;
     self._over = map;
+
+    // Set view from constructor
+    if (self._flags._view) {
+        self._view = self._flags._view;
+    }
 
     return self;
 };
@@ -155,7 +155,7 @@ Lens.prototype.addFlag = function (flag) {
  * @returns {Compose}
  */
 Lens.prototype.compose = function (otherLens) {
-    var Compose = require('./combinator/Compose');
+    var Compose = require('./../combinator/Compose');
     return new Compose(this, otherLens, _.extend(this.getFlags(), otherLens.getFlags()));
 };
 
@@ -188,7 +188,7 @@ Lens.prototype.composeMany = function (otherLenses) {
  * @returns {MultiLens}
  */
 Lens.prototype.add = function (otherLens) {
-    var MultiLens = require('./combinator/MultiLens');
+    var MultiLens = require('./../combinator/MultiLens');
 
     return new MultiLens([this, otherLens], _.extend(this.getFlags(), otherLens.getFlags()));
 };

@@ -22,7 +22,7 @@
 var _ = require('lodash'),
     steelToe = require('steeltoe'),
 
-    Lens = require('../Lens'),
+    Lens = require('../base/Lens'),
 
     get,
     map,

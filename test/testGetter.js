@@ -2,8 +2,8 @@
 
 var _ = require('lodash'),
     IndexedLens = require('../src/array/IndexedLens'),
-    Getter = require('../src/Getter'),
-    Setter = require('../src/Setter'),
+    Getter = require('../src/base/Getter'),
+    Setter = require('../src/base/Setter'),
     IdLens = require('../lib/primitives/IdLens');
 
 describe('Getter', function () {

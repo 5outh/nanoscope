@@ -5,7 +5,7 @@ global.requireFromRoot = function (path) {
 };
 
 module.exports = {
-    Lens: require('./src/Lens'),
+    Lens: require('./src/base/Lens'),
 
     // Predefined Lenses
     IndexedLens: require('./src/array/IndexedLens'),
@@ -19,14 +19,14 @@ module.exports = {
     MultiLens: require('./src/combinator/MultiLens'),
 
     // Special Cases
-    Getter: require('./src/Getter'),
-    Setter: require('./src/Setter'),
+    Getter: require('./src/base/Getter'),
+    Setter: require('./src/base/Setter'),
 
     // Standard library
 
     // Standard IndexedLenses
-    headLens: require('./lib/headLens'),
-    lastLens: require('./lib/lastLens'),
+    headLens: require('./lib/indexed/headLens'),
+    lastLens: require('./lib/indexed/lastLens'),
 
     // Standard Primitives
     idLens: require('./lib/primitives/idLens'),

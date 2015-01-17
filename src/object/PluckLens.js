@@ -2,7 +2,7 @@
 
 var _ = require('lodash'),
 
-    Lens = require('../Lens'),
+    Lens = require('../base/Lens'),
     PluckLens,
 
     get,
