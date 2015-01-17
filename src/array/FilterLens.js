@@ -56,10 +56,22 @@ FilterLens = function (filter) {
 
 // Add functions to Lens base
 
+/**
+ * Add a filter to a Lens
+ *
+ * @param filter
+ * @returns {MultiLens}
+ */
 Lens.prototype.addFilter = function (filter) {
     return this.add(new FilterLens(filter));
 };
 
+/**
+ * Compose a Lens with a filter
+ *
+ * @param filter
+ * @returns {Compose}
+ */
 Lens.prototype.composeFilter = function (filter) {
     return this.compose(new FilterLens(filter));
 };
