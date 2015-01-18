@@ -37,7 +37,10 @@ var nanoscope = require('nanoscope'),
         }
     });
 
-lens.path('a.b').index(0).pluck(/[a-z]*/).set(100);
+lens.path('a.b')
+    .index(0)
+    .pluck(/[a-z]*/)
+    .set(100);
 // => {
 //      a: {
 //          b: [{c : 100, d: 100, D: 99}, 2, 3]
