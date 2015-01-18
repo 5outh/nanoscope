@@ -2,6 +2,7 @@
 
 var _ = require('lodash'),
     Lens = require('../base/Lens'),
+    Setter = require('../base/Setter'),
     get,
     map;
 
