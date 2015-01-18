@@ -43,6 +43,12 @@ describe('nanoscope', function () {
             expect(function () {
                 lens.unsafePath('a.b.c.d').get();
             }).to.throw(TypeError, 'Cannot read property \'d\' of undefined');
+
+            // Test that `catch` works as expected
+            lens.unsafePath('a.b.c.d').catch(function (err) {
+                return err.message;
+            }).get().should.equal('Cannot read property \'d\' of undefined');
+
         });
 
         it('should do the same thing as a PluckLens', function () {
