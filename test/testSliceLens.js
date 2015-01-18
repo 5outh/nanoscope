@@ -195,4 +195,26 @@ describe('SliceLens', function () {
             utils.testArrayEquals(res, [6, 4, 5]);
         });
     });
+
+    describe('#addSlice', function () {
+        var arr = [1, 2, 3];
+
+        it('should add the right slice', function () {
+            var lens = new SliceLens(0, 2).addSlice(1);
+
+            expect(lens.view(arr).get()).to.eql([
+                [ 1, 2 ],
+                [ 2, 3 ]
+            ]);
+        });
+    });
+
+    describe('#composeSlice', function () {
+        var arr = [1, 2, 3];
+        it('should compose slices', function () {
+            var lens = new SliceLens(0, 2).composeSlice(1);
+
+            expect(lens.view(arr).get()).to.eql([2]);
+        });
+    });
 });

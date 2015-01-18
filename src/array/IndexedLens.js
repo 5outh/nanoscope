@@ -2,7 +2,7 @@
 
 var _ = require('lodash'),
 
-    Lens = require('../Lens'),
+    Lens = require('../base/Lens'),
     utils = require('./utils'),
 
     IndexedLens,
@@ -75,13 +75,25 @@ map = function (index, unsafe) {
  * An `IndexedLens` is a `Lens` that focuses on some index of an array.
  *
  * @param {int} index The index to view on
- * @param {boolean} unsafe If true, throws errors when index is out of range.
  * @returns {Lens}
  * @constructor
+ * @param options
  */
-IndexedLens = function (index, unsafe) {
+IndexedLens = function (index, options) {
+    var unsafe = options && options.unsafe,
+        view = options && options._view,
+        flags = { _index: index, _unsafeIndex: unsafe || false };
+
+    if (view) {
+        flags = _.extend(flags, { _view: view });
+    }
+
     this.base = Lens;
-    this.base(get(index, unsafe), map(index, unsafe), { _index: index, _unsafeIndex: unsafe || false });
+    this.base(
+        get(index, unsafe),
+        map(index, unsafe),
+        flags
+    );
 };
 
 IndexedLens.prototype = new Lens;
@@ -93,10 +105,11 @@ IndexedLens.prototype = new Lens;
  * @param {int} index index The index to view on
  * @returns {Lens}
  * @constructor
+ * @param options
  */
-IndexedLens.Unsafe = function (index) {
+IndexedLens.Unsafe = function (index, options) {
     this.base = IndexedLens;
-    this.base(index, true);
+    this.base(index, {unsafe: true, _view: options && options._view});
 };
 
 IndexedLens.Unsafe.prototype = new IndexedLens;
@@ -126,17 +139,20 @@ IndexedLens.deriveLenses = function (arr) {
  * @returns {MultiLens}
  */
 Lens.prototype.addIndex = function (index) {
-    return this.add(new IndexedLens(index, this.getFlag('_unsafeIndex')));
+    return this.add(new IndexedLens(index, { unsafe: this.getFlag('_unsafeIndex') }));
 };
 
 /**
  * Compose a lens with an IndexedLens
  *
- * @param path
+ * @param index
  * @returns {Compose}
  */
 Lens.prototype.composeIndex = function (index) {
-    return this.compose(new IndexedLens(index, this.getFlag('_unsafeIndex')));
+    return this.compose(new IndexedLens(index, { unsafe: this.getFlag('_unsafeIndex') }));
 };
+
+// Alias for `composeIndex`
+Lens.prototype.index = Lens.prototype.composeIndex;
 
 module.exports = IndexedLens;

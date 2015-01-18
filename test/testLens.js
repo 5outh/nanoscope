@@ -1,5 +1,5 @@
 var _ = require('lodash'),
-    Lens = require('../src/Lens'),
+    Lens = require('../src/base/Lens'),
     IndexedLens = require('../src/array/IndexedLens'),
     utils = require('./utils');
 
