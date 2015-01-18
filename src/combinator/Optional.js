@@ -66,4 +66,20 @@ Optional = function (lens, errorHandler) {
 
 Optional.prototype = new Lens;
 
+// Add stuff to base Lens
+
+/**
+ * Turns a Lens into an Optional Lens, catching errors with optional error handler
+ *
+ * @param errorHandler
+ * @returns {Optional}
+ */
+Lens.prototype.catch = function (errorHandler) {
+    if (errorHandler) {
+        this._errorHandler = errorHandler;
+    }
+
+    return new Optional(this, errorHandler);
+};
+
 module.exports = Optional;
