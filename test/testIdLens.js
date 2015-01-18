@@ -1,6 +1,7 @@
 "use strict";
 
-var IdLens = require('../lib/primitives/IdLens');
+var nanoscope = require('../index'),
+    IdLens = nanoscope.IdLens;
 
 describe('IdLens', function () {
     var lens;

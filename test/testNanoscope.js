@@ -1,6 +1,6 @@
 "use strict";
 
-var nanoscope = require('../src/nanoscope');
+var nanoscope = require('../index');
 
 describe('nanoscope', function () {
 

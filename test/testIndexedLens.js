@@ -1,8 +1,9 @@
 "use strict";
 
 var _ = require('lodash'),
-    IndexedLens = require('../src/array/IndexedLens'),
-    PathLens = require('../src/object/PathLens'),
+    nanoscope = require('../index'),
+    IndexedLens = nanoscope.IndexedLens,
+    PathLens = nanoscope.PathLens,
     utils = require('./utils');
 
 describe('IndexedLens', function () {

@@ -1,7 +1,7 @@
 {
   "name": "nanoscope",
-  "version": "0.0.2",
-  "description": "Experimental lenses in Javascript",
+  "version": "2.0.0",
+  "description": "A Lens Library for Javascript",
   "main": "index.js",
   "scripts": {
     "test": "mocha -R list"

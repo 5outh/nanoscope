@@ -1,17 +1,17 @@
-// Require from the root of the project
-global.requireFromRoot = function (path) {
-    "use strict";
-    return require(__dirname + '/' + path);
-};
+var _ = require('lodash'),
+    nanoscope = require('./src/nanoscope'),
+    standard = require('./lib/standard'),
+    lenses;
 
-module.exports = {
+lenses = {
     Lens: require('./src/base/Lens'),
 
     // Predefined Lenses
     IndexedLens: require('./src/array/IndexedLens'),
+    FilterLens: require('./src/array/FilterLens'),
     SliceLens: require('./src/array/SliceLens'),
     PathLens: require('./src/object/PathLens'),
-    IdLens: require('./lib/primitives/IdLens'),
+    PluckLens: require('./src/object/PluckLens'),
 
     // Composite Lenses
     Compose: require('./src/combinator/Compose'),
@@ -20,18 +20,7 @@ module.exports = {
 
     // Special Cases
     Getter: require('./src/base/Getter'),
-    Setter: require('./src/base/Setter'),
-
-    // Standard library
-
-    // Standard IndexedLenses
-    headLens: require('./lib/indexed/headLens'),
-    lastLens: require('./lib/indexed/lastLens'),
-
-    // Standard Primitives
-    idLens: require('./lib/primitives/idLens'),
-
-    // Standard SliceLenses
-    initLens: require('./lib/slice/initLens'),
-    tailLens: require('./lib/slice/tailLens')
+    Setter: require('./src/base/Setter')
 };
+
+module.exports = _.extend(nanoscope, standard, lenses);

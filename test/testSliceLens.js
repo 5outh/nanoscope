@@ -1,7 +1,8 @@
 "use strict";
 
 var _ = require('lodash'),
-    SliceLens = require('../src/array/SliceLens'),
+    nanoscope = require('../index'),
+    SliceLens = nanoscope.SliceLens,
     utils = require('./utils');
 
 describe('SliceLens', function () {

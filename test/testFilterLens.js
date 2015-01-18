@@ -1,7 +1,8 @@
 "use strict";
 
 var _ = require('lodash'),
-    FilterLens = require('../src/array/FilterLens'),
+    nanoscope = require('../index'),
+    FilterLens = nanoscope.FilterLens,
     utils = require('./utils');
 
 describe('FilterLens', function () {
