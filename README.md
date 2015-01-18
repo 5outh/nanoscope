@@ -22,7 +22,7 @@ Alright, here you go:
 
 ```js
 var lens = nanoscope({
-        a: [{b : 0, c: 0, B: 99}, 2, 3]
+        a: { b: [{b : 0, c: 0, B: 99}, 2, 3] }
     });
 
 lens.path('a.b').index(0).pluck(/[a-z]*/).set(100);
