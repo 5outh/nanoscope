@@ -73,39 +73,163 @@ This allows for quite a bit of flexibility.
 
 #### `filter`
 
+##### Description
+
 Focus on elements of an array filtered by a regular expression or function.
+
+##### Example
+
+```js
+nanoscope([1, 2, 3]).filter(function (elem) {
+    return (elem % 2 === 0);
+}).set(100);
+// #=> [1, 100, 3]
+
+nanoscope(['a', 'B', 'C']).filter(/[a-z]/).get();
+// #=> ['a']
+```
+
+#### `index`
+
+##### Description
+
+Focus on the element of an array at a given index. Returns `undefined` if the index is out of bounds.
+
+##### Example
+
+```js
+nanoscope([1, 2, 3]).index(0).map(function (num) {
+    return (num + 100);
+});
+// #=> [101, 2, 3]
+```
+
+#### `unsafeIndex`
+
+##### Description
+
+Same as `index`, but throws errors if trying to access an element outside of array bounds. Allows setting the element
+after the end of an array.
+
+#### `slice`
+
+##### Description
+
+Focus on a slice of an array. A slice can be specified using either start and end bounds (negative bounds count from
+the end of an array) or by a string in python-style syntax (i.e '1:10').
+
+##### Example
+
+```js
+nanoscope([1, 2, 3]).slice('1:').get();
+// #=> [2, 3]
+
+nanoscope([1, 2, 3]).slice(0, -1).set([5, 4]);
+// #=> [5, 4, 3]
+```
+
+#### `path`
+
+##### Description
+
+<Description>
 
 ##### Example
 
 ```js
 ```
 
-#### `index`
-
-#### `unsafeIndex`
-
-#### `slice`
-
-#### `path`
-
 #### `unsafePath`
+
+##### Description
+
+<Description>
+
+##### Example
+
+```js
+```
 
 #### `pluck`
 
+##### Description
+
+<Description>
+
+##### Example
+
+```js
+```
+
 #### `recursivePluck`
+
+##### Description
+
+<Description>
+
+##### Example
+
+```js
+```
 
 ### Final functions
 
 #### `get`
+
+##### Description
+
+<Description>
+
+##### Example
+
+```js
+```
+
 #### `set`
+
+##### Description
+
+<Description>
+
+##### Example
+
+```js
+```
+
 #### `map`
+
+##### Description
+
+<Description>
+
+##### Example
+
+```js
+```
 
 ### Other functions
 
 #### `getter`
+
+##### Description
+
+<Description>
+
+##### Example
+
+```js
+```
+
 #### `setter`
 
-## API
+##### Description
+
+<Description>
+
+##### Example
+
+```js
+```
 
 ## Contributing
 
@@ -113,4 +237,24 @@ TODO
 
 ## License
 
-TODO
+The MIT License (MIT)
+
+Copyright (c) 2015 Benjamin Kovach
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
