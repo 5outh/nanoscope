@@ -68,6 +68,42 @@ lens.pluck(['c']).get();
 
 This allows for quite a bit of flexibility.
 
+## API
+
+### Final functions
+
+#### `get`
+
+##### Description
+
+<Description>
+
+##### Example
+
+```js
+```
+
+#### `set`
+
+##### Description
+
+<Description>
+
+##### Example
+
+```js
+```
+
+#### `map`
+
+##### Description
+
+<Description>
+
+##### Example
+
+```js
+```
 
 ### Top-level/chainable nanoscope functions
 
@@ -162,41 +198,6 @@ nanoscope([1, 2, 3]).slice(0, -1).set([5, 4]);
 ```
 
 #### `recursivePluck`
-
-##### Description
-
-<Description>
-
-##### Example
-
-```js
-```
-
-### Final functions
-
-#### `get`
-
-##### Description
-
-<Description>
-
-##### Example
-
-```js
-```
-
-#### `set`
-
-##### Description
-
-<Description>
-
-##### Example
-
-```js
-```
-
-#### `map`
 
 ##### Description
 
