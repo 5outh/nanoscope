@@ -1,8 +1,9 @@
 "use strict";
 
 var _ = require('lodash'),
-    PathLens = require('../src/object/PathLens'),
-    headLens = require('../lib/indexed/headLens'),
+    nanoscope = require('../index'),
+    PathLens = nanoscope.PathLens,
+    headLens = nanoscope.headLens,
     utils = require('./utils');
 
 describe('PathLens', function () {

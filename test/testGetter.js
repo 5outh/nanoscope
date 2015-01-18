@@ -1,10 +1,11 @@
 "use strict";
 
 var _ = require('lodash'),
-    IndexedLens = require('../src/array/IndexedLens'),
-    Getter = require('../src/base/Getter'),
-    Setter = require('../src/base/Setter'),
-    IdLens = require('../lib/primitives/IdLens');
+    nanoscope = require('../index'),
+    IndexedLens = nanoscope.IndexedLens,
+    Getter = nanoscope.Getter,
+    Setter = nanoscope.Setter,
+    IdLens = nanoscope.IdLens;
 
 describe('Getter', function () {
     var testArr, testLens;

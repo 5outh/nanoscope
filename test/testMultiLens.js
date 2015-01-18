@@ -1,8 +1,9 @@
 "use strict";
 
 var _ = require('lodash'),
-    MultiLens = require('../src/combinator/MultiLens'),
-    IndexedLens = require('../src/array/IndexedLens'),
+    nanoscope = require('../index'),
+    MultiLens = nanoscope.MultiLens,
+    IndexedLens = nanoscope.IndexedLens,
 
     utils = require('./utils');
 
