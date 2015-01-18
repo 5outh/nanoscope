@@ -47,7 +47,7 @@ Getter.fromLens = function (lens) {
 
 // Add function to Lens base
 
-Lens.getter = function () {
+Lens.prototype.getter = function () {
     return Getter.fromLens(this);
 };
 

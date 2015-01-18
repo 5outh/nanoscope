@@ -89,6 +89,7 @@ IndexedLens = function (index, options) {
     }
 
     this.base = Lens;
+
     this.base(
         get(index, unsafe),
         map(index, unsafe),

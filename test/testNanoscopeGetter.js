@@ -16,10 +16,10 @@ describe('nanoscope.getter', function () {
     });
 
     it('should allow getting in a base level lens', function () {
-        expect(nanoscope([1, 2, 3]).index(0).getter().get(10)).to.equal(10);
+        expect(nanoscope([1, 2, 3]).index(0).getter().get()).to.equal(1);
     });
 
     it('should allow getting in a composite lens', function () {
-        expect(nanoscope([{a: 10}, 2, 3]).index(0).path('a').getter().get(10)).to.equal(10);
+        expect(nanoscope([{a: 1}, 2, 3]).index(0).path('a').getter().get()).to.equal(1);
     });
 });
