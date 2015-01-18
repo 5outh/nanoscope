@@ -66,11 +66,46 @@ lens.pluck(['c']).get();
 // => { c: 0 }
 ```
 
-This allows for a lot of flexibility.
+This allows for quite a bit of flexibility.
+
+
+### Top-level/chainable nanoscope functions
+
+#### `filter`
+
+Focus on elements of an array filtered by a regular expression or function.
+
+##### Example
+
+```js
+```
+
+#### `index`
+
+#### `unsafeIndex`
+
+#### `slice`
+
+#### `path`
+
+#### `unsafePath`
+
+#### `pluck`
+
+#### `recursivePluck`
+
+### Final functions
+
+#### `get`
+#### `set`
+#### `map`
+
+### Other functions
+
+#### `getter`
+#### `setter`
 
 ## API
-
-TODO
 
 ## Contributing
 
