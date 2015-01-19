@@ -45,4 +45,10 @@ Getter.fromLens = function (lens) {
     return new Getter(lens._get, lens.getFlags());
 };
 
+// Add function to Lens base
+
+Lens.prototype.getter = function () {
+    return Getter.fromLens(this);
+};
+
 module.exports = Getter;

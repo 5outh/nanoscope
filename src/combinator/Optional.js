@@ -1,7 +1,7 @@
 "use strict";
 
 var _ = require('lodash'),
-    Lens = require('../Lens'),
+    Lens = require('../base/Lens'),
 
     Optional;
 
@@ -16,7 +16,7 @@ var _ = require('lodash'),
  * Using `Optional`, you can wrap the `IndexedLens` to return `null` (or optionally handle exceptions in some other way), e.g:
  *
  * ```javascript
- * var lens = new Option(new IndexedLens(100));
+ * var lens = new Optional(new IndexedLens(100));
  *
  * lens.get([]); // null
  * lens.get([], console.log); // prints 'Array index 100 out of range'
@@ -65,5 +65,21 @@ Optional = function (lens, errorHandler) {
 };
 
 Optional.prototype = new Lens;
+
+// Add stuff to base Lens
+
+/**
+ * Turns a Lens into an Optional Lens, catching errors with optional error handler
+ *
+ * @param errorHandler
+ * @returns {Optional}
+ */
+Lens.prototype.catch = function (errorHandler) {
+    if (errorHandler) {
+        this._errorHandler = errorHandler;
+    }
+
+    return new Optional(this, errorHandler);
+};
 
 module.exports = Optional;

@@ -1,9 +1,10 @@
-var Lens = require('../src/Lens'),
-    Optional = require('../src/combinator/Optional'),
-    Getter = require('../src/Getter'),
-    Setter = require('../src/Setter'),
-    IndexedLens = require('../src/array/IndexedLens'),
-    IdLens = require('../lib/primitives/IdLens'),
+var nanoscope = require('../index'),
+    Lens = nanoscope.Lens,
+    Optional = nanoscope.Optional,
+    Getter = nanoscope.Getter,
+    Setter = nanoscope.Setter,
+    IndexedLens = nanoscope.IndexedLens,
+    IdLens = nanoscope.IdLens,
     utils = require('./utils');
 
 describe('Optional', function () {

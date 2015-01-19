@@ -1,6 +1,7 @@
 var _ = require('lodash'),
-    Lens = require('../src/Lens'),
-    IndexedLens = require('../src/array/IndexedLens'),
+    nanoscope = require('../index'),
+    Lens = nanoscope.Lens,
+    IndexedLens = nanoscope.IndexedLens,
     utils = require('./utils');
 
 describe('Lens', function () {

@@ -1,6 +1,8 @@
 "use strict";
 
-var Lens = require('../Lens'),
+var _ = require('lodash'),
+    Lens = require('../base/Lens'),
+    Setter = require('../base/Setter'),
     get,
     map;
 
@@ -38,10 +40,11 @@ map = function (lensA, lensB) {
  * @param {Lens} lensB The second `Lens` to call functions on
  * @returns {Compose}
  * @constructor
+ * @param options
  */
-var Compose = function (lensA, lensB) {
+var Compose = function (lensA, lensB, options) {
     this.base = Lens;
-    this.base(get(lensA, lensB), map(lensA, lensB), { _lensA: lensA, _lensB: lensB });
+    this.base(get(lensA, lensB), map(lensA, lensB), _.extend({ _lensA: lensA, _lensB: lensB }, options));
 };
 
 Compose.prototype = new Lens;

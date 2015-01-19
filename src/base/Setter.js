@@ -45,4 +45,9 @@ Setter.fromLens = function (lens) {
     return new Setter(lens._over, lens.getFlags());
 };
 
+// Add setter() to Lens base
+Lens.prototype.setter = function () {
+    return Setter.fromLens(this);
+};
+
 module.exports = Setter;

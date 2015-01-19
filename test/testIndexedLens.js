@@ -1,8 +1,9 @@
 "use strict";
 
 var _ = require('lodash'),
-    IndexedLens = require('../src/array/IndexedLens'),
-    PathLens = require('../src/object/PathLens'),
+    nanoscope = require('../index'),
+    IndexedLens = nanoscope.IndexedLens,
+    PathLens = nanoscope.PathLens,
     utils = require('./utils');
 
 describe('IndexedLens', function () {
@@ -150,6 +151,10 @@ describe('IndexedLens', function () {
                 lens = new PathLens('a').composeIndex(0);
 
             lens.view(obj).get().should.equal(0);
+
+            expect(lens.view(obj).set(100)).to.eql({
+                a:  [100]
+            });
         });
     });
 

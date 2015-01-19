@@ -1,7 +1,8 @@
 "use strict";
 
 var _ = require('lodash'),
-    PluckLens = require('../src/object/PluckLens'),
+    nanoscope = require('../index'),
+    PluckLens = nanoscope.PluckLens,
     utils = require('./utils');
 
 describe('PluckLens', function () {

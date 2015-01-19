@@ -1,7 +1,7 @@
 "use strict";
 
 var _ = require('lodash'),
-    Lens = require('../Lens'),
+    Lens = require('../base/Lens'),
     FilterLens,
 
     get,
@@ -49,20 +49,37 @@ map = function (filter) {
     };
 };
 
-FilterLens = function (filter) {
+FilterLens = function (filter, options) {
     this.base = Lens;
-    this.base(get(filter), map(filter), { _filter: filter });
+    this.base(get(filter), map(filter), _.extend({ _filter: filter }, options));
 };
 
 // Add functions to Lens base
 
+/**
+ * Add a filter to a Lens
+ *
+ * @param filter
+ * @returns {MultiLens}
+ */
 Lens.prototype.addFilter = function (filter) {
     return this.add(new FilterLens(filter));
 };
 
+/**
+ * Compose a Lens with a filter
+ *
+ * @param filter
+ * @returns {Compose}
+ */
 Lens.prototype.composeFilter = function (filter) {
     return this.compose(new FilterLens(filter));
 };
+
+/**
+ * Alias for composeFilter
+ */
+Lens.prototype.filter = Lens.prototype.composeFilter;
 
 FilterLens.prototype = new Lens;
 

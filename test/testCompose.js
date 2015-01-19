@@ -1,8 +1,9 @@
 "use strict";
 
 var _ = require('lodash'),
-    IndexedLens = require('../src/array/IndexedLens'),
-    Compose = require('../src/combinator/Compose');
+    nanoscope = require('../index'),
+    IndexedLens = nanoscope.IndexedLens,
+    Compose = nanoscope.Compose;
 
 describe('Compose', function () {
     var testArr, compositeLens;
