@@ -133,16 +133,4 @@ nanoscope.prototype.recursivePluck = function (pluck, options) {
     return new PluckLens.Recursive(pluck, this.addView(options));
 };
 
-/**
- * Set up nanoscope setter
- * @param view
- * @returns {exports.dataBinderOptions.setter}
- */
-nanoscope.setter = function (view) {
-    if (!(this instanceof nanoscope.setter)) {
-        return new nanoscope.setter(view);
-    }
-    this._view = view;
-};
-
 module.exports = nanoscope;
