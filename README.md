@@ -145,7 +145,7 @@ nanoscope([1, 2, 3]).index(0).map(function (num) {
 ##### Description
 
 Same as `index`, but throws errors if trying to access an element outside of array bounds. Allows setting the element
-after the end of an array.
+directly after the end of an array (`arr[arr.length]`).
 
 #### `slice`
 
