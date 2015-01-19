@@ -70,33 +70,47 @@ This allows for quite a bit of flexibility.
 
 ##### Description
 
-<Description>
+Get the value(s) at the focus of the lens and return them.
 
 ##### Example
 
 ```js
+var lens = nanoscope([1, 2, 3]).index(2);
+
+lens.get();
+// #=> 3
 ```
 
 #### `set`
 
 ##### Description
 
-<Description>
+Set the value(s) at the focus of the lens and return a modified structure.
 
 ##### Example
 
 ```js
+var lens = nanoscope.index([1, 2, 3]).index(2);
+
+lens.set(100);
+// #=> [1, 2, 100]
 ```
 
 #### `map`
 
 ##### Description
 
-<Description>
+Transform the value(s) at the focus of the lens using a transformation function.
 
 ##### Example
 
 ```js
+var lens = nanoscope.index([1, 2, 3]).index(2);
+
+lens.map(function (num) {
+    return (num * num);
+});
+// #=> [1, 2, 9]
 ```
 
 ### Top-level/chainable nanoscope functions
@@ -162,29 +176,55 @@ nanoscope([1, 2, 3]).slice(0, -1).set([5, 4]);
 
 ##### Description
 
-<Description>
+Focus on the value located at some path in an object. Paths are given by `.`-separated strings. If the value at a
+path doesn't exist (i.e. accessing `{}.a.b`), `get()` will return `undefined`, even if it would otherwise throw
+an error. `set()` will set the value, adding properties as necessary. `map()` will do the same, but if its output
+returns `undefined`, the structure will be unmodified. Note that setting values that don't exist can
+overwrite parent objects (see the final example below).
 
 ##### Example
 
 ```js
+var obj = {
+    a: {
+        b: 'flintstones'
+    }
+}, lens = nanoscope(obj);
+
+nanoscope.path('a.b').get();
+// #=> 'flintstones'
+
+nanoscope.path('a.b.c.d').get();
+// #=> undefined
+
+nanoscope.path('a.b.c.d').set('vitamins');
+// #=> { a: { b: { c: { d: 'vitamins } } } }
 ```
 
 #### `unsafePath`
 
 ##### Description
 
-<Description>
+The same as `path`, but does not attempt to catch errors and will instead throw them.
 
 ##### Example
 
 ```js
+nanoscope({}).path('a.b').get();
+// #=> Error: Cannot read property 'b' of undefined
 ```
 
 #### `pluck`
 
 ##### Description
 
-<Description>
+Focus on a set of properties in an object matching one of:
+
+* an array of properties (e.g. `['a', 'b']`),
+* a regular expression (e.g `/[a-b]/`)
+* or a function (e.g `function (prop) { return prop.match(/[a-b]/); }`
+
+Note that this does not recurse into subobjects, and only operates on the top-level properties.
 
 ##### Example
 
@@ -195,7 +235,7 @@ nanoscope([1, 2, 3]).slice(0, -1).set([5, 4]);
 
 ##### Description
 
-<Description>
+The same as `pluck`, but recurses into subobjects.
 
 ##### Example
 
@@ -204,9 +244,22 @@ nanoscope([1, 2, 3]).slice(0, -1).set([5, 4]);
 
 ### Other functions
 
+#### `catch`
+
+##### Description
+
+Catch any errors thrown during extraction/transformation of data and optionally handle them with an error handler.
+
+##### Example
+
+```js
+```
+
 #### `getter`
 
 ##### Description
+
+Disallow `set()` and `map()` in a lens. Called at the end of a chain.
 
 <Description>
 
@@ -219,7 +272,7 @@ nanoscope([1, 2, 3]).slice(0, -1).set([5, 4]);
 
 ##### Description
 
-<Description>
+Disallow `get()` in a lens. Called at the end of a chain.
 
 ##### Example
 
