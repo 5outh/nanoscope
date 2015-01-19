@@ -2,7 +2,7 @@
 
 [![NPM](https://nodei.co/npm/nanoscope.png?mini=true)](https://nodei.co/npm/nanoscope/)
 
-<img src="https://travis-ci.org/5outh/nanoscope.svg?branch=master"></img> [![Coverage Status](https://coveralls.io/repos/5outh/nanoscope/badge.svg?branch=pluck-extensions)](https://coveralls.io/r/5outh/nanoscope?branch=pluck-extensions)
+<img src="https://travis-ci.org/5outh/nanoscope.svg?branch=master"></img> [![Coverage Status](https://coveralls.io/repos/5outh/nanoscope/badge.svg?branch=master)](https://coveralls.io/r/5outh/nanoscope?branch=master)
 
 ## What is nanoscope?
 
@@ -229,6 +229,22 @@ Note that this does not recurse into subobjects, and only operates on the top-le
 ##### Example
 
 ```js
+var lens = nanoscope({
+    'abc' : 1,
+    'def' : 2,
+    'WAT' : 'unknown'
+});
+
+lens.pluck(['abc']).get();
+// #=> { 'abc': 1 }
+
+lens.pluck(/[a-d]*/).get();
+// #=> { 'abc': 1, 'def': 2 }
+
+lens.pluck(function (prop) {
+    return prop === 'WAT'
+}).set('unknown');
+// #=> { 'WAT': 'unknown' }
 ```
 
 #### `recursivePluck`
@@ -240,6 +256,12 @@ The same as `pluck`, but recurses into subobjects.
 ##### Example
 
 ```js
+var lens = nanoscope({
+    a: { b: 100, C: 99 }
+});
+
+lens.pluck(/[a-z]/).get();
+// #=> { a: { b: 100 } }
 ```
 
 ### Other functions
@@ -249,10 +271,16 @@ The same as `pluck`, but recurses into subobjects.
 ##### Description
 
 Catch any errors thrown during extraction/transformation of data and optionally handle them with an error handler.
+Typically will be used with unsafe operations. Called at the end of a chain.
 
 ##### Example
 
 ```js
+var lens = nanoscope([]).unsafeIndex(10000).catch(console.log);
+
+lens.get();
+// logs [Error: Attempt to access invalid index 10000]
+
 ```
 
 #### `getter`
@@ -261,11 +289,16 @@ Catch any errors thrown during extraction/transformation of data and optionally 
 
 Disallow `set()` and `map()` in a lens. Called at the end of a chain.
 
-<Description>
-
 ##### Example
 
 ```js
+var lens = nanoscope([1]).index(0).getter();
+
+lens.get();
+// #=> 1
+
+lens.set(100);
+// #=> Error: map not permitted in a Getter
 ```
 
 #### `setter`
@@ -277,6 +310,13 @@ Disallow `get()` in a lens. Called at the end of a chain.
 ##### Example
 
 ```js
+var lens = nanoscope({ a: 100 }).path('a').setter();
+
+lens.set(30);
+// #=> { a: 30 }
+
+lens.get();
+// #=>  Error: get not permitted in a Setter
 ```
 
 ## Contributing
