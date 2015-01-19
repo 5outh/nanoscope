@@ -1,23 +1,17 @@
 <img src="NanoscopeLogo.png" width="400px"></img>
 
+[![NPM](https://nodei.co/npm/nanoscope.png?mini=true)](https://nodei.co/npm/nanoscope/)
+
 <img src="https://travis-ci.org/5outh/nanoscope.svg?branch=master"></img> [![Coverage Status](https://coveralls.io/repos/5outh/nanoscope/badge.svg?branch=pluck-extensions)](https://coveralls.io/r/5outh/nanoscope?branch=pluck-extensions)
-
-## A Lens Library for Javascript
-
-Installation is easy:
-
-```
-$ npm install nanoscope
-```
 
 ## What is nanoscope?
 
-`nanoscope` lets you wrangle your data like never before.
-At a basic level, it allows:
+`nanoscope` lets you wrangle your data like never before. It enables:
 
 * Safe access of deeply-nested objects,
-* Complex transformation of arbitrary data structures
-* Immutable transformations of data
+* Complex modifications of arbitrary data structures
+* Immutable data transformations
+* and more!
 
 ## What can I do with nanoscope?
 
