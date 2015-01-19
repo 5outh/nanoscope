@@ -321,7 +321,22 @@ lens.get();
 
 ## Contributing
 
-TODO
+Feature requests, pull requests, code reviews, comments and concerns are more than welcome. If you have an issue with
+nanoscope, please file it on github. When submitting pull requests, please create a feature branch and explain in detail what
+you've changed and why.
+
+Before adding features, please submit a feature request. I will not add features to nanoscope blindly, but would love to hear
+your ideas! Once a feature request is approved, anyone can feel free to work on it and submit a pull request for review.
+
+When submitting pull requests, please:
+
+1. Make sure that tests are passing (run `npm test` with mocha installed globally (`npm install -g mocha`)), and
+2. Add at least one test that tests the feature you are adding or fixing.
+
+All PRs will be run through Travis for automatic testing and Coveralls for code coverage information. If the code coverage
+has dropped, be prepared to explain why in your pull request.
+
+Thanks your support of the project!
 
 ## License
 
