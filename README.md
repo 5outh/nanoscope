@@ -21,7 +21,7 @@ The general flow of using `nanoscope` goes like this:
 2. Add lens rules to the `nanoscope` instance, which specify the pieces you want to look at, and finally
 3. call `get()`, `set()` or `map()` to perform some action on your data.
 
-That's a little confusing. Let's look at an example:
+Let's look at an example:
 
 ```js
 var nanoscope = require('nanoscope'),
@@ -232,7 +232,7 @@ Note that this does not recurse into subobjects, and only operates on the top-le
 var lens = nanoscope({
     'abc' : 1,
     'def' : 2,
-    'WAT' : 'unknown'
+    'WAT' : null
 });
 
 lens.pluck(['abc']).get();
@@ -244,7 +244,7 @@ lens.pluck(/[a-d]*/).get();
 lens.pluck(function (prop) {
     return prop === 'WAT'
 }).set('unknown');
-// #=> { 'WAT': 'unknown' }
+// #=> { 'abc': 1, 'def': 2, 'WAT': 'unknown' }
 ```
 
 #### `recursivePluck`
@@ -322,21 +322,21 @@ lens.get();
 ## Contributing
 
 Feature requests, pull requests, code reviews, comments and concerns are more than welcome. If you have an issue with
-nanoscope, please file it on github. When submitting pull requests, please create a feature branch and explain in detail what
+nanoscope, please file it [on github](https://github.com/5outh/nanoscope/issues). When submitting pull requests, please create a feature branch and explain in detail what
 you've changed and why.
 
-Before adding features, please submit a feature request. I will not add features to nanoscope blindly, but would love to hear
-your ideas! Once a feature request is approved, anyone can feel free to work on it and submit a pull request for review.
+Before adding features, please submit a feature request through the issue tracker on github. I will not add features to nanoscope blindly, but would love to hear
+your ideas! Once a feature request is approved (I'll just comment saying it's cool), anyone can work on it and submit a pull request for review.
 
 When submitting pull requests, please:
 
 1. Make sure that tests are passing (run `npm test` with mocha installed globally (`npm install -g mocha`)), and
 2. Add at least one test that tests the feature you are adding or fixing.
 
-All PRs will be run through Travis for automatic testing and Coveralls for code coverage information. If the code coverage
+All PRs will be run through Travis for automatic testing and Coveralls for code coverage information. If the code coverage percentage
 has dropped, be prepared to explain why in your pull request.
 
-Thanks your support of the project!
+Thanks your support of the project, and happy hacking!
 
 ## License
 
