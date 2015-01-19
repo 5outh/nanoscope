@@ -1,8 +1,7 @@
 <img src="NanoscopeLogo.png" width="400px"></img>
 
-[![NPM](https://nodei.co/npm/nanoscope.png?downloads=true)](https://nodei.co/npm/nanoscope/)
-
 <img src="https://travis-ci.org/5outh/nanoscope.svg?branch=master"></img> [![Coverage Status](https://coveralls.io/repos/5outh/nanoscope/badge.svg?branch=pluck-extensions)](https://coveralls.io/r/5outh/nanoscope?branch=pluck-extensions)
+[![NPM](https://nodei.co/npm/nanoscope.png?mini=true)](https://nodei.co/npm/nanoscope/)
 
 ## What is nanoscope?
 
