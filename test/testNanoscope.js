@@ -69,6 +69,13 @@ describe('nanoscope', function () {
             });
         });
 
+        it('should do the same thing as a DisjunctiveLens', function () {
+            var lens = nanoscope({ foo: 1}),
+                disjunctiveLens = lens.path('foo').index(0).or(lens.path('foo'));
+
+            disjunctiveLens.get().should.equal(1);
+        });
+
         it('should be able to compose lots of stuff', function () {
             var lens = nanoscope({
                     a: [{b : 100, c: 0, B: 99}, 2, 3]
@@ -146,6 +153,13 @@ describe('nanoscope', function () {
                     B: 99
                 }
             });
+        });
+
+        it('should do the same thing as a DisjunctiveLens', function () {
+            var lens = nanoscope({ foo: 1}),
+                disjunctiveLens = lens.path('foo').index(0).or(lens.path('foo'));
+
+            expect(disjunctiveLens.set(100)).to.eql({ foo: 100 });
         });
 
         it('should be able to compose lots of stuff', function () {

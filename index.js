@@ -17,6 +17,7 @@ lenses = {
     Compose: require('./src/combinator/Compose'),
     Optional: require('./src/combinator/Optional'),
     MultiLens: require('./src/combinator/MultiLens'),
+    DisjunctiveLens: require('./src/combinator/DisjunctiveLens'),
 
     // Special Cases
     Getter: require('./src/base/Getter'),
