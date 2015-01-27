@@ -29,14 +29,11 @@
   "devDependencies": {
     "chai": "^1.10.0",
     "coveralls": "^2.11.2",
-    "gulp": "^3.8.10",
-    "gulp-mocha": "^2.0.0",
-    "gulp-watch": "^3.0.0",
     "ink-docstrap": "^0.4.12",
     "istanbul": "^0.3.5",
     "istanbul-coveralls": "^1.0.1",
     "mocha": "^2.1.0",
     "mocha-lcov-reporter": "0.0.1",
-    "should": "^4.3.0"
+    "should": "^4.6.1"
   }
 }
