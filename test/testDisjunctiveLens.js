@@ -2,6 +2,7 @@
 
 var _ = require('lodash'),
     nanoscope = require('../index'),
+
     IndexedLens = nanoscope.IndexedLens,
     PathLens = nanoscope.PathLens,
     DisjunctiveLens = nanoscope.DisjunctiveLens,
