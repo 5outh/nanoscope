@@ -218,13 +218,13 @@ Lens.prototype.addMany = function (otherLenses) {
 /**
  * Create a disjunction between this lens and another.
  *
- * @param lens
+ * @param otherLens
  * @returns {DisjunctiveLens}
  */
-Lens.prototype.or = function (lens) {
+Lens.prototype.or = function (otherLens) {
     var DisjunctiveLens = require('../combinator/DisjunctiveLens');
 
-    return new DisjunctiveLens(this, lens, _.extend(this.getFlags() || {}, lens.getFlags()));
+    return new DisjunctiveLens(this, otherLens, _.extend(this.getFlags() || {}, otherLens.getFlags()));
 };
 
 module.exports = Lens;
