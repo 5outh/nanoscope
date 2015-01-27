@@ -6,13 +6,19 @@ var _ = require('lodash'),
     DisjunctiveLens = nanoscope.DisjunctiveLens,
     Compose = nanoscope.Compose;
 
-describe('Compose', function () {
-    var foo = { foo: 1},
-        disjunctiveLens = new DisjunctiveLens(nanoscope(foo).path('foo').index(0), nanoscope(foo).path('foo'));
+describe('DisjunctiveLens', function () {
+    var lens = nanoscope({ foo: 1 }),
+        disjunctiveLens = new DisjunctiveLens(lens.path('foo').index(0), lens.path('foo'));
 
     describe('#get', function () {
         it('should return 1', function () {
             disjunctiveLens.get().should.equal(1);
+        });
+    });
+
+    describe('#set', function () {
+        it('should set foo to 10', function () {
+            expect(disjunctiveLens.set(11)).to.eql({ foo: 11 });
         });
     });
 
