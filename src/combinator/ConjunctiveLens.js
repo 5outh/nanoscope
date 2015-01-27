@@ -25,14 +25,13 @@ get = function (lensA, lensB) {
 
         try {
             gottenA = lensA.get(obj);
-            gottenB = lensA.get(obj);
+            gottenB = lensB.get(obj);
 
             if (isNullOrUndefined(gottenA) || isNullOrUndefined(gottenB)) {
                 return null;
             }
 
-            return new MultiLens(lensA, lensB).get(obj);
-
+            return lensA.add(lensB).get(obj);
         } catch (e) {
             // Do nothing, just move on...
         }
