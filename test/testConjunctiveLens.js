@@ -23,14 +23,14 @@ describe('ConjunctiveLens', function () {
     });
 
     describe('#set', function () {
-        it('should set foo to 10', function () {
-            //expect(conjunctiveLens.set({foo: 1}, 11)).to.eql({ foo: 11 });
+        it('should set foo and bar to 10', function () {
+            expect(conjunctiveLens.set(foobar, 11)).to.eql({ foo: 11, bar: 11 });
         });
     });
 
     describe('#map', function () {
-        it('should add 10 to foo', function () {
-            //expect(conjunctiveLens.map({foo: 1}, function (el) { return el + 10; })).to.eql({ foo: 11 });
+        it('should add 10 to foo and bar', function () {
+            expect(conjunctiveLens.map(foobar, function (el) { return el + 10; })).to.eql({ foo: 11, bar: 12 });
         });
     });
 });

@@ -60,7 +60,7 @@ map = function (lensA, lensB) {
                 return obj;
             }
 
-            return new MultiLens(lensA, lensB).map(obj, func);
+            return lensA.add(lensB).map(obj, func);
         } catch (e) {
             // Do nothing, just move on...
         }
