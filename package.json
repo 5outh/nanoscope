@@ -1,6 +1,6 @@
 {
   "name": "nanoscope",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A Lens Library for Javascript",
   "main": "index.js",
   "scripts": {
