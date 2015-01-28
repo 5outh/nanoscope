@@ -20,6 +20,10 @@ describe('ConjunctiveLens', function () {
         it('should return the right stuff', function () {
             expect(conjunctiveLens.get(foobar)).to.eql([1, 2]);
         });
+
+        it('should return null', function () {
+
+        });
     });
 
     describe('#set', function () {
