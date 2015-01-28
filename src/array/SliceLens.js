@@ -158,8 +158,9 @@ Lens.prototype.composeSlice = function (i, j, options) {
 };
 
 /**
- * Alias for composeSlice
+ * Aliases for composeSlice
  */
 Lens.prototype.slice = Lens.prototype.composeSlice;
+Lens.prototype.slicing = Lens.prototype.composeSlice;
 
 module.exports = SliceLens;

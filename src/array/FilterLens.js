@@ -77,9 +77,10 @@ Lens.prototype.composeFilter = function (filter) {
 };
 
 /**
- * Alias for composeFilter
+ * Aliases for composeFilter
  */
 Lens.prototype.filter = Lens.prototype.composeFilter;
+Lens.prototype.filtering = Lens.prototype.composeFilter;
 
 FilterLens.prototype = new Lens;
 

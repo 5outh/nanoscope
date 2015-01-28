@@ -173,8 +173,9 @@ Lens.prototype.composePluck = function (plucker, options) {
 };
 
 /**
- * Alias for composePluck
+ * Aliases for composePluck
  */
 Lens.prototype.pluck = Lens.prototype.composePluck;
+Lens.prototype.plucking = Lens.prototype.composePluck;
 
 module.exports = PluckLens;
