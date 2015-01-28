@@ -9,6 +9,8 @@ describe('nanoscope', function () {
             var lens = nanoscope([1, 2, 3]);
 
             lens.index(0).get().should.equal(1);
+            lens.indexing(0).get().should.equal(1);
+
         });
 
         it('should do the same thing as an unsafe IndexedLens', function () {
@@ -17,24 +19,31 @@ describe('nanoscope', function () {
             expect(function () {
                 lens.unsafeIndex(100).get();
             }).to.throw(Error, 'Attempt to access invalid index 100');
+
+            expect(function () {
+                lens.unsafelyIndexing(100).get();
+            }).to.throw(Error, 'Attempt to access invalid index 100');
         });
 
         it('should do the same thing as a SliceLens', function () {
             var lens = nanoscope([1, 2, 3]);
 
             expect(lens.slice(0, 2).get()).to.eql([1, 2]);
+            expect(lens.slicing(0, 2).get()).to.eql([1, 2]);
         });
 
         it('should first slice, then index', function () {
             var lens = nanoscope([1, 2, 3]);
 
             expect(lens.slice(1, 2).index(0).get()).to.eql(2);
+            expect(lens.slicing(1, 2).indexing(0).get()).to.eql(2);
         });
 
         it('should do the same thing as a PathLens', function () {
             var lens = nanoscope({ a: { b: 100 } });
 
             expect(lens.path('a.b').get()).to.equal(100);
+            expect(lens.following('a.b').get()).to.equal(100);
         });
 
         it('should do the same thing as an unsafe PathLens', function () {
@@ -42,6 +51,10 @@ describe('nanoscope', function () {
 
             expect(function () {
                 lens.unsafePath('a.b.c.d').get();
+            }).to.throw(TypeError, 'Cannot read property \'d\' of undefined');
+
+            expect(function () {
+                lens.unsafelyFollowing('a.b.c.d').get();
             }).to.throw(TypeError, 'Cannot read property \'d\' of undefined');
 
             // Test that `catch` works as expected
@@ -57,6 +70,10 @@ describe('nanoscope', function () {
             expect(lens.pluck(['a']).get()).to.eql({
                 a: 100
             });
+
+            expect(lens.plucking(['a']).get()).to.eql({
+                a: 100
+            });
         });
 
         it('should do the same thing as a recursive PluckLens', function () {
@@ -67,30 +84,46 @@ describe('nanoscope', function () {
                     b: 100
                 }
             });
+
+            expect(lens.recursivelyPlucking(/[a-z]/).get()).to.eql({
+                a: {
+                    b: 100
+                }
+            });
         });
 
         it('should do the same thing as a DisjunctiveLens', function () {
             var lens = nanoscope({ foo: 1}),
-                disjunctiveLens = lens.path('foo').index(0).or(lens.path('foo'));
+                disjunctiveLens = lens.path('foo').index(0).or(lens.path('foo')),
+                _disjunctiveLens = disjunctiveLens = lens.following('foo').indexing(0).or(lens.path('foo'));
 
             disjunctiveLens.get().should.equal(1);
+            _disjunctiveLens.get().should.equal(1);
         });
 
         it('should do the same thing as a ConjunctiveLens', function () {
             var foobar = {foo: 1, bar: 2},
                 lens = nanoscope(foobar),
-                disjunctiveLens = lens.path('foo').and(lens.path('bar'));
+                conjunctiveLens = lens.path('foo').and(lens.path('bar')),
+                _conjunctiveLens = lens.following('foo').and(lens.following('bar'));
 
-            expect(disjunctiveLens.get()).to.eql([1, 2]);
+            expect(conjunctiveLens.get()).to.eql([1, 2]);
+            expect(_conjunctiveLens.get()).to.eql([1, 2]);
         });
 
         it('should be able to compose lots of stuff', function () {
             var lens = nanoscope({
                     a: [{b : 100, c: 0, B: 99}, 2, 3]
                 }),
-                getValue = lens.path('a').index(0).pluck(/[a-z]/).get();
+                getValue = lens.path('a').index(0).pluck(/[a-z]/).get(),
+                _getValue = lens.following('a').indexing(0).plucking(/[a-z]/).get();
 
             expect(getValue).to.eql({
+                b: 100,
+                c: 0
+            });
+
+            expect(_getValue).to.eql({
                 b: 100,
                 c: 0
             });

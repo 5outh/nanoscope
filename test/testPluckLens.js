@@ -187,7 +187,6 @@ describe('PluckLens', function () {
             var obj = { abc: 1, wat: null };
 
             expect(nanoscope(obj).pluck(function (prop, value) {
-                console.log(value);
                 return (value !== null);
             }).map(double)).to.eql({ abc: 2, wat: null });
         });

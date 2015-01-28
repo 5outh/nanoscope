@@ -22,12 +22,11 @@ describe('MultiLens', function () {
 
     describe('#MultiLens', function () {
         it('should have the correct array of lenses', function () {
-            utils.testArrayEquals(arrayMultiLens._lenses, arrayLenses);
+            expect(arrayMultiLens._lenses).to.eql(arrayLenses);
         });
 
         it('should have the right object of lenses', function () {
-            JSON.stringify(objectMultiLens._lenses)
-                .should.equal(JSON.stringify(objectLenses));
+            expect(objectMultiLens._lenses).to.eql(objectLenses);
         });
     });
 
@@ -37,8 +36,7 @@ describe('MultiLens', function () {
         });
 
         it('should return the correct object of values for an object MultiLens', function () {
-            JSON.stringify(objectMultiLens.get(testArr))
-                .should.equal(JSON.stringify({ head: 1, last: 5 }));
+            expect(objectMultiLens.get(testArr)).to.eql({ head: 1, last: 5 });
         });
     });
 

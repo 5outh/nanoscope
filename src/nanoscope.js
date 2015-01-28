@@ -20,6 +20,8 @@ var _ = require('lodash'),
     Getter = require('./base/Getter'),
     Setter = require('./base/Setter'),
 
+    setupAliases,
+
     nanoscope,
     unsafe;
 
@@ -100,6 +102,7 @@ nanoscope.prototype.path = function (path, options) {
     return new PathLens(path, this.addView(options));
 };
 
+
 /**
  * Construct an unsafe PathLens
  *
@@ -132,5 +135,37 @@ nanoscope.prototype.pluck = function (pluck, options) {
 nanoscope.prototype.recursivePluck = function (pluck, options) {
     return new PluckLens.Recursive(pluck, this.addView(options));
 };
+
+/**
+ * Setup aliases for functions on a prototype
+ *
+ * @param proto
+ * @param aliases
+ */
+setupAliases = function (proto, aliases) {
+    _.forOwn(aliases, function (alias, prop) {
+        if (_.isArray(alias)) {
+            _.forEach(alias, function (_alias) {
+                proto[_alias] = proto[prop];
+            });
+        } else {
+            proto[alias] = proto[prop];
+        }
+    });
+};
+
+/**
+ * Set up the aliases for nanoscope
+ */
+setupAliases(nanoscope.prototype, {
+    filter: 'filtering',
+    index: 'indexing',
+    unsafeIndex: 'unsafelyIndexing',
+    slice: 'slicing',
+    path: 'following',
+    unsafePath: 'unsafelyFollowing',
+    pluck: 'plucking',
+    recursivePluck: 'recursivelyPlucking'
+});
 
 module.exports = nanoscope;

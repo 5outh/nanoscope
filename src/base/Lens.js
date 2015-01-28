@@ -48,6 +48,8 @@ Lens = function (get, map, flags) {
     self._get = get;
     self._over = map;
 
+    self.then = self;
+
     // Set view from constructor
     if (self._flags._view) {
         self._view = self._flags._view;
@@ -109,6 +111,9 @@ Lens.prototype.view = function (view) {
     this._view = view;
     return this;
 };
+
+// Alias for view
+Lens.prototype.viewing = Lens.prototype.view;
 
 /**
  * Reset the view of the `Lens`.

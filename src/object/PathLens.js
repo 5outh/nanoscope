@@ -261,8 +261,9 @@ Lens.prototype.composePath = function (path, options) {
 };
 
 /**
- * Alias for composePath
+ * Aliases for composePath
  */
 Lens.prototype.path = Lens.prototype.composePath;
+Lens.prototype.following = Lens.prototype.composePath;
 
 module.exports = PathLens;
