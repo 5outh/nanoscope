@@ -19,6 +19,15 @@ describe('DisjunctiveLens', function () {
         it('should return 1', function () {
             disjunctiveLens.get({foo: 1}).should.equal(1);
         });
+
+        it('should return null', function () {
+            var disjunctiveLens = new DisjunctiveLens(
+                new PathLens('foo').index(0),
+                new PathLens('bar')
+            );
+
+            expect(disjunctiveLens.get({ foo: [] })).to.equal(null);
+        });
     });
 
     describe('#set', function () {
@@ -30,6 +39,15 @@ describe('DisjunctiveLens', function () {
     describe('#map', function () {
         it('should add 10 to foo', function () {
             expect(disjunctiveLens.map({foo: 1}, function (el) { return el + 10; })).to.eql({ foo: 11 });
+        });
+
+        it('should return the original object', function () {
+            var disjunctiveLens = new DisjunctiveLens(
+                new PathLens('foo').index(0),
+                new PathLens('bar.baz')
+            );
+
+            expect(disjunctiveLens.map({ foo: [] }, function (el) { return el + 10; })).to.eql({ foo: []});
         });
     });
 });
