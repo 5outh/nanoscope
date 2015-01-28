@@ -48,6 +48,8 @@ Lens = function (get, map, flags) {
     self._get = get;
     self._over = map;
 
+    self.then = self;
+
     // Set view from constructor
     if (self._flags._view) {
         self._view = self._flags._view;
