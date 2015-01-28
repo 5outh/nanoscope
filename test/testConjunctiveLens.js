@@ -22,7 +22,7 @@ describe('ConjunctiveLens', function () {
         });
 
         it('should return null', function () {
-
+            expect(conjunctiveLens.get({})).to.equal(null);
         });
     });
 
@@ -35,6 +35,10 @@ describe('ConjunctiveLens', function () {
     describe('#map', function () {
         it('should add 10 to foo and bar', function () {
             expect(conjunctiveLens.map(foobar, function (el) { return el + 10; })).to.eql({ foo: 11, bar: 12 });
+        });
+
+        it('should return the original object', function () {
+            expect(conjunctiveLens.set({}, 11)).to.eql({});
         });
     });
 });

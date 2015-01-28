@@ -72,6 +72,7 @@ map = function (path, unsafe) {
         var prevObj = _.cloneDeep(obj),
             initialObj = obj,
             modifiedStructure = false,
+            value,
             i;
 
         if (_.isString(path)) {
@@ -100,10 +101,15 @@ map = function (path, unsafe) {
         // Set the value we care about
         obj[path[i]] = func(obj[path[i]]);
 
+        value = obj[path[i]];
+
         // If the value doesn't exist and we're not setting anything, return a clone of the previous object
         // This prevents turning, for example, {} into { a: { b : { ... z: undefined } ... } }
         // NOTE: == null catches null OR undefined values. This is on purpose.
-        if ((obj[path[i]] == null) && modifiedStructure) {
+        if (
+            (value == null || (_.isNumber(value) && isNaN(value)))
+            && modifiedStructure
+        ) {
             return prevObj;
         }
 

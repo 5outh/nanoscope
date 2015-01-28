@@ -106,6 +106,14 @@ describe('PluckLens', function () {
                 d: 1
             });
         });
+
+        it('should be able to filter by value', function () {
+            var obj = { abc: 1, wat: null };
+
+            expect(nanoscope(obj).pluck(function (prop, value) {
+                return (value === null);
+            }).get()).to.eql({ wat: null });
+        });
     });
 
     describe('#map', function () {
@@ -173,6 +181,15 @@ describe('PluckLens', function () {
                 },
                 d: 6
             });
+        });
+
+        it('should map according to values', function () {
+            var obj = { abc: 1, wat: null };
+
+            expect(nanoscope(obj).pluck(function (prop, value) {
+                console.log(value);
+                return (value !== null);
+            }).map(double)).to.eql({ abc: 2, wat: null });
         });
     });
 

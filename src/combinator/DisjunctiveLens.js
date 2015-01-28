@@ -21,7 +21,7 @@ get = function (lensA, lensB) {
             gotten = lensA.get(obj);
 
             if (_.isNull(gotten) || _.isUndefined(gotten)) {
-                return lensB.get(obj);
+                return lensB.get(obj) || null;
             }
 
             return gotten;
@@ -29,7 +29,7 @@ get = function (lensA, lensB) {
             // Do nothing, just move on...
         }
 
-        return lensB.get(obj);
+        return lensB.get(obj) || null;
     };
 };
 

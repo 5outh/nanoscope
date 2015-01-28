@@ -38,7 +38,8 @@ get = function (plucker, recursive, object) {
 
             } else if (_.isFunction(plucker)) {
 
-                if (plucker(property)) {
+                // Run a function over the property and its value
+                if (plucker(property, viewedObject[property])) {
                     object[property] = viewedObject[property];
                 }
 
@@ -91,7 +92,7 @@ map = function (plucker, recursive, object) {
 
             } else if (_.isFunction(plucker)) {
 
-                if (plucker(property)) {
+                if (plucker(property, viewedObject[property])) {
                     object[property] = func(viewedObject[property]);
                 }
 

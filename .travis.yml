@@ -1,9 +1,8 @@
 language: node_js
 node_js:
-- '0.10'
+- '0.11'
 after_success:
 - istanbul cover ./node_modules/.bin/_mocha && ./node_modules/.bin/istanbul-coveralls
-- npm version patch -m "Automatic version bump from Travis CI"
 deploy:
   provider: npm
   email: bkovach13@gmail.com
