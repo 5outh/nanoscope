@@ -227,4 +227,17 @@ Lens.prototype.or = function (otherLens) {
     return new DisjunctiveLens(this, otherLens, _.extend(this.getFlags() || {}, otherLens.getFlags()));
 };
 
+/**
+ * Create a conjunction between this lens and another.
+ *
+ * @param otherLens
+ * @returns {ConjunctiveLens}
+ */
+Lens.prototype.and = function (otherLens) {
+    var ConjunctiveLens = require('../combinator/ConjunctiveLens');
+
+    return new ConjunctiveLens(this, otherLens, _.extend(this.getFlags() || {}, otherLens.getFlags()));
+};
+
+
 module.exports = Lens;
