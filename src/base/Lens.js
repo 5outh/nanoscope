@@ -112,6 +112,9 @@ Lens.prototype.view = function (view) {
     return this;
 };
 
+// Alias for view
+Lens.prototype.viewing = Lens.prototype.view;
+
 /**
  * Reset the view of the `Lens`.
  *

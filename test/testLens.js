@@ -47,6 +47,14 @@ describe('Lens', function () {
         });
     });
 
+    describe('#then', function () {
+        it('should allow using then to compose', function () {
+            var testObj = { a: { b: [100] } };
+
+            testLens.viewing(testObj).then.indexing(0).get().should.equal(100);
+        });
+    });
+
     describe('#view', function () {
         it('should set the view to 10', function () {
             testLens.view(10)._view.should.equal(10);
