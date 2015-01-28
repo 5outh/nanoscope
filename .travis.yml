@@ -12,3 +12,4 @@ deploy:
   on:
     tags: true
     repo: 5outh/nanoscope
+    branch: master
