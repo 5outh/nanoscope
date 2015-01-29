@@ -153,7 +153,8 @@ Lens.prototype.composeIndex = function (index) {
     return this.compose(new IndexedLens(index, { unsafe: this.getFlag('_unsafeIndex') }));
 };
 
-// Alias for `composeIndex`
+// Aliases for `composeIndex`
 Lens.prototype.index = Lens.prototype.composeIndex;
+Lens.prototype.indexing = Lens.prototype.composeIndex;
 
 module.exports = IndexedLens;
