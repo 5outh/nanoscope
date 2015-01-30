@@ -42,7 +42,7 @@ get = function (path, unsafe) {
     if (!unsafe) {
         // Just use steelToe to safely access element
         return function (obj) {
-            return steelToe(obj).get(path);
+            return steelToe(obj).get(path) || null;
         };
     }
 
@@ -110,7 +110,7 @@ map = function (path, unsafe) {
             (value == null || (_.isNumber(value) && isNaN(value)))
             && modifiedStructure
         ) {
-            return prevObj;
+            return _.cloneDeep(prevObj);
         }
 
         // Return a clone of the modified object
