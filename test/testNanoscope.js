@@ -139,6 +139,12 @@ describe('nanoscope', function () {
                 c: 0
             });
         });
+
+        it('shouldnt fail', function () {
+            var lens = nanoscope(null);
+
+            expect(lens.index(0).path('a.b.c').filter(['a']).pluck(['b']).index(1000).get()).to.be.null;
+        });
     });
 
     describe('#set', function () {
@@ -231,6 +237,12 @@ describe('nanoscope', function () {
             expect(getValue).to.eql({
                 a: [{b : 100, c: 100, B: 99}, 2, 3]
             });
+        });
+
+        it('should return the original object', function () {
+            var lens = nanoscope({ a: 10 });
+
+            expect(lens.index(0).path('a.b.c').filter(['a']).pluck(['b']).index(1000).set(100)).to.eql({a: 10});
         });
     });
 });
