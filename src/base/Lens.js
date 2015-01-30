@@ -244,5 +244,20 @@ Lens.prototype.and = function (otherLens) {
     return new ConjunctiveLens(this, otherLens, _.extend(this.getFlags() || {}, otherLens.getFlags()));
 };
 
+Lens.prototype.each = function (eachFn) {
+    var MultiLens = require('../combinator/MultiLens'),
+        IndexedLens = require('../array/IndexedLens'),
+        IdLens = require('../../lib/primitives/IdLens'),
+        arr = this.get(),
+        lenses;
+
+    if (_.isArray(arr)) {
+        lenses = _.map(_.range(arr.length), function (idx) {
+            return eachFn(new IndexedLens(idx));
+        });
+    }
+
+    return this.compose(new MultiLens(lenses));
+};
 
 module.exports = Lens;

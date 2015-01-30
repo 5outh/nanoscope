@@ -111,6 +111,17 @@ describe('nanoscope', function () {
             expect(_conjunctiveLens.get()).to.eql([1, 2]);
         });
 
+        it('should be able to iterate over an array', function () {
+            var thing = [{x: 100, y: 200}, {x: 10, y:0}];
+
+            expect(
+                nanoscope(thing).each(
+                    function (loc) {
+                        return loc.path('x');
+                    }).get()
+            ).to.eql([100, 10]);
+        });
+
         it('should be able to compose lots of stuff', function () {
             var lens = nanoscope({
                     a: [{b : 100, c: 0, B: 99}, 2, 3]
