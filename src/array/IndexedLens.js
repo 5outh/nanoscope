@@ -60,7 +60,8 @@ map = function (index, unsafe) {
             if (unsafe) {
                 throw new Error('Argument to indexed lens must be an array');
             }
-            return null;
+            // Identity is sort of the 'null' for map
+            return newArr;
         }
 
         // Only allow updates if array element exists or is the next element in the array
