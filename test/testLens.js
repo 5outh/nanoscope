@@ -148,4 +148,43 @@ describe('Lens', function () {
                 .should.equal(JSON.stringify({ _extra: 'extra' }));
         });
     });
+
+    describe('#each', function () {
+        var thing, lens;
+
+        beforeEach(function () {
+            thing = {
+                locations: [{x: 100, y: 200}, {x: 10, y:0}]
+            };
+
+            lens = nanoscope(thing).path('locations').each(function (loc) {
+                return loc.path('x');
+            })
+        });
+
+        it('should get properly', function () {
+
+            expect(lens.get()).to.eql([100, 10]);
+        });
+
+        it('should set properly', function () {
+            expect(lens.set(99)).to.eql({
+                locations: [
+                    {x: 99, y: 200},
+                    {x: 99, y:0}
+                ]
+            });
+        });
+
+        it('should map properly', function () {
+            expect(lens.map(function (x) {
+                return x * 2;
+            })).to.eql({
+                locations: [
+                    {x: 200, y: 200},
+                    {x: 20, y:0}
+                ]
+            });
+        });
+    });
 });

@@ -2,6 +2,8 @@
 
 var _ = require('lodash'),
 
+    IdLens = require('../lib/primitives/IdLens'),
+
     Lens = require('./base/Lens'),
 
     // Predefined Lenses
@@ -134,6 +136,16 @@ nanoscope.prototype.pluck = function (pluck, options) {
  */
 nanoscope.prototype.recursivePluck = function (pluck, options) {
     return new PluckLens.Recursive(pluck, this.addView(options));
+};
+
+/**
+ * Focus on every element in an array
+ *
+ * @param eachFn
+ * @returns {*}
+ */
+nanoscope.prototype.each = function (eachFn) {
+    return new IdLens().view(this._view).each(eachFn);
 };
 
 /**

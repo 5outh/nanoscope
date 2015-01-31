@@ -52,7 +52,7 @@ Lens = function (get, map, flags) {
 
     // Set view from constructor
     if (self._flags._view) {
-        self._view = self._flags._view;
+        self._view = _.cloneDeep(self._flags._view);
     }
 
     return self;
@@ -244,5 +244,25 @@ Lens.prototype.and = function (otherLens) {
     return new ConjunctiveLens(this, otherLens, _.extend(this.getFlags() || {}, otherLens.getFlags()));
 };
 
+/**
+ * Focus on every element of an array at once
+ *
+ * @param eachFn
+ * @returns {Compose}
+ */
+Lens.prototype.each = function (eachFn) {
+    var MultiLens = require('../combinator/MultiLens'),
+        IndexedLens = require('../array/IndexedLens'),
+        arr = this.get(),
+        lenses;
+
+    if (_.isArray(arr)) {
+        lenses = _.map(_.range(arr.length), function (idx) {
+            return eachFn(new IndexedLens(idx));
+        });
+    }
+
+    return this.compose(new MultiLens(lenses, this.getFlags()));
+};
 
 module.exports = Lens;

@@ -111,6 +111,17 @@ describe('nanoscope', function () {
             expect(_conjunctiveLens.get()).to.eql([1, 2]);
         });
 
+        it('should be able to iterate over an array', function () {
+            var thing = [{x: 100, y: 200}, {x: 10, y:0}];
+
+            expect(
+                nanoscope(thing).each(
+                    function (loc) {
+                        return loc.path('x');
+                    }).get()
+            ).to.eql([100, 10]);
+        });
+
         it('should be able to compose lots of stuff', function () {
             var lens = nanoscope({
                     a: [{b : 100, c: 0, B: 99}, 2, 3]
@@ -127,6 +138,12 @@ describe('nanoscope', function () {
                 b: 100,
                 c: 0
             });
+        });
+
+        it('shouldnt fail', function () {
+            var lens = nanoscope(null);
+
+            expect(lens.index(0).path('a.b.c').filter(['a']).pluck(['b']).index(1000).get()).to.be.null;
         });
     });
 
@@ -220,6 +237,12 @@ describe('nanoscope', function () {
             expect(getValue).to.eql({
                 a: [{b : 100, c: 100, B: 99}, 2, 3]
             });
+        });
+
+        it('should return the original object', function () {
+            var lens = nanoscope({ a: 10 });
+
+            expect(lens.index(0).path('a.b.c').filter(['a']).pluck(['b']).index(1000).set(100)).to.eql({a: 10});
         });
     });
 });

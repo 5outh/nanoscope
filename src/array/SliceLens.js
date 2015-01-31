@@ -20,6 +20,10 @@ var _ = require('lodash'),
 get = function (i, j) {
     return function (arr) {
 
+        if (!_.isArray(arr)) {
+            return [];
+        }
+
         i = utils.normalizeIndex(arr, i);
         j = utils.normalizeIndex(arr, j);
 
@@ -39,6 +43,10 @@ map = function (i, j) {
         var newArr = [],
             slicedArr,
             k;
+
+        if (!_.isArray(arr)) {
+            return _.cloneDeep(arr);
+        }
 
         i = utils.normalizeIndex(arr, i);
         j = utils.normalizeIndex(arr, j);
