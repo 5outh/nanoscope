@@ -39,6 +39,22 @@ nanoscope = function (view) {
 };
 
 /**
+ * Add mixin functions to nanoscope
+ *
+ * @param mapping
+ */
+nanoscope.mixin = function (mapping) {
+    var keys = _.keys(mapping);
+
+    _.forEach(keys, function (key) {
+        if (_.isFunction(mapping[key])) {
+            nanoscope.prototype[key] = mapping[key];
+            Lens.prototype[key] = mapping[key];
+        }
+    });
+};
+
+/**
  * Add the nanoscope view to an options object
  *
  * @param options
