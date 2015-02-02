@@ -149,6 +149,16 @@ nanoscope.prototype.each = function (eachFn) {
 };
 
 /**
+ * Focus on every element in an object
+ *
+ * @param ownFn
+ * @returns {*}
+ */
+nanoscope.prototype.own = function (ownFn) {
+    return new IdLens().view(this._view).own(ownFn);
+};
+
+/**
  * Setup aliases for functions on a prototype
  *
  * @param proto

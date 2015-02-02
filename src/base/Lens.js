@@ -109,6 +109,7 @@ Lens.prototype.set = function (obj, val) {
  */
 Lens.prototype.view = function (view) {
     this._view = view;
+    this._flags._view = view;
     return this;
 };
 
@@ -254,11 +255,32 @@ Lens.prototype.each = function (eachFn) {
     var MultiLens = require('../combinator/MultiLens'),
         IndexedLens = require('../array/IndexedLens'),
         arr = this.get(),
-        lenses;
+        lenses = [];
 
     if (_.isArray(arr)) {
         lenses = _.map(_.range(arr.length), function (idx) {
             return eachFn(new IndexedLens(idx));
+        });
+    }
+
+    return this.compose(new MultiLens(lenses, this.getFlags()));
+};
+
+/**
+ * Focus on every element of an object at once
+ *
+ * @param ownFn
+ * @returns {Compose}
+ */
+Lens.prototype.own = function (ownFn) {
+    var MultiLens = require('../combinator/MultiLens'),
+        PathLens = require('../object/PathLens'),
+        obj = this.get(),
+        lenses = [];
+
+    if (_.isObject(obj)) {
+        _.forEach(_.keys(obj), function (key) {
+            lenses.push(ownFn(new PathLens(key).view(obj[key])));
         });
     }
 

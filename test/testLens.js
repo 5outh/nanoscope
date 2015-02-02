@@ -187,4 +187,28 @@ describe('Lens', function () {
             });
         });
     });
+
+    describe('#own', function () {
+        var thing, lens;
+
+        beforeEach(function () {
+            thing = { x: [100], y: [200] };
+
+            lens = nanoscope(thing).own(function (val) { return val.index(0); });
+        });
+
+        it('should get properly', function () {
+            expect(lens.get()).to.eql([100, 200]);
+        });
+
+        it('should set properly', function () {
+            expect(lens.set(99)).to.eql({ x: [99], y: [99] });
+        });
+
+        it('should map properly', function () {
+            expect(lens.map(function (x) {
+                return x * 2;
+            })).to.eql({ x: [200], y: [400] });
+        });
+    });
 });
