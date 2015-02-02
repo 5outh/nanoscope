@@ -69,8 +69,8 @@ get = function (path, unsafe) {
  */
 map = function (path, unsafe) {
     return function (obj, func) {
-        var prevObj = _.cloneDeep(obj),
-            initialObj = obj,
+        var previousObj = _.cloneDeep(obj),
+            newObj = obj,
             modifiedStructure = false,
             value,
             i;
@@ -110,11 +110,11 @@ map = function (path, unsafe) {
             (value == null || (_.isNumber(value) && isNaN(value)))
             && modifiedStructure
         ) {
-            return _.cloneDeep(prevObj);
+            return _.cloneDeep(previousObj);
         }
 
         // Return a clone of the modified object
-        return _.cloneDeep(initialObj);
+        return _.cloneDeep(newObj);
     };
 };
 
@@ -241,6 +241,7 @@ PathLens.Unsafe.prototype = new PathLens;
  *
  * @param path
  * @returns {*}
+ * @param options
  */
 Lens.prototype.addPath = function (path, options) {
     var unsafe = (options && options.unsafe) || this.getFlag('_unsafePath');
@@ -253,6 +254,7 @@ Lens.prototype.addPath = function (path, options) {
  *
  * @param path
  * @returns {Compose}
+ * @param options
  */
 Lens.prototype.composePath = function (path, options) {
     var unsafe = (options && options.unsafe) || this.getFlag('_unsafePath');

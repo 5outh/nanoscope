@@ -39,6 +39,22 @@ nanoscope = function (view) {
 };
 
 /**
+ * Add mixin functions to nanoscope
+ *
+ * @param mapping
+ */
+nanoscope.mixin = function (mapping) {
+    var keys = _.keys(mapping);
+
+    _.forEach(keys, function (key) {
+        if (_.isFunction(mapping[key])) {
+            nanoscope.prototype[key] = mapping[key];
+            Lens.prototype[key] = mapping[key];
+        }
+    });
+};
+
+/**
  * Add the nanoscope view to an options object
  *
  * @param options
@@ -146,6 +162,16 @@ nanoscope.prototype.recursivePluck = function (pluck, options) {
  */
 nanoscope.prototype.each = function (eachFn) {
     return new IdLens().view(this._view).each(eachFn);
+};
+
+/**
+ * Focus on every element in an object
+ *
+ * @param ownFn
+ * @returns {*}
+ */
+nanoscope.prototype.own = function (ownFn) {
+    return new IdLens().view(this._view).own(ownFn);
 };
 
 /**

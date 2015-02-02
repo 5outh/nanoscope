@@ -245,4 +245,31 @@ describe('nanoscope', function () {
             expect(lens.index(0).path('a.b.c').filter(['a']).pluck(['b']).index(1000).set(100)).to.eql({a: 10});
         });
     });
+
+    describe('#mixin', function () {
+        var within = function (target, alpha) {
+            return this.filtering(function (elem) {
+                return (target - alpha) < elem  && elem < (target + alpha);
+            });
+        };
+
+        it('should add the within function to nanoscope and Lens base', function () {
+            nanoscope.mixin({within: within});
+
+            expect(nanoscope.prototype.within).to.be.a('function');
+            expect(nanoscope.Lens.prototype.within).to.be.a('function');
+
+            // Test that it works
+            expect(nanoscope([10, 2.5, 3]).within(3.5, 1.5).get()).to.eql([2.5, 3]);
+            expect(nanoscope({ index: [10, 2.5, 3] }).path('index').within(3.5, 1.5).get()).to.eql([2.5, 3]);
+        });
+
+        it('should not add non-functions to prototypes', function () {
+            nanoscope.mixin({silly: 'silly'});
+
+            expect(nanoscope.prototype).not.to.have.property('silly');
+            expect(nanoscope.Lens.prototype).not.to.have.property('silly');
+
+        });
+    });
 });

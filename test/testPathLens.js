@@ -17,7 +17,6 @@ describe('PathLens', function () {
         };
 
         testLens = new PathLens('a.b');
-
     });
 
     describe('#get', function () {
