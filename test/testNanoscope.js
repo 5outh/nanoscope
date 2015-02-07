@@ -5,6 +5,11 @@ var nanoscope = require('../index');
 describe('nanoscope', function () {
 
     describe('#get', function () {
+
+        it('should return the initial value', function () {
+            nanoscope(1).get().should.equal(1);
+        });
+
         it('should do the same thing as an IndexedLens', function () {
             var lens = nanoscope([1, 2, 3]);
 
@@ -148,6 +153,11 @@ describe('nanoscope', function () {
     });
 
     describe('#set', function () {
+
+        it('should return the initial thing', function () {
+            nanoscope(0).set(100).should.equal(100);
+        });
+
         it('should do the same thing as an IndexedLens', function () {
             var lens = nanoscope([1, 2, 3]);
 

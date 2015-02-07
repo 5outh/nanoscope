@@ -175,6 +175,27 @@ nanoscope.prototype.own = function (ownFn) {
 };
 
 /**
+ * Get the value at the focus of the lens
+ */
+nanoscope.prototype.get = function () {
+    return new IdLens().view(this._view).get();
+};
+
+/**
+ * Set the value at the focus of the lens.
+ */
+nanoscope.prototype.set = function (val) {
+    return new IdLens().view(this._view).set(val);
+};
+
+/**
+ * Map over the focus of the lens.
+ */
+nanoscope.prototype.map = function (mappingFn) {
+    return new IdLens().view(this._view).map(mappingFn);
+};
+
+/**
  * Setup aliases for functions on a prototype
  *
  * @param proto
