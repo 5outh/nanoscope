@@ -1,6 +1,6 @@
-<img src="NanoscopeLogo.png" width="400px"></img>
+<a href="http://kovach.me/nanoscope/"><img src="NanoscopeLogo.png" width="400px"></img></a>
 
-[![NPM](https://nodei.co/npm/nanoscope.png?mini=true)](https://nodei.co/npm/nanoscope/)
+[![NPM](https://nodei.co/npm/nanoscope.png?compact=true)](https://nodei.co/npm/nanoscope/)
 
 <img src="https://travis-ci.org/5outh/nanoscope.svg?branch=master"></img> [![Coverage Status](https://coveralls.io/repos/5outh/nanoscope/badge.svg?branch=master)](https://coveralls.io/r/5outh/nanoscope?branch=master)
 
@@ -8,14 +8,14 @@
 
 `nanoscope` lets you wrangle your data like never before. It enables:
 
-* Safe access of deeply-nested objects,
+* Safe access of deeply-nested objects
 * Complex modifications of arbitrary data structures
 * Immutable data transformations
 * and more!
 
 ## What can I do with nanoscope?
 
-The general flow of using `nanoscope` goes like this:
+Using `nanoscope` typically looks like this:
 
 1. Provide the structure you want to get pieces from and/or transform to `nanoscope`,
 2. Add lens rules to the `nanoscope` instance, which specify the pieces you want to look at, and finally
@@ -24,300 +24,42 @@ The general flow of using `nanoscope` goes like this:
 Let's look at an example:
 
 ```js
-var nanoscope = require('nanoscope'),
-    lens = nanoscope({
-        a: {
-            b: [{c : 0, d: 0, D: 99}, 2, 3]
+var nanoscope = require('nanoscope');
+
+// A theoretical representation of a game
+var game = {
+    player: {
+        name: 'Benjamin',
+        coordinates: {
+            x: 58,
+            y: 99,
+            z: 100
         }
+    }
+};
+
+game = nanoscope(game)    // Focus on the game
+    .path('player.name')  // Follow a path to player's name
+    .set('5outh');        // Set the player's name to something new and return a new game
+
+// Create a reusable lens constructor
+var xyCoordinates = function (game) {
+    return nanoscope(game)               // Focus on the game
+        .following('player.coordinates') // 'following' is an alias for 'path'
+        .plucking(['x', 'y']);           // Pluck the x and y coordinates from the focus
+};
+
+game = xyCoordinates(game)  // View the x and y coordinates of the game
+    .map(function (val) {   // Add one to both coordinates and return a new
+        return val + 1;     // game object.
     });
 
-lens.path('a.b')
-    .index(0)
-    .pluck(/[a-z]*/)
-    .set(100);
-// => {
-//      a: {
-//          b: [{c : 100, d: 100, D: 99}, 2, 3]
-//       }
-//    }
+xyCoordinates(game).get(); // Returns { x: 59, y: 100 }
 ```
 
-This traverses the object following the path `a.b`, looks at the first element, plucks out only the lowercase
-properties from this element, sets each of them to 100 and returns a modified structure.
+## What next?
 
-All the way up to the `.set()` call, you're constructing pure data. You don't actually call any functions on the
-original object until `.set()` is called. This means that you can keep a reference to the lens in question like this instead:
-
-```js
-lens = lens.path('a.b').index(0).pluck(/[a-z]*/);
-```
-
-And call `get()`, `set()` and `map()` on that lens directly whenever necessary. You can even specify further lens rules
-later on, like so:
-
-```js
-lens.pluck(['c']).get();
-// => { c: 0 }
-```
-
-This allows for quite a bit of flexibility.
-
-## API
-
-### Final functions
-
-#### `get`
-
-##### Description
-
-Get the value(s) at the focus of the lens and return them.
-
-##### Example
-
-```js
-var lens = nanoscope([1, 2, 3]).index(2);
-
-lens.get();
-// #=> 3
-```
-
-#### `set`
-
-##### Description
-
-Set the value(s) at the focus of the lens and return a modified structure.
-
-##### Example
-
-```js
-var lens = nanoscope.index([1, 2, 3]).index(2);
-
-lens.set(100);
-// #=> [1, 2, 100]
-```
-
-#### `map`
-
-##### Description
-
-Transform the value(s) at the focus of the lens using a transformation function.
-
-##### Example
-
-```js
-var lens = nanoscope.index([1, 2, 3]).index(2);
-
-lens.map(function (num) {
-    return (num * num);
-});
-// #=> [1, 2, 9]
-```
-
-### Top-level/chainable nanoscope functions
-
-#### `filter`
-
-##### Description
-
-Focus on elements of an array filtered by a regular expression or function.
-
-##### Example
-
-```js
-nanoscope([1, 2, 3]).filter(function (elem) {
-    return (elem % 2 === 0);
-}).set(100);
-// #=> [1, 100, 3]
-
-nanoscope(['a', 'B', 'C']).filter(/[a-z]/).get();
-// #=> ['a']
-```
-
-#### `index`
-
-##### Description
-
-Focus on the element of an array at a given index. Returns `undefined` if the index is out of bounds.
-
-##### Example
-
-```js
-nanoscope([1, 2, 3]).index(0).map(function (num) {
-    return (num + 100);
-});
-// #=> [101, 2, 3]
-```
-
-#### `unsafeIndex`
-
-##### Description
-
-Same as `index`, but throws errors if trying to access an element outside of array bounds. Allows setting the element
-directly after the end of an array (`arr[arr.length]`).
-
-#### `slice`
-
-##### Description
-
-Focus on a slice of an array. A slice can be specified using either start and end bounds (negative bounds count from
-the end of an array) or by a string in python-style syntax (i.e '1:10').
-
-##### Example
-
-```js
-nanoscope([1, 2, 3]).slice('1:').get();
-// #=> [2, 3]
-
-nanoscope([1, 2, 3]).slice(0, -1).set([5, 4]);
-// #=> [5, 4, 3]
-```
-
-#### `path`
-
-##### Description
-
-Focus on the value located at some path in an object. Paths are given by `.`-separated strings. If the value at a
-path doesn't exist (i.e. accessing `{}.a.b`), `get()` will return `undefined`, even if it would otherwise throw
-an error. `set()` will set the value, adding properties as necessary. `map()` will do the same, but if its output
-returns `undefined`, the structure will be unmodified. Note that setting values that don't exist can
-overwrite parent objects (see the final example below).
-
-##### Example
-
-```js
-var obj = {
-    a: {
-        b: 'flintstones'
-    }
-}, lens = nanoscope(obj);
-
-nanoscope.path('a.b').get();
-// #=> 'flintstones'
-
-nanoscope.path('a.b.c.d').get();
-// #=> undefined
-
-nanoscope.path('a.b.c.d').set('vitamins');
-// #=> { a: { b: { c: { d: 'vitamins } } } }
-```
-
-#### `unsafePath`
-
-##### Description
-
-The same as `path`, but does not attempt to catch errors and will instead throw them.
-
-##### Example
-
-```js
-nanoscope({}).path('a.b').get();
-// #=> Error: Cannot read property 'b' of undefined
-```
-
-#### `pluck`
-
-##### Description
-
-Focus on a set of properties in an object matching one of:
-
-* an array of properties (e.g. `['a', 'b']`),
-* a regular expression (e.g `/[a-b]/`)
-* or a function (e.g `function (prop) { return prop.match(/[a-b]/); }`
-
-Note that this does not recurse into subobjects, and only operates on the top-level properties.
-
-##### Example
-
-```js
-var lens = nanoscope({
-    'abc' : 1,
-    'def' : 2,
-    'WAT' : null
-});
-
-lens.pluck(['abc']).get();
-// #=> { 'abc': 1 }
-
-lens.pluck(/[a-d]*/).get();
-// #=> { 'abc': 1, 'def': 2 }
-
-lens.pluck(function (prop) {
-    return prop === 'WAT'
-}).set('unknown');
-// #=> { 'abc': 1, 'def': 2, 'WAT': 'unknown' }
-```
-
-#### `recursivePluck`
-
-##### Description
-
-The same as `pluck`, but recurses into subobjects.
-
-##### Example
-
-```js
-var lens = nanoscope({
-    a: { b: 100, C: 99 }
-});
-
-lens.pluck(/[a-z]/).get();
-// #=> { a: { b: 100 } }
-```
-
-### Other functions
-
-#### `catch`
-
-##### Description
-
-Catch any errors thrown during extraction/transformation of data and optionally handle them with an error handler.
-Typically will be used with unsafe operations. Called at the end of a chain.
-
-##### Example
-
-```js
-var lens = nanoscope([]).unsafeIndex(10000).catch(console.log);
-
-lens.get();
-// logs [Error: Attempt to access invalid index 10000]
-
-```
-
-#### `getter`
-
-##### Description
-
-Disallow `set()` and `map()` in a lens. Called at the end of a chain.
-
-##### Example
-
-```js
-var lens = nanoscope([1]).index(0).getter();
-
-lens.get();
-// #=> 1
-
-lens.set(100);
-// #=> Error: map not permitted in a Getter
-```
-
-#### `setter`
-
-##### Description
-
-Disallow `get()` in a lens. Called at the end of a chain.
-
-##### Example
-
-```js
-var lens = nanoscope({ a: 100 }).path('a').setter();
-
-lens.set(30);
-// #=> { a: 30 }
-
-lens.get();
-// #=>  Error: get not permitted in a Setter
-```
+View more examples and the API documentation at [the official nanoscope website](http://kovach.me/nanoscope/).
 
 ## Contributing
 
@@ -325,7 +67,7 @@ Feature requests, pull requests, code reviews, comments and concerns are more th
 nanoscope, please file it [on github](https://github.com/5outh/nanoscope/issues). When submitting pull requests, please create a feature branch and explain in detail what
 you've changed and why.
 
-Before adding features, please submit a feature request through the issue tracker on github. I will not add features to nanoscope blindly, but would love to hear
+Before adding features, please submit a feature request through [the issue tracker on github](https://github.com/5outh/nanoscope/issues). I will not add features to nanoscope blindly, but would love to hear
 your ideas! Once a feature request is approved (I'll just comment saying it's cool), anyone can work on it and submit a pull request for review.
 
 When submitting pull requests, please:
@@ -333,8 +75,8 @@ When submitting pull requests, please:
 1. Make sure that tests are passing (run `npm test` with mocha installed globally (`npm install -g mocha`)), and
 2. Add at least one test that tests the feature you are adding or fixing.
 
-All PRs will be run through Travis for automatic testing and Coveralls for code coverage information. If the code coverage percentage
-has dropped, be prepared to explain why in your pull request.
+All pull requests will be run through Travis for automatic testing and Coveralls for code coverage information. If the code coverage percentage
+has dropped, please explain why in your pull request.
 
 Thanks your support of the project, and happy hacking!
 
