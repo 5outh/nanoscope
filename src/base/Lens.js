@@ -77,7 +77,7 @@ Lens.prototype.get = function (obj) {
  */
 Lens.prototype.map = function (obj, func) {
     // If a view exists and a second argument isn't provided, use the view.
-    if (this._view && !func) {
+    if (this._view != null && !func) {
         return this._over(this._view, obj);
     }
 
@@ -92,12 +92,13 @@ Lens.prototype.map = function (obj, func) {
  * @returns {Lens}
  */
 Lens.prototype.set = function (obj, val) {
+
     // If a view exists, and a second argument isn't provided, set the view.
-    if (this._view && !val) {
-        return this._over(this._view, _.constant(obj));
+    if (this._view != null && _.isUndefined(val)) {
+        return this.map(this._view, _.constant(obj));
     }
 
-    return this._over(obj, _.constant(val));
+    return this.map(obj, _.constant(val));
 };
 
 

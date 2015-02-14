@@ -5,6 +5,11 @@ var nanoscope = require('../index');
 describe('nanoscope', function () {
 
     describe('#get', function () {
+
+        it('should return the initial value', function () {
+            nanoscope(1).get().should.equal(1);
+        });
+
         it('should do the same thing as an IndexedLens', function () {
             var lens = nanoscope([1, 2, 3]);
 
@@ -148,6 +153,11 @@ describe('nanoscope', function () {
     });
 
     describe('#set', function () {
+
+        it('should return the initial thing', function () {
+            nanoscope(0).set(100).should.equal(100);
+        });
+
         it('should do the same thing as an IndexedLens', function () {
             var lens = nanoscope([1, 2, 3]);
 
@@ -243,6 +253,16 @@ describe('nanoscope', function () {
             var lens = nanoscope({ a: 10 });
 
             expect(lens.index(0).path('a.b.c').filter(['a']).pluck(['b']).index(1000).set(100)).to.eql({a: 10});
+        });
+    });
+
+    describe('#map', function () {
+        it('should apply a function to the viewed object', function () {
+            var val = nanoscope(2).map(function (x) {
+                return x + 2;
+            });
+
+            expect(val).to.equal(4);
         });
     });
 
