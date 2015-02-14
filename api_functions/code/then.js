@@ -1,0 +1,1 @@
+nanoscope([{ a: { b: 10 } }]).index(0).then.path('a.b').get();

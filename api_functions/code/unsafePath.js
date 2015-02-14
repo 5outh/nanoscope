@@ -1,0 +1,1 @@
+nanoscope({}).path('a.b').get();

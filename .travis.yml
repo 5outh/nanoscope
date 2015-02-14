@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+- '0.11'
+after_success:
+- istanbul cover ./node_modules/.bin/_mocha && ./node_modules/.bin/istanbul-coveralls
+deploy:
+  provider: npm
+  email: bkovach13@gmail.com
+  api_key:
+    secure: hXxeV7YcwtlXV+ZbxrS+8yorjO5+cNvk+U8XqdxFTlKMZtXXtt24xR/E83P5GvJ3a6GfLK1lT9ZMFa03ljkHyEYTu+TviZIg/ZOaJ74A5oFtQXiMvCj5z7vyj1cRtZTwsqxNt6HL5c9GmLdiezhjiTfsPEWa8MXImiiP+hKthRE=
+  on:
+    repo: 5outh/nanoscope
+    branch: master

@@ -1,0 +1,88 @@
+.theme-dropdown .dropdown-menu {
+    position: static;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.theme-showcase {
+    width: 80%;
+    margin-top:3em;
+}
+
+.theme-showcase > p > .btn {
+    margin: 5px 0;
+}
+
+.theme-showcase .navbar .container {
+    width: auto;
+}
+
+.navbar .top{
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+.nanoscope-banner {
+    background: url('../img/space-small.jpeg');
+    background-size: cover;
+    position:relative;
+}
+
+.white {
+    color: #fff;
+}
+
+.scp {
+    font-family: 'Source Code Pro';
+}
+
+.describe {
+    margin-top: 2.2em;
+    padding: 0.5em;
+    font-family: 'Source Code Pro';
+    font-size: 15px;
+}
+
+.out {
+    font-family: 'Source Code Pro';
+    margin-top: -5em;
+    margin-bottom: -3em;
+}
+
+.copyright {
+    margin-top:1em;
+}
+
+.api-table {
+    font-family: "Source Code Pro";
+}
+
+.api-table table tr td {
+    padding-left: 3em;
+}
+
+.api-table table tr th {
+    padding-left: 3em;
+}
+
+.api-function h3 {
+    margin-bottom: 0;
+    padding-top:1em;
+}
+
+.api-function {
+    margin-top:1em;
+}
+
+.navbar {
+    background-color: white;
+    border-bottom: 2px solid #f3f3f3;
+}
+
+.navbar a {
+    font-size: 100%
+}
+
+.container{
+    padding-top: 1em;
+}

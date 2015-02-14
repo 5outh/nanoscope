@@ -1,0 +1,18 @@
+{{#each contexts}}
+<div class="api-function">
+    <h3 class="function-name text-center" id="{{name}}"><a href="#{{name}}">{{name}}</a></h3>
+    <div class="row">
+        <div class="col-md-6">
+            <p class="describe">{{description}}</p>
+        </div>
+        <div class="col-md-6">
+            <pre>
+                <code class="js">{{code}}</code>
+            </pre>
+            <pre class="out">
+                <code class="bash">{{#each output_lines}}<i class="fa fa-terminal"></i> {{out}}{{/each}}</code>
+            </pre>
+        </div>
+    </div>
+</div>
+{{/each}}
