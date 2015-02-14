@@ -266,6 +266,20 @@ describe('nanoscope', function () {
         });
     });
 
+    describe('#setting', function () {
+        it('should do the same thing as Lens.setting', function () {
+            nanoscope(2).setting(4).get().should.equal(4);
+        });
+    });
+
+    describe('#mapping', function () {
+        it('should do the same thing as Lens.mapping', function () {
+            var double = function (x) { return x * 2; };
+
+            nanoscope(2).mapping(double).get().should.equal(4);
+        });
+    });
+
     describe('#mixin', function () {
         var within = function (target, alpha) {
             return this.filtering(function (elem) {

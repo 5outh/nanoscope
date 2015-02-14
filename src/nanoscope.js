@@ -189,10 +189,32 @@ nanoscope.prototype.set = function (val) {
 };
 
 /**
+ * Set the value at the focus of the lens and return a new lens
+ * focusing on the modified structure
+ *
+ * @param  {*} val
+ * @return {Lens}
+ */
+nanoscope.prototype.setting = function(val) {
+    return new IdLens().view(this._view).setting(val);
+};
+
+/**
  * Map over the focus of the lens.
  */
 nanoscope.prototype.map = function (mappingFn) {
     return new IdLens().view(this._view).map(mappingFn);
+};
+
+/**
+ * Map over the focus of the lens and return a new lens
+ * focusing on the modified structure
+ *
+ * @param  {Function} mappingFn
+ * @return {Lens}
+ */
+nanoscope.prototype.mapping = function(mappingFn) {
+    return new IdLens().view(this._view).mapping(mappingFn);
 };
 
 /**
