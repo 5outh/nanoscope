@@ -40,6 +40,25 @@ describe('Lens', function () {
         });
     });
 
+    describe('#setting', function () {
+        it('should modify the focused element', function () {
+            testLens.setting(testJS, 9).get().should.equal(9);
+            testLens.view(testJS).setting(9).get().should.equal(9);
+        });
+    });
+
+    describe('#mapping', function () {
+        it('should modify the focused element', function () {
+            testLens.mapping(testJS, function(x) {
+                return (x + 'at');
+            }).get().should.equal('cat');
+
+            testLens.view(testJS).mapping(function(x) {
+                return (x + 'at');
+            }).get().should.equal('cat');
+        });
+    });
+
     describe('#map', function () {
         it('should turn testJS.a.b into cat', function () {
             testLens.map(testJS, function (attr) { return attr + 'at'; }).a.b.should.equal('cat');

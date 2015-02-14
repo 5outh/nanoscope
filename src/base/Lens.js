@@ -85,6 +85,19 @@ Lens.prototype.map = function (obj, func) {
 };
 
 /**
+ * Map a function over the focus of this lens and return a new lens focusing
+ * on the modified object.
+ *
+ * @param  {[type]} obj  [description]
+ * @param  {[type]} func [description]
+ * @return {[type]}      [description]
+ */
+Lens.prototype.mapping = function (obj, func) {
+    this.view(this.map(obj, func));
+    return this;
+};
+
+/**
  * Set the view of the `Lens` to something new and return the modified structure
  *
  * @param {*} obj The object to run the Lens on
@@ -99,6 +112,18 @@ Lens.prototype.set = function (obj, val) {
     }
 
     return this.map(obj, _.constant(val));
+};
+
+/**
+ * Set the value being focused on and return a new lens focusing on the modified object.
+ *
+ * @param  {[type]} obj [description]
+ * @param  {[type]} val [description]
+ * @return {[type]}     [description]
+ */
+Lens.prototype.setting = function (obj, val) {
+    this.view(this.set(obj, val));
+    return this;
 };
 
 
