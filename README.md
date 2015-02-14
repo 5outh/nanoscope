@@ -40,13 +40,14 @@ var game = {
 
 game = nanoscope(game)    // Focus on the game
     .path('player.name')  // Follow a path to player's name
-    .set('5outh');        // Set the player's name to something new and return a new game
+    .set('5outh');        // Set the player's name to 5outh and return a new game.
 
 // Create a reusable lens constructor
 var xyCoordinates = function (game) {
     return nanoscope(game)               // Focus on the game
         .following('player.coordinates') // 'following' is an alias for 'path'
-        .plucking(['x', 'y']);           // Pluck the x and y coordinates from the focus
+        .plucking(['x', 'y']);           // Pluck the x and y coordinates from
+                                         // the focus.
 };
 
 game = xyCoordinates(game)  // View the x and y coordinates of the game
