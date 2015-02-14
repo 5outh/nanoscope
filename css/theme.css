@@ -86,3 +86,8 @@
 .container{
     padding-top: 1em;
 }
+
+.subtitle {
+    font-size: 32px;
+    text-shadow: 2px 2px 3px green;
+}

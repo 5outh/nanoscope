@@ -53,10 +53,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="https://github.com/5outh/nanoscope"><img src="../img/NanoscopeLogo.png" style="height:120%"/></a>
+            <a class="navbar-brand" href="index.html"><img src="img/NanoscopeLogo.png" style="height:120%"/></a>
             <a class="navbar-brand" href="getting-started.html">Getting Started</a>
             <a class="navbar-brand" href="docs.html">API Documentation</a>
         </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <iframe src="https://ghbtns.com/github-btn.html?user=5outh&repo=nanoscope&type=star&count=true&size=small" scrolling="0" frameborder="0" width="160px" height="30px"></iframe>
+            </li>
+        </ul>
     </div><!--/.container-fluid -->
 </nav>
 
@@ -69,7 +74,7 @@
         <a href="https://github.com/5outh/nanoscope"><img src="https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png"></a>
     </div>
     <img src="./img/NanoscopeLogo-White.png" width="75%" class="center-block"/>
-    <h3 class="text-center white scp">API Documentation</h3>
+    <h3 class="text-center white scp subtitle">API Documentation</h3>
 </div>
 
 <div class="api">
@@ -119,12 +124,12 @@
     <tr>
       <td><a href="#pluck"><code>pluck</code></a> (alias: <code>plucking</code>)</td>
       <td> </td>
-      <td> </td>
+      <td><a href="#and"><code>and</code></a></td>
     </tr>
     <tr>
       <td><a href="#recursivePluck"><code>recursivePluck</code></a> (alias: <code>recursivelyPlucking</code>)</td>
       <td> </td>
-      <td> </td>
+      <td><a href="#or"><code>or</code></a></td>
     </tr>
     <tr>
       <td><a href="#each"><code>each</code></a></td>
@@ -133,6 +138,16 @@
     </tr>
     <tr>
       <td><a href="#own"><code>own</code></a></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="#setting"><code>setting</code></a></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="#mapping"><code>mapping</code></a></td>
       <td> </td>
       <td> </td>
     </tr>
@@ -216,8 +231,7 @@ nanoscope([]).unsafeIndex(0).get();</code>
             <pre>
                 <code class="js">nanoscope([1, 2, 3]).slice(&#x27;1:&#x27;).get();
 
-nanoscope([1, 2, 3]).slice(0, -1).set([5, 4]);
-// #=&gt; [5, 4, 3]</code>
+nanoscope([1, 2, 3]).slice(0, -1).set([5, 4]);</code>
             </pre>
             <pre class="out">
                 <code class="bash"><i class="fa fa-terminal"></i> [2, 3]
@@ -367,6 +381,43 @@ lens.pluck(/[a-z]/).get();</code>
         </div>
     </div>
 </div>
+<div class="api-function">
+    <h3 class="function-name text-center" id="setting"><a href="#setting">setting</a></h3>
+    <div class="row">
+        <div class="col-md-6">
+            <p class="describe">Set the focus of a lens to a new value and return a new lens focusing on the modified object.</p>
+        </div>
+        <div class="col-md-6">
+            <pre>
+                <code class="js">var coordinate = { x: 2, y: 4 };
+
+coordinate.path(&#x27;x&#x27;).setting(200).get();</code>
+            </pre>
+            <pre class="out">
+                <code class="bash"><i class="fa fa-terminal"></i> 200</code>
+            </pre>
+        </div>
+    </div>
+</div>
+<div class="api-function">
+    <h3 class="function-name text-center" id="mapping"><a href="#mapping">mapping</a></h3>
+    <div class="row">
+        <div class="col-md-6">
+            <p class="describe">Map a function over the focus of a lens to a new value and return a new lens focusing on the modified object.</p>
+        </div>
+        <div class="col-md-6">
+            <pre>
+                <code class="js">var coordinate = { x: 2, y: 4 },
+    square = function (val) { return val * val; };
+
+coordinate.path(&#x27;y&#x27;).mapping(square).get();</code>
+            </pre>
+            <pre class="out">
+                <code class="bash"><i class="fa fa-terminal"></i> 16</code>
+            </pre>
+        </div>
+    </div>
+</div>
 
 
     <div class="page-header">
@@ -499,7 +550,7 @@ nanoscope([10, 2.5, 3]).within(3.5, 1.5).get();</code>
     <h3 class="function-name text-center" id="setter"><a href="#setter">setter</a></h3>
     <div class="row">
         <div class="col-md-6">
-            <p class="describe">Disallow set and map in a Lens. Typically called at the end of Lens construction because internal functions rely on set and map occasionally.</p>
+            <p class="describe">Disallow get in a Lens. Typically called at the end of Lens construction because internal functions rely on get occasionally.</p>
         </div>
         <div class="col-md-6">
             <pre>
@@ -520,7 +571,7 @@ lens.get();</code>
     <h3 class="function-name text-center" id="getter"><a href="#getter">getter</a></h3>
     <div class="row">
         <div class="col-md-6">
-            <p class="describe">Catch any exceptions thrown from an unsafe lens and handle them with an error handler</p>
+            <p class="describe">Disallow set and map in a Lens. Typically called at the end of Lens construction because internal functions rely on set and map occasionally.</p>
         </div>
         <div class="col-md-6">
             <pre>
@@ -533,6 +584,56 @@ lens.set(100);</code>
             <pre class="out">
                 <code class="bash"><i class="fa fa-terminal"></i> 1
 <i class="fa fa-terminal"></i> Error: map not permitted in a Getter</code>
+            </pre>
+        </div>
+    </div>
+</div>
+<div class="api-function">
+    <h3 class="function-name text-center" id="and"><a href="#and">and</a></h3>
+    <div class="row">
+        <div class="col-md-6">
+            <p class="describe">Add a view to a lens and focus on both of their foci if and only if both exist.</p>
+        </div>
+        <div class="col-md-6">
+            <pre>
+                <code class="js">var foobar = {foo: 1, bar: 2},
+    lens = nanoscope(foobar),
+    conjunctiveLens = lens.path(&#x27;foo&#x27;).and(lens.path(&#x27;bar&#x27;));
+
+conjunctiveLens.get();
+
+conjunctiveLens = lens.path(&#x27;foo&#x27;).and(lens.path(&#x27;baz&#x27;));
+
+conjunctiveLens.get();</code>
+            </pre>
+            <pre class="out">
+                <code class="bash"><i class="fa fa-terminal"></i> [1, 2]
+<i class="fa fa-terminal"></i> null</code>
+            </pre>
+        </div>
+    </div>
+</div>
+<div class="api-function">
+    <h3 class="function-name text-center" id="or"><a href="#or">or</a></h3>
+    <div class="row">
+        <div class="col-md-6">
+            <p class="describe">Add a view to a lens and focus on the first one that exists.</p>
+        </div>
+        <div class="col-md-6">
+            <pre>
+                <code class="js">var foobar = {foo: 1, bar: 2},
+    lens = nanoscope(foobar),
+    conjunctiveLens = lens.path(&#x27;foo&#x27;).or(lens.path(&#x27;bar&#x27;));
+
+conjunctiveLens.get();
+
+conjunctiveLens = lens.path(&#x27;baz&#x27;).or(lens.path(&#x27;bar&#x27;));
+
+conjunctiveLens.get();</code>
+            </pre>
+            <pre class="out">
+                <code class="bash"><i class="fa fa-terminal"></i> 1
+<i class="fa fa-terminal"></i> 2</code>
             </pre>
         </div>
     </div>

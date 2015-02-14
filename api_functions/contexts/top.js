@@ -80,6 +80,18 @@ contexts = [
         description: 'Focus on every value of an object and further process it.',
         code: getCode('own'),
         output_lines: [{ out: '[100, 10]' }]
+    },
+    {
+        name: 'setting',
+        description: 'Set the focus of a lens to a new value and return a new lens focusing on the modified object.',
+        code: getCode('setting'),
+        output_lines: [{ out: '200' }]
+    },
+    {
+        name: 'mapping',
+        description: 'Map a function over the focus of a lens to a new value and return a new lens focusing on the modified object.',
+        code: getCode('mapping'),
+        output_lines: [{ out: '16' }]
     }
 ];
 

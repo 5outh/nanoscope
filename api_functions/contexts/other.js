@@ -33,16 +33,29 @@ contexts = [
     },
     {
         name: 'setter',
-        description: 'Disallow set and map in a Lens. Typically called at the end of Lens construction because ' +
-        'internal functions rely on set and map occasionally.',
+        description: 'Disallow get in a Lens. Typically called at the end of Lens construction because ' +
+        'internal functions rely on get occasionally.',
         code: getCode('setter'),
         output_lines: [{ out: '{ a: 30 }\n' }, { out: 'Error: get not permitted in a Setter' }]
     },
     {
         name: 'getter',
-        description: 'Catch any exceptions thrown from an unsafe lens and handle them with an error handler',
+        description: 'Disallow set and map in a Lens. Typically called at the end of Lens construction because ' +
+        'internal functions rely on set and map occasionally.',
         code: getCode('getter'),
         output_lines: [{ out: '1\n' }, { out: 'Error: map not permitted in a Getter' }]
+    },
+    {
+        name: 'and',
+        description: 'Add a view to a lens and focus on both of their foci if and only if both exist.',
+        code: getCode('and'),
+        output_lines: [{ out: '[1, 2]\n' }, { out: 'null' }]
+    },
+    {
+        name: 'or',
+        description: 'Add a view to a lens and focus on the first one that exists.',
+        code: getCode('or'),
+        output_lines: [{ out: '1\n' }, { out: '2' }]
     }
 ];
 
