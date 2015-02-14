@@ -256,6 +256,16 @@ describe('nanoscope', function () {
         });
     });
 
+    describe('#map', function () {
+        it('should apply a function to the viewed object', function () {
+            var val = nanoscope(2).map(function (x) {
+                return x + 2;
+            });
+
+            expect(val).to.equal(4);
+        });
+    });
+
     describe('#mixin', function () {
         var within = function (target, alpha) {
             return this.filtering(function (elem) {
