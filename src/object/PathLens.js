@@ -20,7 +20,6 @@
  * @private
  */
 var _ = require('lodash'),
-    steelToe = require('steeltoe'),
 
     Lens = require('../base/Lens'),
 
@@ -39,24 +38,18 @@ var _ = require('lodash'),
  * @returns {Function}
  */
 get = function (path, unsafe) {
-    if (!unsafe) {
-        // Just use steelToe to safely access element
-        return function (obj) {
-            return steelToe(obj).get(path) || null;
-        };
-    }
-
-    // If unsafe, split the path and follow it without regard for errors.
     if (_.isString(path)) {
         path = path.split('.');
     }
 
     return function (obj) {
-        _.forEach(path, function (key) {
-            obj = obj[key];
-        });
+        // Accumulation function to produce the final result
+        var reduction = function (acc, key) {
+            return unsafe ? acc[key] : (acc && acc[key] || null);
+        };
 
-        return obj;
+        // Perform the reduction and return the result
+        return _.reduce(path, reduction, obj);
     };
 };
 
