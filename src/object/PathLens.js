@@ -68,6 +68,9 @@ map = function (path, unsafe) {
             value,
             i;
 
+        console.log(path);
+        console.log(obj);
+
         if (_.isString(path)) {
             path = path.split('.');
         } else if (!_.isArray(path)) {
@@ -251,6 +254,13 @@ Lens.prototype.addPath = function (path, options) {
  */
 Lens.prototype.composePath = function (path, options) {
     var unsafe = (options && options.unsafe) || this.getFlag('_unsafePath');
+
+    if (this.getFlag('_path')) {
+        return new PathLens(
+            this._flags._path + '.' + path,
+            _.extend({unsafe: unsafe}, options)
+        ).view(this._view);
+    }
 
     return this.compose(new PathLens(path, _.extend({unsafe: unsafe}, options)));
 };
