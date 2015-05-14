@@ -47,6 +47,15 @@ describe('PathLens', function () {
 
             lens.map(testJS, function (attr) { return attr; }).a.b.should.not.have.property('c');
         });
+
+        it('should return a new object with modified obj.a.b', function () {
+            var _ = testLens.map(testJS, function (attr) { return attr + 'at'; });
+            testJS.a.b.should.equal('c');
+        });
+
+        it('should create object structure if necessary', function () {
+            testLens.map(undefined, function(attr) { return attr + 'at'; }).a.b.should.equal('undefinedat');
+        });
     });
 
     describe('#PathLens.Unsafe', function () {

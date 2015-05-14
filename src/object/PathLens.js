@@ -61,15 +61,12 @@ get = function (path, unsafe) {
  * @returns {Function}
  */
 map = function (path, unsafe) {
-    return function (obj, func) {
-        var previousObj = _.cloneDeep(obj),
-            newObj = obj,
+    return function (previousObj, func) {
+        var newObj = _.cloneDeep(previousObj),
+            obj = newObj,
             modifiedStructure = false,
             value,
             i;
-
-        console.log(path);
-        console.log(obj);
 
         if (_.isString(path)) {
             path = path.split('.');
@@ -79,7 +76,8 @@ map = function (path, unsafe) {
 
         // Only safeguard against empty object if using safe version
         if (!obj && !unsafe) {
-            obj = {};
+            newObj = {};
+            obj = newObj;
         }
 
         // Traverse the path and get the value we want
