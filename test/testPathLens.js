@@ -33,7 +33,7 @@ describe('PathLens', function () {
         it('should add a property even if it isnt there', function () {
             var lens = new PathLens('a.b.c.d.e.f');
 
-            lens.set(testJS, 'hello').a.b.c.d.e.f.should.equal('hello');
+            lens.set({a : { b: 'c' } }, 'hello').a.b.c.d.e.f.should.equal('hello');
         });
     });
 
@@ -45,11 +45,11 @@ describe('PathLens', function () {
         it('should not modify a deeply nested value if it doesnt exist', function () {
             var lens = new PathLens('a.b.c.d.e.f');
 
-            lens.map(testJS, function (attr) { return attr; }).a.b.should.not.have.property('c');
+            lens.map({a : { b: 'c' } }, function (attr) { return attr; }).a.b.should.not.have.property('c');
         });
 
         it('should return a new object with modified obj.a.b', function () {
-            var _ = testLens.map(testJS, function (attr) { return attr + 'at'; });
+            var _ = testLens.map({ a : { b : 'c' } }, function (attr) { return attr + 'at'; });
             testJS.a.b.should.equal('c');
         });
 

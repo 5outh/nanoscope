@@ -73,7 +73,7 @@ map = function (plucker, recursive, object) {
     return function (viewedObject, func) {
 
         if (_.isUndefined(object)) {
-            object = _.cloneDeep(viewedObject);
+            object = _.clone(viewedObject);
         }
 
         _.forEach(_.keys(viewedObject), function (property) {

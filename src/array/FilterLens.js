@@ -37,7 +37,7 @@ get = function (filter) {
 map = function (filter) {
     return function (arr, func) {
         // Only map elements that are truthy from the filter function
-        return _.map(_.cloneDeep(arr), function (elem) {
+        return _.map(_.clone(arr), function (elem) {
             if (_.isFunction(filter)) {
                 return filter(elem) ? func(elem) : elem;
             }
