@@ -62,7 +62,7 @@ get = function (path, unsafe) {
  */
 map = function (path, unsafe) {
     return function (previousObj, func) {
-        var newObj = _.cloneDeep(previousObj),
+        var newObj = _.assign(previousObj),
             obj = newObj,
             modifiedStructure = false,
             value,
@@ -85,8 +85,12 @@ map = function (path, unsafe) {
 
             // Only safeguard if not unsafe
             if (!(_.isObject(obj[path[i]])) && !unsafe) {
+                value = func(obj[path[i]])
+
+                if (value == null || (_.isNumber(value) && isNaN(value))) {
+                    return _.clone(previousObj);
+                }
                 obj[path[i]] = {};
-                modifiedStructure = true;
             }
 
             obj = obj[path[i]];
@@ -95,20 +99,8 @@ map = function (path, unsafe) {
         // Set the value we care about
         obj[path[i]] = func(obj[path[i]]);
 
-        value = obj[path[i]];
-
-        // If the value doesn't exist and we're not setting anything, return a clone of the previous object
-        // This prevents turning, for example, {} into { a: { b : { ... z: undefined } ... } }
-        // NOTE: == null catches null OR undefined values. This is on purpose.
-        if (
-            (value == null || (_.isNumber(value) && isNaN(value)))
-            && modifiedStructure
-        ) {
-            return _.cloneDeep(previousObj);
-        }
-
         // Return a clone of the modified object
-        return _.cloneDeep(newObj);
+        return _.clone(newObj);
     };
 };
 

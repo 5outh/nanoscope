@@ -48,6 +48,7 @@ map = function (lensA, lensB) {
             gotten = lensA.get(obj);
 
             if (_.isNull(gotten) || _.isUndefined(gotten)) {
+
                 return lensB.map(obj, func);
             }
 

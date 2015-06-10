@@ -34,7 +34,7 @@ get = function (lenses) {
 
 map = function (lenses) {
     return function (obj, func) {
-        var newObj = _.cloneDeep(obj);
+        var newObj = _.clone(obj);
 
         if (_.isArray(lenses)) {
             _.forEach(lenses, function (lens) {

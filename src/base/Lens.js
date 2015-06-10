@@ -52,7 +52,7 @@ Lens = function (get, map, flags) {
 
     // Set view from constructor
     if (self._flags._view) {
-        self._view = _.cloneDeep(self._flags._view);
+        self._view = _.clone(self._flags._view);
     }
 
     return self;

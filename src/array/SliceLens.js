@@ -45,7 +45,7 @@ map = function (i, j) {
             k;
 
         if (!_.isArray(arr)) {
-            return _.cloneDeep(arr);
+            return _.clone(arr);
         }
 
         i = utils.normalizeIndex(arr, i);

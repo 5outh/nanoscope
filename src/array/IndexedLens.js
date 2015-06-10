@@ -52,7 +52,7 @@ get = function (index, unsafe) {
  */
 map = function (index, unsafe) {
     return function (arr, func) {
-        var newArr = _.cloneDeep(arr);
+        var newArr = _.clone(arr);
 
         index = utils.normalizeIndex(arr, index);
 
