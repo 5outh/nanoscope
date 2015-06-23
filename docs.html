@@ -151,6 +151,11 @@
       <td> </td>
       <td> </td>
     </tr>
+    <tr>
+        <td><a href="#unsafePath"><code>unsafePath</code></a></td>
+        <td>.</td>
+        <td>.</td>
+    </tr>
   </tbody>
 </table>
 
@@ -276,7 +281,7 @@ nanoscope.path(&#x27;a.b.c.d&#x27;).set(&#x27;vitamins&#x27;);</code>
         </div>
         <div class="col-md-6">
             <pre>
-                <code class="js">nanoscope({}).path(&#x27;a.b&#x27;).get();</code>
+                <code class="js">nanoscope({}).unsafePath(&#x27;a.b&#x27;).get();</code>
             </pre>
             <pre class="out">
                 <code class="bash"><i class="fa fa-terminal"></i> Error: Cannot read property &#x27;b&#x27; of undefined</code>
