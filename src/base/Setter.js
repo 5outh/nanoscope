@@ -1,11 +1,12 @@
 "use strict";
 
 var _ = require('lodash'),
-    Lens = require('./Lens'),
 
     Setter,
 
     get;
+
+import Lens from 'base/Lens';
 
 /**
  * Never allow `get` in a setter
