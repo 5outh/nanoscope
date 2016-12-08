@@ -1,4 +1,3 @@
-"use strict";
 /**
  * A `Lens` is a construct that allows you to 'peer into' some structure and operate on sub-parts of it. A `Lens` supports
  * three basic operations:
@@ -38,35 +37,46 @@
  * @constructor
  */
 
-var _ = require('lodash'),
-    Lens;
+import _ from 'lodash';
 
-Lens = function (get, map, flags) {
-    var self = this;
+export default class Lens {
+    constructor (get, map, flags) {
+        this._flags = flags;
+        this._get = get;
+        this._map = map;
 
-    self._flags = flags || {};
-    self._get = get;
-    self._over = map;
+        this.then = this;
+        
+        if (this._flags._view) {
+            this._view = _.clone(this._flags._view);
+        }
+    };
 
-    self.then = self;
+    /**
+     * Get the value this `Lens` focuses on from an object
+     *
+     * @param {*} obj The object to run the `Lens` on
+     * @returns {*}
+     */
+    get = (obj) => this._get(obj) || this._view;
 
-    // Set view from constructor
-    if (self._flags._view) {
-        self._view = _.clone(self._flags._view);
-    }
+    /**
+     * Run a function over the view of the `Lens` and return the modified structure
+     *
+     * @param {*} obj The object to run the `Lens` on
+     * @param {function} func The function to call on the view of the Lens
+     * @returns {Lens}
+     */
+    map = (obj, func) => {
+        // If a view exists and a second argument isn't provided, use the view.
+        if (this._view != null && !func) {
+            return this._over(this._view, obj);
+        }
 
-    return self;
-};
+        return this._over(obj, func);
+    };
 
-/**
- * Get the value this `Lens` focuses on from an object
- *
- * @param {*} obj The object to run the `Lens` on
- * @returns {*}
- */
-Lens.prototype.get = function (obj) {
-    return this._get(obj || this._view);
-};
+}
 
 /**
  * Run a function over the view of the `Lens` and return the modified structure
