@@ -37,6 +37,12 @@
  * @constructor
  */
 
+import Compose from 'combinator/Compose';
+import ConjunctiveLens from 'combinator/ConjunctiveLens';
+import DisjunctiveLens from 'combinator/DisjunctiveLens';
+import IndexedLens from 'array/IndexedLens';
+import MultiLens from 'combinator/MultiLens';
+
 import _ from 'lodash';
 
 export default class Lens {
@@ -54,18 +60,11 @@ export default class Lens {
 
     /**
      * Get the value this `Lens` focuses on from an object
-     *
-     * @param {*} obj The object to run the `Lens` on
-     * @returns {*}
      */
     get = (obj) => this._get(obj) || this._view;
 
     /**
      * Run a function over the view of the `Lens` and return the modified structure
-     *
-     * @param {*} obj The object to run the `Lens` on
-     * @param {function} func The function to call on the view of the Lens
-     * @returns {Lens}
      */
     map = (obj, func) => {
         // If a view exists and a second argument isn't provided, use the view.
@@ -76,251 +75,150 @@ export default class Lens {
         return this._over(obj, func);
     };
 
-}
+    /**
+     * Map a function over the focus of this lens and return a new lens focusing
+     * on the modified object.
+     */
+    mapping = (obj, func) => {
+        this.view(this.map(obj, func))
+        return this;
+    };
 
-/**
- * Run a function over the view of the `Lens` and return the modified structure
- *
- * @param {*} obj The object to run the `Lens` on
- * @param {function} func The function to call on the view of the Lens
- * @returns {Lens}
- */
-Lens.prototype.map = function (obj, func) {
-    // If a view exists and a second argument isn't provided, use the view.
-    if (this._view != null && !func) {
-        return this._over(this._view, obj);
-    }
+    /**
+     * Set the view of the `Lens` to something new and return the modified structure
+     */
+    set = (obj, val) => {
+        // If a view exists, and a second argument isn't provided, set the view.
+        if (this._view != null && _.isUndefined(val)) {
+            return this.map(this._view, _.constant(obj));
+        }
 
-    return this._over(obj, func);
-};
-
-/**
- * Map a function over the focus of this lens and return a new lens focusing
- * on the modified object.
- *
- * @param  {[type]} obj  [description]
- * @param  {[type]} func [description]
- * @return {[type]}      [description]
- */
-Lens.prototype.mapping = function (obj, func) {
-    this.view(this.map(obj, func));
-    return this;
-};
-
-/**
- * Set the view of the `Lens` to something new and return the modified structure
- *
- * @param {*} obj The object to run the Lens on
- * @param {*} val The value to set
- * @returns {Lens}
- */
-Lens.prototype.set = function (obj, val) {
-
-    // If a view exists, and a second argument isn't provided, set the view.
-    if (this._view != null && _.isUndefined(val)) {
-        return this.map(this._view, _.constant(obj));
-    }
-
-    return this.map(obj, _.constant(val));
-};
-
-/**
- * Set the value being focused on and return a new lens focusing on the modified object.
- *
- * @param  {[type]} obj [description]
- * @param  {[type]} val [description]
- * @return {[type]}     [description]
- */
-Lens.prototype.setting = function (obj, val) {
-    this.view(this.set(obj, val));
-    return this;
-};
+        return this.map(obj, _.constant(val));
+    };
+    
+    /**
+     * Set the value being focused on and return a new lens focusing on the modified object.
+     */
+    setting = (obj, val) => {
+        this.view(this.set(obj, val));
+        return this;
+    };
 
 
-/**
- * Force the `Lens` to `view` a new object
- *
- * @param {*} view The object to view a Lens on
- * @return {Lens} this
- */
-Lens.prototype.view = function (view) {
-    this._view = view;
-    this._flags._view = view;
-    return this;
-};
+    /**
+     * Force the `Lens` to `view` a new object
+     */
+    view = (view) => {
+        this._view = view;
+        this._flags._view = view;
+        return this;
+    };
 
-// Alias for view
-Lens.prototype.viewing = Lens.prototype.view;
+    /**
+     * Alias for `view`
+     */
+    viewing = this.view;
 
-/**
- * Reset the view of the `Lens`.
- *
- * @return {Lens} this
- */
-Lens.prototype.blur = function () {
-    this._view = null;
-    return this;
-};
+    /**
+     * Reset the view of this Lens
+     */ 
+    blur = () => this._view = null;
 
-/**
- * Get any extra set options in a Lens
- *
- * @returns {*}
- */
-Lens.prototype.getFlags = function () {
-    return this._flags;
-};
+    /**
+     * Get any flags for the lens
+     */
+    getFlags = () => this._flags;
 
-/**
- * Get a specific flag from a Lens
- *
- * @param flag
- * @returns {*}
- */
-Lens.prototype.getFlag = function (flag) {
-    return this._flags[flag];
-};
+    /**
+     * Get a specific flag for the lens
+     */
+    getFlag = (flag) => this._flags[flag];
 
-/**
- * Add a flag to the Lens
- *
- * @param {*} flag
- */
-Lens.prototype.addFlag = function (flag) {
-    this._flags = _.extend(this._flags, flag);
-};
+    /**
+     * Add a flag to the lens
+     */
+    addFlag = (flag) => this._flags = _.extend(this._flags, flag);
 
-/**
- * Compose this lens with another `Lens`
- *
- * @param {Lens} otherLens The `Lens` to compose this one with
- * @returns {Compose}
- */
-Lens.prototype.compose = function (otherLens) {
-    var Compose = require('./../combinator/Compose');
-    return new Compose(this, otherLens, _.extend(this.getFlags() || {}, otherLens.getFlags()));
-};
+    /**
+     * Compose this lens with another lens
+     */
+    compose = (otherLens) => new Compose(this, otherLens, _.extend(this._flags || {}, otherLens.getFlags()))
 
-/**
- * Compose this lens with many other Lenses, specified by an array in which to order them.
- *
- * @param otherLenses
- * @returns {Lens}
- */
-Lens.prototype.composeMany = function (otherLenses) {
-    var args = arguments,
-        lens = this;
+    /**
+     * Compose this lens with many other lenses in order
+     */
+    composeMany = (otherLenses) => {
+        let lens = this;
 
-    // Support variable length args
-    if (args.length > 1) {
-        otherLenses = args;
-    }
+        // Support variable length args
+        if (arguments.length > 1) {
+            otherLenses = arguments;
+        }
 
-    _.forEach(otherLenses, function (otherLens) {
-        lens = lens.compose(otherLens);
-    });
-
-    return lens;
-};
-
-/**
- * Add a new focus to this `Lens` by providing another `Lens` with which to focus with.
- *
- * @param otherLens The `Lens` to add to this `Lens`
- * @returns {MultiLens}
- */
-Lens.prototype.add = function (otherLens) {
-    var MultiLens = require('./../combinator/MultiLens');
-
-    return new MultiLens([this, otherLens], _.extend(this.getFlags(), otherLens.getFlags()));
-};
-
-/**
- * Add many new focuses to this `Lens` by providing an array of other lenses to focus with.
- *
- * @param otherLenses
- * @returns {Lens}
- */
-Lens.prototype.addMany = function (otherLenses) {
-    var args = arguments,
-        lens = this;
-
-    // Support variable length args
-    if (args.length > 1) {
-        otherLenses = args;
-    }
-
-    _.forEach(otherLenses, function (otherLens) {
-        lens = lens.add(otherLens);
-    });
-
-    return lens;
-};
-
-/**
- * Create a disjunction between this lens and another.
- *
- * @param otherLens
- * @returns {DisjunctiveLens}
- */
-Lens.prototype.or = function (otherLens) {
-    var DisjunctiveLens = require('../combinator/DisjunctiveLens');
-
-    return new DisjunctiveLens(this, otherLens, _.extend(this.getFlags() || {}, otherLens.getFlags()));
-};
-
-/**
- * Create a conjunction between this lens and another.
- *
- * @param otherLens
- * @returns {ConjunctiveLens}
- */
-Lens.prototype.and = function (otherLens) {
-    var ConjunctiveLens = require('../combinator/ConjunctiveLens');
-
-    return new ConjunctiveLens(this, otherLens, _.extend(this.getFlags() || {}, otherLens.getFlags()));
-};
-
-/**
- * Focus on every element of an array at once
- *
- * @param eachFn
- * @returns {Compose}
- */
-Lens.prototype.each = function (eachFn) {
-    var MultiLens = require('../combinator/MultiLens'),
-        IndexedLens = require('../array/IndexedLens'),
-        arr = this.get(),
-        lenses = [];
-
-    if (_.isArray(arr)) {
-        lenses = _.map(_.range(arr.length), function (idx) {
-            return eachFn(new IndexedLens(idx));
+        _.forEach(otherLenses, function (otherLens) {
+            lens = lens.compose(otherLens);
         });
-    }
 
-    return this.compose(new MultiLens(lenses, this.getFlags()));
-};
+        return lens;
+    };
+    
+    add = (otherLens) => new MultiLens([this, otherLens], _.extend(this._flags || {}, otherLens.getFlags()));
 
-/**
- * Focus on every element of an object at once
- *
- * @param ownFn
- * @returns {Compose}
- */
-Lens.prototype.own = function (ownFn) {
-    var MultiLens = require('../combinator/MultiLens'),
-        PathLens = require('../object/PathLens'),
-        obj = this.get(),
-        lenses = [];
+    addMany = (otherLenses) => {
+        let lens = this;
 
-    if (_.isObject(obj)) {
-        _.forEach(_.keys(obj), function (key) {
-            lenses.push(ownFn(new PathLens(key).view(obj[key])));
+        // Support variable length args
+        if (arguments.length > 1) {
+            otherLenses = arguments;
+        }
+
+        _.forEach(otherLenses, function (otherLens) {
+            lens = lens.add(otherLens);
         });
-    }
 
-    return this.compose(new MultiLens(lenses, this.getFlags()));
+        return lens;
+    };
+
+    or = (otherLens) => new DisjunctiveLens(
+        this, 
+        otherLens,
+        _.extend(this.getFlags() || {}, otherLens.getFlags())
+    );
+
+    and = (otherLens) => new ConjunctiveLens(
+        this, 
+        otherLens,
+        _.extend(this.getFlags() || {}, otherLens.getFlags())
+    );
+
+
+
+    /**
+     * Focus on every element of an array at once
+     */
+    each = (eachFn) => {
+        const arr = this.get();
+        let lenses = [];
+
+        if (_.isArray(arr)) {
+            lenses = _.map(_.range(arr.length), function (idx) {
+                return eachFn(new IndexedLens(idx));
+            });
+        }
+
+        return this.compose(new MultiLens(lenses, this.getFlags()));
+    };
+
+    own = (ownFn) => {
+        const obj = this.get();
+        let lenses = [];
+
+        if (_.isObject(obj)) {
+            _.forEach(_.keys(obj), function (key) {
+                lenses.push(ownFn(new PathLens(key).view(obj[key])));
+            });
+        }
+
+        return this.compose(new MultiLens(lenses, this.getFlags()));
+    };
 };
-
-module.exports = Lens;

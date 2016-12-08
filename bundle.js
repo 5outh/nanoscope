@@ -7420,6 +7420,26 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _Compose = require('combinator/Compose');
+
+var _Compose2 = _interopRequireDefault(_Compose);
+
+var _ConjunctiveLens = require('combinator/ConjunctiveLens');
+
+var _ConjunctiveLens2 = _interopRequireDefault(_ConjunctiveLens);
+
+var _DisjunctiveLens = require('combinator/DisjunctiveLens');
+
+var _DisjunctiveLens2 = _interopRequireDefault(_DisjunctiveLens);
+
+var _IndexedLens = require('array/IndexedLens');
+
+var _IndexedLens2 = _interopRequireDefault(_IndexedLens);
+
+var _MultiLens = require('combinator/MultiLens');
+
+var _MultiLens2 = _interopRequireDefault(_MultiLens);
+
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
@@ -7466,7 +7486,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                                                                                                                                                            */
 
 var Lens = function Lens(get, map, flags) {
-    var _this = this;
+    var _this = this,
+        _arguments = arguments;
 
     _classCallCheck(this, Lens);
 
@@ -7483,6 +7504,121 @@ var Lens = function Lens(get, map, flags) {
         return _this._over(obj, func);
     };
 
+    this.mapping = function (obj, func) {
+        _this.view(_this.map(obj, func));
+        return _this;
+    };
+
+    this.set = function (obj, val) {
+        // If a view exists, and a second argument isn't provided, set the view.
+        if (_this._view != null && _lodash2.default.isUndefined(val)) {
+            return _this.map(_this._view, _lodash2.default.constant(obj));
+        }
+
+        return _this.map(obj, _lodash2.default.constant(val));
+    };
+
+    this.setting = function (obj, val) {
+        _this.view(_this.set(obj, val));
+        return _this;
+    };
+
+    this.view = function (view) {
+        _this._view = view;
+        _this._flags._view = view;
+        return _this;
+    };
+
+    this.viewing = this.view;
+
+    this.blur = function () {
+        return _this._view = null;
+    };
+
+    this.getFlags = function () {
+        return _this._flags;
+    };
+
+    this.getFlag = function (flag) {
+        return _this._flags[flag];
+    };
+
+    this.addFlag = function (flag) {
+        return _this._flags = _lodash2.default.extend(_this._flags, flag);
+    };
+
+    this.compose = function (otherLens) {
+        return new _Compose2.default(_this, otherLens, _lodash2.default.extend(_this._flags || {}, otherLens.getFlags()));
+    };
+
+    this.composeMany = function (otherLenses) {
+        var lens = _this;
+
+        // Support variable length args
+        if (_arguments.length > 1) {
+            otherLenses = _arguments;
+        }
+
+        _lodash2.default.forEach(otherLenses, function (otherLens) {
+            lens = lens.compose(otherLens);
+        });
+
+        return lens;
+    };
+
+    this.add = function (otherLens) {
+        return new _MultiLens2.default([_this, otherLens], _lodash2.default.extend(_this._flags || {}, otherLens.getFlags()));
+    };
+
+    this.addMany = function (otherLenses) {
+        var lens = _this;
+
+        // Support variable length args
+        if (_arguments.length > 1) {
+            otherLenses = _arguments;
+        }
+
+        _lodash2.default.forEach(otherLenses, function (otherLens) {
+            lens = lens.add(otherLens);
+        });
+
+        return lens;
+    };
+
+    this.or = function (otherLens) {
+        return new _DisjunctiveLens2.default(_this, otherLens, _lodash2.default.extend(_this.getFlags() || {}, otherLens.getFlags()));
+    };
+
+    this.and = function (otherLens) {
+        return new _ConjunctiveLens2.default(_this, otherLens, _lodash2.default.extend(_this.getFlags() || {}, otherLens.getFlags()));
+    };
+
+    this.each = function (eachFn) {
+        var arr = _this.get();
+        var lenses = [];
+
+        if (_lodash2.default.isArray(arr)) {
+            lenses = _lodash2.default.map(_lodash2.default.range(arr.length), function (idx) {
+                return eachFn(new _IndexedLens2.default(idx));
+            });
+        }
+
+        return _this.compose(new _MultiLens2.default(lenses, _this.getFlags()));
+    };
+
+    this.own = function (ownFn) {
+        var obj = _this.get();
+        var lenses = [];
+
+        if (_lodash2.default.isObject(obj)) {
+            _lodash2.default.forEach(_lodash2.default.keys(obj), function (key) {
+                lenses.push(ownFn(new PathLens(key).view(obj[key])));
+            });
+        }
+
+        return _this.compose(new _MultiLens2.default(lenses, _this.getFlags()));
+    };
+
     this._flags = flags;
     this._get = get;
     this._map = map;
@@ -7496,271 +7632,79 @@ var Lens = function Lens(get, map, flags) {
 
 /**
  * Get the value this `Lens` focuses on from an object
- *
- * @param {*} obj The object to run the `Lens` on
- * @returns {*}
  */
 
 
 /**
  * Run a function over the view of the `Lens` and return the modified structure
- *
- * @param {*} obj The object to run the `Lens` on
- * @param {function} func The function to call on the view of the Lens
- * @returns {Lens}
- */
-;
-
-/**
- * Run a function over the view of the `Lens` and return the modified structure
- *
- * @param {*} obj The object to run the `Lens` on
- * @param {function} func The function to call on the view of the Lens
- * @returns {Lens}
  */
 
-
-exports.default = Lens;
-Lens.prototype.map = function (obj, func) {
-    // If a view exists and a second argument isn't provided, use the view.
-    if (this._view != null && !func) {
-        return this._over(this._view, obj);
-    }
-
-    return this._over(obj, func);
-};
 
 /**
  * Map a function over the focus of this lens and return a new lens focusing
  * on the modified object.
- *
- * @param  {[type]} obj  [description]
- * @param  {[type]} func [description]
- * @return {[type]}      [description]
  */
-Lens.prototype.mapping = function (obj, func) {
-    this.view(this.map(obj, func));
-    return this;
-};
+
 
 /**
  * Set the view of the `Lens` to something new and return the modified structure
- *
- * @param {*} obj The object to run the Lens on
- * @param {*} val The value to set
- * @returns {Lens}
  */
-Lens.prototype.set = function (obj, val) {
 
-    // If a view exists, and a second argument isn't provided, set the view.
-    if (this._view != null && _lodash2.default.isUndefined(val)) {
-        return this.map(this._view, _lodash2.default.constant(obj));
-    }
-
-    return this.map(obj, _lodash2.default.constant(val));
-};
 
 /**
  * Set the value being focused on and return a new lens focusing on the modified object.
- *
- * @param  {[type]} obj [description]
- * @param  {[type]} val [description]
- * @return {[type]}     [description]
  */
-Lens.prototype.setting = function (obj, val) {
-    this.view(this.set(obj, val));
-    return this;
-};
+
 
 /**
  * Force the `Lens` to `view` a new object
- *
- * @param {*} view The object to view a Lens on
- * @return {Lens} this
  */
-Lens.prototype.view = function (view) {
-    this._view = view;
-    this._flags._view = view;
-    return this;
-};
 
-// Alias for view
-Lens.prototype.viewing = Lens.prototype.view;
 
 /**
- * Reset the view of the `Lens`.
- *
- * @return {Lens} this
+ * Alias for `view`
  */
-Lens.prototype.blur = function () {
-    this._view = null;
-    return this;
-};
+
 
 /**
- * Get any extra set options in a Lens
- *
- * @returns {*}
+ * Reset the view of this Lens
  */
-Lens.prototype.getFlags = function () {
-    return this._flags;
-};
+
 
 /**
- * Get a specific flag from a Lens
- *
- * @param flag
- * @returns {*}
+ * Get any flags for the lens
  */
-Lens.prototype.getFlag = function (flag) {
-    return this._flags[flag];
-};
+
 
 /**
- * Add a flag to the Lens
- *
- * @param {*} flag
+ * Get a specific flag for the lens
  */
-Lens.prototype.addFlag = function (flag) {
-    this._flags = _lodash2.default.extend(this._flags, flag);
-};
+
 
 /**
- * Compose this lens with another `Lens`
- *
- * @param {Lens} otherLens The `Lens` to compose this one with
- * @returns {Compose}
+ * Add a flag to the lens
  */
-Lens.prototype.compose = function (otherLens) {
-    var Compose = require('./../combinator/Compose');
-    return new Compose(this, otherLens, _lodash2.default.extend(this.getFlags() || {}, otherLens.getFlags()));
-};
+
 
 /**
- * Compose this lens with many other Lenses, specified by an array in which to order them.
- *
- * @param otherLenses
- * @returns {Lens}
+ * Compose this lens with another lens
  */
-Lens.prototype.composeMany = function (otherLenses) {
-    var args = arguments,
-        lens = this;
 
-    // Support variable length args
-    if (args.length > 1) {
-        otherLenses = args;
-    }
-
-    _lodash2.default.forEach(otherLenses, function (otherLens) {
-        lens = lens.compose(otherLens);
-    });
-
-    return lens;
-};
 
 /**
- * Add a new focus to this `Lens` by providing another `Lens` with which to focus with.
- *
- * @param otherLens The `Lens` to add to this `Lens`
- * @returns {MultiLens}
+ * Compose this lens with many other lenses in order
  */
-Lens.prototype.add = function (otherLens) {
-    var MultiLens = require('./../combinator/MultiLens');
 
-    return new MultiLens([this, otherLens], _lodash2.default.extend(this.getFlags(), otherLens.getFlags()));
-};
-
-/**
- * Add many new focuses to this `Lens` by providing an array of other lenses to focus with.
- *
- * @param otherLenses
- * @returns {Lens}
- */
-Lens.prototype.addMany = function (otherLenses) {
-    var args = arguments,
-        lens = this;
-
-    // Support variable length args
-    if (args.length > 1) {
-        otherLenses = args;
-    }
-
-    _lodash2.default.forEach(otherLenses, function (otherLens) {
-        lens = lens.add(otherLens);
-    });
-
-    return lens;
-};
-
-/**
- * Create a disjunction between this lens and another.
- *
- * @param otherLens
- * @returns {DisjunctiveLens}
- */
-Lens.prototype.or = function (otherLens) {
-    var DisjunctiveLens = require('../combinator/DisjunctiveLens');
-
-    return new DisjunctiveLens(this, otherLens, _lodash2.default.extend(this.getFlags() || {}, otherLens.getFlags()));
-};
-
-/**
- * Create a conjunction between this lens and another.
- *
- * @param otherLens
- * @returns {ConjunctiveLens}
- */
-Lens.prototype.and = function (otherLens) {
-    var ConjunctiveLens = require('../combinator/ConjunctiveLens');
-
-    return new ConjunctiveLens(this, otherLens, _lodash2.default.extend(this.getFlags() || {}, otherLens.getFlags()));
-};
 
 /**
  * Focus on every element of an array at once
- *
- * @param eachFn
- * @returns {Compose}
  */
-Lens.prototype.each = function (eachFn) {
-    var MultiLens = require('../combinator/MultiLens'),
-        IndexedLens = require('../array/IndexedLens'),
-        arr = this.get(),
-        lenses = [];
+;
 
-    if (_lodash2.default.isArray(arr)) {
-        lenses = _lodash2.default.map(_lodash2.default.range(arr.length), function (idx) {
-            return eachFn(new IndexedLens(idx));
-        });
-    }
+exports.default = Lens;
+;
 
-    return this.compose(new MultiLens(lenses, this.getFlags()));
-};
-
-/**
- * Focus on every element of an object at once
- *
- * @param ownFn
- * @returns {Compose}
- */
-Lens.prototype.own = function (ownFn) {
-    var MultiLens = require('../combinator/MultiLens'),
-        PathLens = require('../object/PathLens'),
-        obj = this.get(),
-        lenses = [];
-
-    if (_lodash2.default.isObject(obj)) {
-        _lodash2.default.forEach(_lodash2.default.keys(obj), function (key) {
-            lenses.push(ownFn(new PathLens(key).view(obj[key])));
-        });
-    }
-
-    return this.compose(new MultiLens(lenses, this.getFlags()));
-};
-
-module.exports = Lens;
-
-},{"../array/IndexedLens":"/Users/Ben/projects/nanoscope/src/array/IndexedLens.js","../combinator/ConjunctiveLens":"/Users/Ben/projects/nanoscope/src/combinator/ConjunctiveLens.js","../combinator/DisjunctiveLens":"/Users/Ben/projects/nanoscope/src/combinator/DisjunctiveLens.js","../combinator/MultiLens":"/Users/Ben/projects/nanoscope/src/combinator/MultiLens.js","../object/PathLens":"/Users/Ben/projects/nanoscope/src/object/PathLens.js","./../combinator/Compose":"/Users/Ben/projects/nanoscope/src/combinator/Compose.js","./../combinator/MultiLens":"/Users/Ben/projects/nanoscope/src/combinator/MultiLens.js","lodash":"/Users/Ben/projects/nanoscope/node_modules/lodash/dist/lodash.js"}],"/Users/Ben/projects/nanoscope/src/base/Setter.js":[function(require,module,exports){
+},{"array/IndexedLens":"/Users/Ben/projects/nanoscope/src/array/IndexedLens.js","combinator/Compose":"/Users/Ben/projects/nanoscope/src/combinator/Compose.js","combinator/ConjunctiveLens":"/Users/Ben/projects/nanoscope/src/combinator/ConjunctiveLens.js","combinator/DisjunctiveLens":"/Users/Ben/projects/nanoscope/src/combinator/DisjunctiveLens.js","combinator/MultiLens":"/Users/Ben/projects/nanoscope/src/combinator/MultiLens.js","lodash":"/Users/Ben/projects/nanoscope/node_modules/lodash/dist/lodash.js"}],"/Users/Ben/projects/nanoscope/src/base/Setter.js":[function(require,module,exports){
 "use strict";
 
 var _ = require('lodash'),
