@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 import Lens from 'base/Lens';
 
@@ -18,31 +16,13 @@ const get = function () {
  * @returns {Lens}
  * @constructor
  */
-export default Setter = function (map, options) {
-    var opts = { _setter: true};
+export default class Setter extends Lens {
+    constructor (map, options) {
+        super(get, map, _.extend(opts, options, { _setter: true }));
+        this.base = Lens;
+    };
 
-    if (_.isObject(options)) {
-        opts = _.extend(opts, options);
-    }
+    fromLens  = (lens) => new Setter(lens._over, lens.getFlags());
+}
 
-    this.base = Lens;
-    this.base(get, map, opts);
-};
-
-Setter.prototype = new Lens;
-
-/**
- * Get a `Setter` from a `Lens`
- *
- * @param {Lens} lens The Lens to convert to a `Setter`
- * @returns {Lens}
- */
-Setter.fromLens = function (lens) {
-    return new Setter(lens._over, lens.getFlags());
-};
-
-// Add setter() to Lens base
-Lens.prototype.setter = function () {
-    return Setter.fromLens(this);
-};
-
+Lens.prototype.setter = () => Setter.fromLens(this);

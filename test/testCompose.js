@@ -1,8 +1,6 @@
 import _ from 'lodash'
 import nanoscope from '../index'
 
-console.log(nanoscope)
-
 const IndexedLens = nanoscope.IndexedLens;
 const Compose = nanoscope.Compose;
 

@@ -226,3 +226,4 @@ export default class Lens {
         return this.compose(new MultiLens(lenses, this.getFlags()));
     };
 };
+

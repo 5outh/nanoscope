@@ -78,25 +78,25 @@ const map = function (index, unsafe) {
  * @constructor
  * @param options
  */
-export default IndexedLens = function (index, options) {
-    var unsafe = options && options.unsafe,
-        view = options && options._view,
-        flags = { _index: index, _unsafeIndex: unsafe || false };
+export default class IndexedLens extends Lens {
+    constructor (index, options) {
+        var unsafe = options && options.unsafe,
+            view = options && options._view,
+            flags = { _index: index, _unsafeIndex: unsafe || false };
 
-    if (view) {
-        flags = _.extend(flags, { _view: view });
-    }
+        if (view) {
+            flags = _.extend(flags, { _view: view });
+        }
 
-    this.base = Lens;
+        super(
+            get(index, unsafe),
+            map(index, unsafe),
+            flags
+        );
 
-    this.base(
-        get(index, unsafe),
-        map(index, unsafe),
-        flags
-    );
+        this.base = Lens;
+    };
 };
-
-IndexedLens.prototype = new Lens;
 
 /**
  * Construct an Unsafe `IndexedLens` that throws errors when attempting to access

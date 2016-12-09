@@ -7002,15 +7002,21 @@ var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _Lens = require('base/Lens');
+var _Lens2 = require('base/Lens');
 
-var _Lens2 = _interopRequireDefault(_Lens);
+var _Lens3 = _interopRequireDefault(_Lens2);
 
 var _utils = require('./utils');
 
 var _utils2 = _interopRequireDefault(_utils);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
  * Get the element at a specific index of an array
@@ -7089,21 +7095,31 @@ var map = function map(index, unsafe) {
  * @param options
  */
 
-exports.default = IndexedLens = function IndexedLens(index, options) {
-    var unsafe = options && options.unsafe,
-        view = options && options._view,
-        flags = { _index: index, _unsafeIndex: unsafe || false };
+var IndexedLens = function (_Lens) {
+    _inherits(IndexedLens, _Lens);
 
-    if (view) {
-        flags = _lodash2.default.extend(flags, { _view: view });
+    function IndexedLens(index, options) {
+        _classCallCheck(this, IndexedLens);
+
+        var unsafe = options && options.unsafe,
+            view = options && options._view,
+            flags = { _index: index, _unsafeIndex: unsafe || false };
+
+        if (view) {
+            flags = _lodash2.default.extend(flags, { _view: view });
+        }
+
+        var _this = _possibleConstructorReturn(this, (IndexedLens.__proto__ || Object.getPrototypeOf(IndexedLens)).call(this, get(index, unsafe), map(index, unsafe), flags));
+
+        _this.base = _Lens3.default;
+        return _this;
     }
 
-    this.base = _Lens2.default;
+    return IndexedLens;
+}(_Lens3.default);
 
-    this.base(get(index, unsafe), map(index, unsafe), flags);
-};
-
-IndexedLens.prototype = new _Lens2.default();
+exports.default = IndexedLens;
+;
 
 /**
  * Construct an Unsafe `IndexedLens` that throws errors when attempting to access
@@ -7145,7 +7161,7 @@ IndexedLens.deriveLenses = function (arr) {
  * @param index
  * @returns {MultiLens}
  */
-_Lens2.default.prototype.addIndex = function (index) {
+_Lens3.default.prototype.addIndex = function (index) {
     return this.add(new IndexedLens(index, { unsafe: this.getFlag('_unsafeIndex') }));
 };
 
@@ -7155,13 +7171,13 @@ _Lens2.default.prototype.addIndex = function (index) {
  * @param index
  * @returns {Compose}
  */
-_Lens2.default.prototype.composeIndex = function (index) {
+_Lens3.default.prototype.composeIndex = function (index) {
     return this.compose(new IndexedLens(index, { unsafe: this.getFlag('_unsafeIndex') }));
 };
 
 // Aliases for `composeIndex`
-_Lens2.default.prototype.index = _Lens2.default.prototype.composeIndex;
-_Lens2.default.prototype.indexing = _Lens2.default.prototype.composeIndex;
+_Lens3.default.prototype.index = _Lens3.default.prototype.composeIndex;
+_Lens3.default.prototype.indexing = _Lens3.default.prototype.composeIndex;
 
 },{"./utils":11,"base/Lens":13,"lodash":7}],10:[function(require,module,exports){
 "use strict";
@@ -7742,7 +7758,7 @@ exports.default = Lens;
 ;
 
 },{"array/IndexedLens":9,"combinator/Compose":15,"combinator/ConjunctiveLens":16,"combinator/DisjunctiveLens":17,"combinator/MultiLens":18,"lodash":7}],14:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -7752,11 +7768,17 @@ var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _Lens = require('base/Lens');
+var _Lens2 = require('base/Lens');
 
-var _Lens2 = _interopRequireDefault(_Lens);
+var _Lens3 = _interopRequireDefault(_Lens2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
  * Never allow `get` in a setter
@@ -7774,32 +7796,30 @@ var get = function get() {
  * @constructor
  */
 
-exports.default = Setter = function Setter(map, options) {
-    var opts = { _setter: true };
+var Setter = function (_Lens) {
+    _inherits(Setter, _Lens);
 
-    if (_lodash2.default.isObject(options)) {
-        opts = _lodash2.default.extend(opts, options);
+    function Setter(map, options) {
+        _classCallCheck(this, Setter);
+
+        var _this = _possibleConstructorReturn(this, (Setter.__proto__ || Object.getPrototypeOf(Setter)).call(this, get, map, _lodash2.default.extend(opts, options, { _setter: true })));
+
+        _this.fromLens = function (lens) {
+            return new Setter(lens._over, lens.getFlags());
+        };
+
+        _this.base = _Lens3.default;
+        return _this;
     }
 
-    this.base = _Lens2.default;
-    this.base(get, map, opts);
-};
+    return Setter;
+}(_Lens3.default);
 
-Setter.prototype = new _Lens2.default();
+exports.default = Setter;
 
-/**
- * Get a `Setter` from a `Lens`
- *
- * @param {Lens} lens The Lens to convert to a `Setter`
- * @returns {Lens}
- */
-Setter.fromLens = function (lens) {
-    return new Setter(lens._over, lens.getFlags());
-};
 
-// Add setter() to Lens base
-_Lens2.default.prototype.setter = function () {
-    return Setter.fromLens(this);
+_Lens3.default.prototype.setter = function () {
+    return Setter.fromLens(undefined);
 };
 
 },{"base/Lens":13,"lodash":7}],15:[function(require,module,exports){
