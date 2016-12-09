@@ -41,3 +41,4 @@ lenses = {
 };
 
 module.exports = _.extend(nanoscope, standard, lenses);
+

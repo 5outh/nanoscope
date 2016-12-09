@@ -1,33 +1,18 @@
-"use strict";
+import _ from 'lodash'
+import IdLens from '../lib/primitives/IdLens';
+import Lens from 'base/Lens';
+import IndexedLens from 'array/IndexedLens';
+import SliceLens from 'array/SliceLens';
+import PathLens from 'object/PathLens';
+import FilterLens from 'array/FilterLens';
+import PluckLens from 'object/PluckLens';
+import Compose from 'combinator/Compose';
+import Optional from 'combinator/Optional';
+import MultiLens from 'combinator/MultiLens';
+import Getter from 'base/Getter';
+import Setter from 'base/Setter';
 
-var _ = require('lodash'),
-
-    IdLens = require('../lib/primitives/IdLens'),
-
-    Lens = require('./base/Lens'),
-
-    // Predefined Lenses
-    IndexedLens = require('./array/IndexedLens'),
-    SliceLens = require('./array/SliceLens'),
-    PathLens = require('./object/PathLens'),
-    FilterLens = require('./array/FilterLens'),
-    PluckLens = require('./object/PluckLens'),
-
-    // Composite Lenses
-    Compose = require('./combinator/Compose'),
-    Optional = require('./combinator/Optional'),
-    MultiLens = require('./combinator/MultiLens'),
-
-    // Special Cases
-    Getter = require('./base/Getter'),
-    Setter = require('./base/Setter'),
-
-    setupAliases,
-
-    nanoscope,
-    unsafe;
-
-nanoscope = function (view) {
+export default nanoscope = function (view) {
 
     // nanoscope shouldn't be thought of as a class, but is one.
     // So, don't require `new` keyword on construction.
@@ -223,7 +208,7 @@ nanoscope.prototype.mapping = function(mappingFn) {
  * @param proto
  * @param aliases
  */
-setupAliases = function (proto, aliases) {
+const setupAliases = function (proto, aliases) {
     _.forOwn(aliases, function (alias, prop) {
         if (_.isArray(alias)) {
             _.forEach(alias, function (_alias) {
@@ -248,5 +233,3 @@ setupAliases(nanoscope.prototype, {
     pluck: 'plucking',
     recursivePluck: 'recursivelyPlucking'
 });
-
-module.exports = nanoscope;

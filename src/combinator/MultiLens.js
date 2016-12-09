@@ -1,14 +1,7 @@
-"use strict";
+import _ from 'lodash';
+import Lens from 'base/Lens';
 
-var _ = require('lodash'),
-    Lens = require('./../base/Lens'),
-
-    get,
-    map,
-
-    MultiLens;
-
-get = function (lenses) {
+const get = function (lenses) {
     return function (obj) {
         var gets;
 
@@ -32,7 +25,7 @@ get = function (lenses) {
     };
 };
 
-map = function (lenses) {
+const map = function (lenses) {
     return function (obj, func) {
         var newObj = _.clone(obj);
 
@@ -61,7 +54,7 @@ map = function (lenses) {
  * @returns {MultiLens}
  * @constructor
  */
-MultiLens = function (lenses, flags) {
+export default MultiLens = function (lenses, flags) {
     flags = flags || {};
 
     // Guard against no 'new'
@@ -126,5 +119,3 @@ MultiLens.prototype.add = function (otherLens) {
 
     return new MultiLens(lenses, flags);
 };
-
-module.exports = MultiLens;

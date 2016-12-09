@@ -1,13 +1,8 @@
-var _ = require('lodash'),
-    Lens = require('../base/Lens'),
-    MultiLens = require('./MultiLens'),
+import _ from 'lodash';
+import Lens from 'base/Lens';
+import MultiLens from './MultiLens';
 
-    ConjunctiveLens,
-    isNullOrUndefined,
-    get,
-    map;
-
-isNullOrUndefined = function (obj) {
+const isNullOrUndefined = function (obj) {
     return _.isNull(obj) || _.isUndefined(obj);
 };
 
@@ -19,7 +14,7 @@ isNullOrUndefined = function (obj) {
  * @param lensB
  * @returns {Function}
  */
-get = function (lensA, lensB) {
+const get = function (lensA, lensB) {
     return function (obj) {
         var gottenA, gottenB;
 
@@ -47,7 +42,7 @@ get = function (lensA, lensB) {
  * @param lensB
  * @returns {Function}
  */
-map = function (lensA, lensB) {
+const map = function (lensA, lensB) {
     return function (obj, func) {
         var gottenA, gottenB;
 
@@ -78,7 +73,7 @@ map = function (lensA, lensB) {
  * @constructor
  * @param options
  */
-ConjunctiveLens = function (lensA, lensB, options) {
+export default ConjunctiveLens = function (lensA, lensB, options) {
     this.base = Lens;
     this.base(
         get(lensA, lensB),
@@ -89,4 +84,3 @@ ConjunctiveLens = function (lensA, lensB, options) {
 
 ConjunctiveLens.prototype = new Lens;
 
-module.exports = ConjunctiveLens;

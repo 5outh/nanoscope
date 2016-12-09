@@ -161,7 +161,7 @@ export default class Lens {
 
         return lens;
     };
-    
+
     add = (otherLens) => new MultiLens([this, otherLens], _.extend(this._flags || {}, otherLens.getFlags()));
 
     addMany = (otherLenses) => {
@@ -179,19 +179,23 @@ export default class Lens {
         return lens;
     };
 
+    /**
+     * Focus on one location or another
+     */
     or = (otherLens) => new DisjunctiveLens(
         this, 
         otherLens,
         _.extend(this.getFlags() || {}, otherLens.getFlags())
     );
 
+    /**
+     * Add a second lens focus
+     */
     and = (otherLens) => new ConjunctiveLens(
         this, 
         otherLens,
         _.extend(this.getFlags() || {}, otherLens.getFlags())
     );
-
-
 
     /**
      * Focus on every element of an array at once

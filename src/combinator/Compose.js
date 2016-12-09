@@ -1,18 +1,16 @@
 "use strict";
 
-var _ = require('lodash'),
-    Lens = require('../base/Lens'),
-    Setter = require('../base/Setter'),
-    get,
-    map;
+import _ from 'lodash';
+import Lens from 'base/Lens';
+import Setter from 'base/Setter';
 
-get = function (lensA, lensB) {
+const get = function (lensA, lensB) {
     return function (obj) {
         return lensB.get(lensA.get(obj));
     };
 };
 
-map = function (lensA, lensB) {
+const map = function (lensA, lensB) {
     return function (obj, func) {
         return lensA.map(
             obj,

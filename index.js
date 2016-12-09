@@ -1,27 +1,40 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/Ben/projects/nanoscope/lib/indexed/headLens.js":[function(require,module,exports){
-"use strict";
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+'use strict';
 
-var IndexedLens = require('../../src/array/IndexedLens'),
-    headLens;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _IndexedLens = require('array/IndexedLens');
+
+var _IndexedLens2 = _interopRequireDefault(_IndexedLens);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // A headLens is just an `IndexedLens` with index 0.
-headLens = new IndexedLens(0);
+exports.default = headLens = new _IndexedLens2.default(0);
 
-module.exports = headLens;
+},{"array/IndexedLens":9}],2:[function(require,module,exports){
+'use strict';
 
-},{"../../src/array/IndexedLens":"/Users/Ben/projects/nanoscope/src/array/IndexedLens.js"}],"/Users/Ben/projects/nanoscope/lib/indexed/lastLens.js":[function(require,module,exports){
-"use strict";
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-var _ = require('lodash'),
-    IndexedLens = require('../../src/array/IndexedLens'),
-    lastLens;
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _IndexedLens = require('array/IndexedLens');
+
+var _IndexedLens2 = _interopRequireDefault(_IndexedLens);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // lastLens is just an IndexedLens that indexes on the last element.
-lastLens = new IndexedLens(-1);
+exports.default = lastLens = new _IndexedLens2.default(-1);
 
-module.exports = lastLens;
-
-},{"../../src/array/IndexedLens":"/Users/Ben/projects/nanoscope/src/array/IndexedLens.js","lodash":"/Users/Ben/projects/nanoscope/node_modules/lodash/dist/lodash.js"}],"/Users/Ben/projects/nanoscope/lib/primitives/IdLens.js":[function(require,module,exports){
+},{"array/IndexedLens":9,"lodash":7}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51,27 +64,37 @@ var IdLens = exports.IdLens = function IdLens() {
   });
 };
 
-},{"base/Lens":"/Users/Ben/projects/nanoscope/src/base/Lens.js","lodash":"/Users/Ben/projects/nanoscope/node_modules/lodash/dist/lodash.js"}],"/Users/Ben/projects/nanoscope/lib/slice/initLens.js":[function(require,module,exports){
-"use strict";
+},{"base/Lens":13,"lodash":7}],4:[function(require,module,exports){
+'use strict';
 
-var SliceLens = require('../../src/array/SliceLens'),
-    initLens;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-initLens = new SliceLens('1:');
+var _SliceLens = require('../../src/array/SliceLens');
 
-module.exports = initLens;
+var _SliceLens2 = _interopRequireDefault(_SliceLens);
 
-},{"../../src/array/SliceLens":"/Users/Ben/projects/nanoscope/src/array/SliceLens.js"}],"/Users/Ben/projects/nanoscope/lib/slice/tailLens.js":[function(require,module,exports){
-"use strict";
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var SliceLens = require('../../src/array/SliceLens'),
-    tailLens;
+exports.default = initLens = new _SliceLens2.default('1:');
 
-tailLens = new SliceLens(':-1');
+},{"../../src/array/SliceLens":10}],5:[function(require,module,exports){
+'use strict';
 
-module.exports = tailLens;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-},{"../../src/array/SliceLens":"/Users/Ben/projects/nanoscope/src/array/SliceLens.js"}],"/Users/Ben/projects/nanoscope/lib/standard.js":[function(require,module,exports){
+var _SliceLens = require('array/SliceLens');
+
+var _SliceLens2 = _interopRequireDefault(_SliceLens);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = tailLens = new _SliceLens2.default(':-1');
+
+},{"array/SliceLens":10}],6:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -82,7 +105,7 @@ module.exports = {
     tailLens: require('./slice/tailLens')
 };
 
-},{"./indexed/headLens":"/Users/Ben/projects/nanoscope/lib/indexed/headLens.js","./indexed/lastLens":"/Users/Ben/projects/nanoscope/lib/indexed/lastLens.js","./primitives/IdLens":"/Users/Ben/projects/nanoscope/lib/primitives/IdLens.js","./slice/initLens":"/Users/Ben/projects/nanoscope/lib/slice/initLens.js","./slice/tailLens":"/Users/Ben/projects/nanoscope/lib/slice/tailLens.js"}],"/Users/Ben/projects/nanoscope/node_modules/lodash/dist/lodash.js":[function(require,module,exports){
+},{"./indexed/headLens":1,"./indexed/lastLens":2,"./primitives/IdLens":3,"./slice/initLens":4,"./slice/tailLens":5}],7:[function(require,module,exports){
 (function (global){
 /**
  * @license
@@ -6872,14 +6895,22 @@ module.exports = {
 }.call(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],"/Users/Ben/projects/nanoscope/src/array/FilterLens.js":[function(require,module,exports){
-"use strict";
+},{}],8:[function(require,module,exports){
+'use strict';
 
-var _ = require('lodash'),
-    Lens = require('../base/Lens'),
-    FilterLens,
-    get,
-    map;
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _Lens = require('base/Lens');
+
+var _Lens2 = _interopRequireDefault(_Lens);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Get the elements from an array satisfying a filtering function
@@ -6887,15 +6918,15 @@ var _ = require('lodash'),
  * @param filter
  * @returns {Function}
  */
-get = function get(filter) {
+var get = function get(filter) {
     return function (arr) {
-        if (_.isFunction(filter)) {
+        if (_lodash2.default.isFunction(filter)) {
             // Return only the elements that are truthy from the filter function
-            return _.filter(arr, filter);
+            return _lodash2.default.filter(arr, filter);
         }
 
-        if (_.isRegExp(filter)) {
-            return _.filter(arr, function (elem) {
+        if (_lodash2.default.isRegExp(filter)) {
+            return _lodash2.default.filter(arr, function (elem) {
                 return elem.match(filter);
             });
         }
@@ -6908,24 +6939,24 @@ get = function get(filter) {
  * @param filter
  * @returns {Function}
  */
-map = function map(filter) {
+var map = function map(filter) {
     return function (arr, func) {
         // Only map elements that are truthy from the filter function
-        return _.map(_.clone(arr), function (elem) {
-            if (_.isFunction(filter)) {
+        return _lodash2.default.map(_lodash2.default.clone(arr), function (elem) {
+            if (_lodash2.default.isFunction(filter)) {
                 return filter(elem) ? func(elem) : elem;
             }
 
-            if (_.isRegExp(filter)) {
+            if (_lodash2.default.isRegExp(filter)) {
                 return elem.match(filter) ? func(elem) : elem;
             }
         });
     };
 };
 
-FilterLens = function FilterLens(filter, options) {
-    this.base = Lens;
-    this.base(get(filter), map(filter), _.extend({ _filter: filter }, options));
+exports.default = FilterLens = function FilterLens(filter, options) {
+    this.base = _Lens2.default;
+    this.base(get(filter), map(filter), _lodash2.default.extend({ _filter: filter }, options));
 };
 
 // Add functions to Lens base
@@ -6936,7 +6967,9 @@ FilterLens = function FilterLens(filter, options) {
  * @param filter
  * @returns {MultiLens}
  */
-Lens.prototype.addFilter = function (filter) {
+
+
+_Lens2.default.prototype.addFilter = function (filter) {
     return this.add(new FilterLens(filter));
 };
 
@@ -6946,29 +6979,38 @@ Lens.prototype.addFilter = function (filter) {
  * @param filter
  * @returns {Compose}
  */
-Lens.prototype.composeFilter = function (filter) {
+_Lens2.default.prototype.composeFilter = function (filter) {
     return this.compose(new FilterLens(filter));
 };
 
 /**
  * Aliases for composeFilter
  */
-Lens.prototype.filter = Lens.prototype.composeFilter;
-Lens.prototype.filtering = Lens.prototype.composeFilter;
+_Lens2.default.prototype.filter = _Lens2.default.prototype.composeFilter;
+_Lens2.default.prototype.filtering = _Lens2.default.prototype.composeFilter;
 
-FilterLens.prototype = new Lens();
+FilterLens.prototype = new _Lens2.default();
 
-module.exports = FilterLens;
+},{"base/Lens":13,"lodash":7}],9:[function(require,module,exports){
+'use strict';
 
-},{"../base/Lens":"/Users/Ben/projects/nanoscope/src/base/Lens.js","lodash":"/Users/Ben/projects/nanoscope/node_modules/lodash/dist/lodash.js"}],"/Users/Ben/projects/nanoscope/src/array/IndexedLens.js":[function(require,module,exports){
-"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
-var _ = require('lodash'),
-    Lens = require('../base/Lens'),
-    utils = require('./utils'),
-    IndexedLens,
-    get,
-    map;
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _Lens = require('base/Lens');
+
+var _Lens2 = _interopRequireDefault(_Lens);
+
+var _utils = require('./utils');
+
+var _utils2 = _interopRequireDefault(_utils);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Get the element at a specific index of an array
@@ -6977,11 +7019,11 @@ var _ = require('lodash'),
  * @returns {Function} The get function required to construct a Lens
  * @param {boolean} unsafe If true, throw an error if index is invalid
  */
-get = function get(index, unsafe) {
+var get = function get(index, unsafe) {
     return function (arr) {
-        index = utils.normalizeIndex(arr, index);
+        index = _utils2.default.normalizeIndex(arr, index);
 
-        if (!_.isArray(arr)) {
+        if (!_lodash2.default.isArray(arr)) {
             if (unsafe) {
                 throw new Error('Argument to indexed lens must be an array');
             }
@@ -6989,7 +7031,7 @@ get = function get(index, unsafe) {
         }
 
         // Only allow updates if array element exists
-        if (utils.isValidIndex(arr, index + 1)) {
+        if (_utils2.default.isValidIndex(arr, index + 1)) {
             return arr[index];
         }
 
@@ -7010,13 +7052,13 @@ get = function get(index, unsafe) {
  * @returns {Function} The map function required to construct a Lens
  * @param {boolean} unsafe If true, throw an error if index isn't valid.
  */
-map = function map(index, unsafe) {
+var map = function map(index, unsafe) {
     return function (arr, func) {
-        var newArr = _.clone(arr);
+        var newArr = _lodash2.default.clone(arr);
 
-        index = utils.normalizeIndex(arr, index);
+        index = _utils2.default.normalizeIndex(arr, index);
 
-        if (!_.isArray(newArr)) {
+        if (!_lodash2.default.isArray(newArr)) {
             if (unsafe) {
                 throw new Error('Argument to indexed lens must be an array');
             }
@@ -7025,7 +7067,7 @@ map = function map(index, unsafe) {
         }
 
         // Only allow updates if array element exists or is the next element in the array
-        if (utils.isValidIndex(arr, index)) {
+        if (_utils2.default.isValidIndex(arr, index)) {
             newArr[index] = func(newArr[index]);
         } else {
             // Only throw error if unsafe
@@ -7046,21 +7088,22 @@ map = function map(index, unsafe) {
  * @constructor
  * @param options
  */
-IndexedLens = function IndexedLens(index, options) {
+
+exports.default = IndexedLens = function IndexedLens(index, options) {
     var unsafe = options && options.unsafe,
         view = options && options._view,
         flags = { _index: index, _unsafeIndex: unsafe || false };
 
     if (view) {
-        flags = _.extend(flags, { _view: view });
+        flags = _lodash2.default.extend(flags, { _view: view });
     }
 
-    this.base = Lens;
+    this.base = _Lens2.default;
 
     this.base(get(index, unsafe), map(index, unsafe), flags);
 };
 
-IndexedLens.prototype = new Lens();
+IndexedLens.prototype = new _Lens2.default();
 
 /**
  * Construct an Unsafe `IndexedLens` that throws errors when attempting to access
@@ -7087,7 +7130,7 @@ IndexedLens.Unsafe.prototype = new IndexedLens();
 IndexedLens.deriveLenses = function (arr) {
     var lenses = [];
 
-    _.forEach(_.range(arr.length), function (index) {
+    _lodash2.default.forEach(_lodash2.default.range(arr.length), function (index) {
         lenses[index] = new IndexedLens(index);
     });
 
@@ -7102,7 +7145,7 @@ IndexedLens.deriveLenses = function (arr) {
  * @param index
  * @returns {MultiLens}
  */
-Lens.prototype.addIndex = function (index) {
+_Lens2.default.prototype.addIndex = function (index) {
     return this.add(new IndexedLens(index, { unsafe: this.getFlag('_unsafeIndex') }));
 };
 
@@ -7112,25 +7155,34 @@ Lens.prototype.addIndex = function (index) {
  * @param index
  * @returns {Compose}
  */
-Lens.prototype.composeIndex = function (index) {
+_Lens2.default.prototype.composeIndex = function (index) {
     return this.compose(new IndexedLens(index, { unsafe: this.getFlag('_unsafeIndex') }));
 };
 
 // Aliases for `composeIndex`
-Lens.prototype.index = Lens.prototype.composeIndex;
-Lens.prototype.indexing = Lens.prototype.composeIndex;
+_Lens2.default.prototype.index = _Lens2.default.prototype.composeIndex;
+_Lens2.default.prototype.indexing = _Lens2.default.prototype.composeIndex;
 
-module.exports = IndexedLens;
-
-},{"../base/Lens":"/Users/Ben/projects/nanoscope/src/base/Lens.js","./utils":"/Users/Ben/projects/nanoscope/src/array/utils.js","lodash":"/Users/Ben/projects/nanoscope/node_modules/lodash/dist/lodash.js"}],"/Users/Ben/projects/nanoscope/src/array/SliceLens.js":[function(require,module,exports){
+},{"./utils":11,"base/Lens":13,"lodash":7}],10:[function(require,module,exports){
 "use strict";
 
-var _ = require('lodash'),
-    Lens = require('../base/Lens'),
-    utils = require('./utils'),
-    get,
-    map,
-    SliceLens;
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _Lens = require('base/Lens');
+
+var _Lens2 = _interopRequireDefault(_Lens);
+
+var _utils = require('./utils');
+
+var _utils2 = _interopRequireDefault(_utils);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Get the slice of an array from `i` to `j`.
@@ -7139,15 +7191,15 @@ var _ = require('lodash'),
  * @param {int} j The end of the slice
  * @returns {Function}
  */
-get = function get(i, j) {
+var get = function get(i, j) {
     return function (arr) {
 
-        if (!_.isArray(arr)) {
+        if (!_lodash2.default.isArray(arr)) {
             return [];
         }
 
-        i = utils.normalizeIndex(arr, i);
-        j = utils.normalizeIndex(arr, j);
+        i = _utils2.default.normalizeIndex(arr, i);
+        j = _utils2.default.normalizeIndex(arr, j);
 
         return arr.slice(i, j);
     };
@@ -7160,18 +7212,18 @@ get = function get(i, j) {
  * @param {int} j The end of the slice (may be negative)
  * @returns {Function}
  */
-map = function map(i, j) {
+var map = function map(i, j) {
     return function (arr, func) {
         var newArr = [],
             slicedArr,
             k;
 
-        if (!_.isArray(arr)) {
-            return _.clone(arr);
+        if (!_lodash2.default.isArray(arr)) {
+            return _lodash2.default.clone(arr);
         }
 
-        i = utils.normalizeIndex(arr, i);
-        j = utils.normalizeIndex(arr, j);
+        i = _utils2.default.normalizeIndex(arr, i);
+        j = _utils2.default.normalizeIndex(arr, j);
 
         for (k = 0; k < i; k++) {
             newArr.push(arr[k]);
@@ -7180,8 +7232,8 @@ map = function map(i, j) {
         // Apply the function to the sliced array
         slicedArr = func(arr.slice(i, j));
 
-        if (_.isArray(slicedArr)) {
-            _.forEach(slicedArr, function (val) {
+        if (_lodash2.default.isArray(slicedArr)) {
+            _lodash2.default.forEach(slicedArr, function (val) {
                 newArr.push(val);
             });
         } else {
@@ -7211,10 +7263,11 @@ map = function map(i, j) {
  * @constructor
  * @param options
  */
-SliceLens = function SliceLens(i, j, options) {
+
+exports.default = SliceLens = function SliceLens(i, j, options) {
     var range, flags;
 
-    if (_.isString(i)) {
+    if (_lodash2.default.isString(i)) {
         range = i.split(':');
 
         // "Array Copy" operator
@@ -7234,7 +7287,7 @@ SliceLens = function SliceLens(i, j, options) {
         }
     }
 
-    if ((_.isUndefined(i) || _.isNull(i)) && (_.isUndefined(j) || _.isNull(j))) {
+    if ((_lodash2.default.isUndefined(i) || _lodash2.default.isNull(i)) && (_lodash2.default.isUndefined(j) || _lodash2.default.isNull(j))) {
         throw new Error('No slice indices defined.');
     }
 
@@ -7252,11 +7305,11 @@ SliceLens = function SliceLens(i, j, options) {
         }
     };
 
-    this.base = Lens;
-    this.base(get(i, j), map(i, j), _.extend(flags, options || {}));
+    this.base = _Lens2.default;
+    this.base(get(i, j), map(i, j), _lodash2.default.extend(flags, options || {}));
 };
 
-SliceLens.prototype = new Lens();
+SliceLens.prototype = new _Lens2.default();
 
 // Add stuff to Lens base
 
@@ -7268,7 +7321,7 @@ SliceLens.prototype = new Lens();
  * @param options
  * @returns {MultiLens}
  */
-Lens.prototype.addSlice = function (i, j, options) {
+_Lens2.default.prototype.addSlice = function (i, j, options) {
     return this.add(new SliceLens(i, j, options));
 };
 
@@ -7280,19 +7333,17 @@ Lens.prototype.addSlice = function (i, j, options) {
  * @param options
  * @returns {Compose}
  */
-Lens.prototype.composeSlice = function (i, j, options) {
+_Lens2.default.prototype.composeSlice = function (i, j, options) {
     return this.compose(new SliceLens(i, j, options));
 };
 
 /**
  * Aliases for composeSlice
  */
-Lens.prototype.slice = Lens.prototype.composeSlice;
-Lens.prototype.slicing = Lens.prototype.composeSlice;
+_Lens2.default.prototype.slice = _Lens2.default.prototype.composeSlice;
+_Lens2.default.prototype.slicing = _Lens2.default.prototype.composeSlice;
 
-module.exports = SliceLens;
-
-},{"../base/Lens":"/Users/Ben/projects/nanoscope/src/base/Lens.js","./utils":"/Users/Ben/projects/nanoscope/src/array/utils.js","lodash":"/Users/Ben/projects/nanoscope/node_modules/lodash/dist/lodash.js"}],"/Users/Ben/projects/nanoscope/src/array/utils.js":[function(require,module,exports){
+},{"./utils":11,"base/Lens":13,"lodash":7}],11:[function(require,module,exports){
 "use strict";
 
 var normalizeIndex, isValidIndex;
@@ -7327,18 +7378,27 @@ module.exports = {
     isValidIndex: isValidIndex
 };
 
-},{}],"/Users/Ben/projects/nanoscope/src/base/Getter.js":[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 "use strict";
 
-var _ = require('lodash'),
-    Lens = require('./Lens'),
-    Getter,
-    map;
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _Lens = require('./Lens');
+
+var _Lens2 = _interopRequireDefault(_Lens);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Never allow `map` in a getter
  */
-map = function map() {
+var map = function map() {
     throw new Error('map not permitted in a Getter');
 };
 
@@ -7351,18 +7411,19 @@ map = function map() {
  * @returns {Getter}
  * @constructor
  */
-Getter = function Getter(get, options) {
+
+exports.default = Getter = function Getter(get, options) {
     var opts = { _getter: true };
 
-    if (_.isObject(options)) {
-        opts = _.extend(opts, options);
+    if (_lodash2.default.isObject(options)) {
+        opts = _lodash2.default.extend(opts, options);
     }
 
-    this.base = Lens;
+    this.base = _Lens2.default;
     this.base(get, map, opts);
 };
 
-Getter.prototype = new Lens();
+Getter.prototype = new _Lens2.default();
 
 /**
  * Construct a `Getter` from a `Lens` by overwriting its map and set functions.
@@ -7375,13 +7436,11 @@ Getter.fromLens = function (lens) {
 
 // Add function to Lens base
 
-Lens.prototype.getter = function () {
+_Lens2.default.prototype.getter = function () {
     return Getter.fromLens(this);
 };
 
-module.exports = Getter;
-
-},{"./Lens":"/Users/Ben/projects/nanoscope/src/base/Lens.js","lodash":"/Users/Ben/projects/nanoscope/node_modules/lodash/dist/lodash.js"}],"/Users/Ben/projects/nanoscope/src/base/Lens.js":[function(require,module,exports){
+},{"./Lens":13,"lodash":7}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7665,6 +7724,16 @@ var Lens = function Lens(get, map, flags) {
 
 
 /**
+ * Focus on one location or another
+ */
+
+
+/**
+ * Add a second lens focus
+ */
+
+
+/**
  * Focus on every element of an array at once
  */
 ;
@@ -7672,8 +7741,16 @@ var Lens = function Lens(get, map, flags) {
 exports.default = Lens;
 ;
 
-},{"array/IndexedLens":"/Users/Ben/projects/nanoscope/src/array/IndexedLens.js","combinator/Compose":"/Users/Ben/projects/nanoscope/src/combinator/Compose.js","combinator/ConjunctiveLens":"/Users/Ben/projects/nanoscope/src/combinator/ConjunctiveLens.js","combinator/DisjunctiveLens":"/Users/Ben/projects/nanoscope/src/combinator/DisjunctiveLens.js","combinator/MultiLens":"/Users/Ben/projects/nanoscope/src/combinator/MultiLens.js","lodash":"/Users/Ben/projects/nanoscope/node_modules/lodash/dist/lodash.js"}],"/Users/Ben/projects/nanoscope/src/base/Setter.js":[function(require,module,exports){
+},{"array/IndexedLens":9,"combinator/Compose":15,"combinator/ConjunctiveLens":16,"combinator/DisjunctiveLens":17,"combinator/MultiLens":18,"lodash":7}],14:[function(require,module,exports){
 "use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
 
 var _Lens = require('base/Lens');
 
@@ -7681,14 +7758,10 @@ var _Lens2 = _interopRequireDefault(_Lens);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _ = require('lodash'),
-    Setter,
-    get;
-
 /**
  * Never allow `get` in a setter
  */
-get = function get() {
+var get = function get() {
     throw new Error('get not permitted in a Setter');
 };
 
@@ -7700,11 +7773,12 @@ get = function get() {
  * @returns {Lens}
  * @constructor
  */
-Setter = function Setter(map, options) {
+
+exports.default = Setter = function Setter(map, options) {
     var opts = { _setter: true };
 
-    if (_.isObject(options)) {
-        opts = _.extend(opts, options);
+    if (_lodash2.default.isObject(options)) {
+        opts = _lodash2.default.extend(opts, options);
     }
 
     this.base = _Lens2.default;
@@ -7728,24 +7802,30 @@ _Lens2.default.prototype.setter = function () {
     return Setter.fromLens(this);
 };
 
-module.exports = Setter;
-
-},{"base/Lens":"/Users/Ben/projects/nanoscope/src/base/Lens.js","lodash":"/Users/Ben/projects/nanoscope/node_modules/lodash/dist/lodash.js"}],"/Users/Ben/projects/nanoscope/src/combinator/Compose.js":[function(require,module,exports){
+},{"base/Lens":13,"lodash":7}],15:[function(require,module,exports){
 "use strict";
 
-var _ = require('lodash'),
-    Lens = require('../base/Lens'),
-    Setter = require('../base/Setter'),
-    get,
-    map;
+var _lodash = require('lodash');
 
-get = function get(lensA, lensB) {
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _Lens = require('base/Lens');
+
+var _Lens2 = _interopRequireDefault(_Lens);
+
+var _Setter = require('base/Setter');
+
+var _Setter2 = _interopRequireDefault(_Setter);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var get = function get(lensA, lensB) {
     return function (obj) {
         return lensB.get(lensA.get(obj));
     };
 };
 
-map = function map(lensA, lensB) {
+var map = function map(lensA, lensB) {
     return function (obj, func) {
         return lensA.map(obj, function () {
             return lensB.map(lensA.get(obj), func);
@@ -7773,27 +7853,37 @@ map = function map(lensA, lensB) {
  * @param options
  */
 var Compose = function Compose(lensA, lensB, options) {
-    this.base = Lens;
-    this.base(get(lensA, lensB), map(lensA, lensB), _.extend({ _lensA: lensA, _lensB: lensB }, options));
+    this.base = _Lens2.default;
+    this.base(get(lensA, lensB), map(lensA, lensB), _lodash2.default.extend({ _lensA: lensA, _lensB: lensB }, options));
 };
 
-Compose.prototype = new Lens();
+Compose.prototype = new _Lens2.default();
 
 module.exports = Compose;
 
-},{"../base/Lens":"/Users/Ben/projects/nanoscope/src/base/Lens.js","../base/Setter":"/Users/Ben/projects/nanoscope/src/base/Setter.js","lodash":"/Users/Ben/projects/nanoscope/node_modules/lodash/dist/lodash.js"}],"/Users/Ben/projects/nanoscope/src/combinator/ConjunctiveLens.js":[function(require,module,exports){
+},{"base/Lens":13,"base/Setter":14,"lodash":7}],16:[function(require,module,exports){
 'use strict';
 
-var _ = require('lodash'),
-    Lens = require('../base/Lens'),
-    MultiLens = require('./MultiLens'),
-    ConjunctiveLens,
-    isNullOrUndefined,
-    get,
-    map;
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
-isNullOrUndefined = function isNullOrUndefined(obj) {
-    return _.isNull(obj) || _.isUndefined(obj);
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _Lens = require('base/Lens');
+
+var _Lens2 = _interopRequireDefault(_Lens);
+
+var _MultiLens = require('./MultiLens');
+
+var _MultiLens2 = _interopRequireDefault(_MultiLens);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var isNullOrUndefined = function isNullOrUndefined(obj) {
+    return _lodash2.default.isNull(obj) || _lodash2.default.isUndefined(obj);
 };
 
 /**
@@ -7804,7 +7894,7 @@ isNullOrUndefined = function isNullOrUndefined(obj) {
  * @param lensB
  * @returns {Function}
  */
-get = function get(lensA, lensB) {
+var get = function get(lensA, lensB) {
     return function (obj) {
         var gottenA, gottenB;
 
@@ -7832,7 +7922,7 @@ get = function get(lensA, lensB) {
  * @param lensB
  * @returns {Function}
  */
-map = function map(lensA, lensB) {
+var map = function map(lensA, lensB) {
     return function (obj, func) {
         var gottenA, gottenB;
 
@@ -7863,23 +7953,30 @@ map = function map(lensA, lensB) {
  * @constructor
  * @param options
  */
-ConjunctiveLens = function ConjunctiveLens(lensA, lensB, options) {
-    this.base = Lens;
-    this.base(get(lensA, lensB), map(lensA, lensB), _.extend({ _lensA: lensA, _lensB: lensB, _conjunctive: true }, options));
+
+exports.default = ConjunctiveLens = function ConjunctiveLens(lensA, lensB, options) {
+    this.base = _Lens2.default;
+    this.base(get(lensA, lensB), map(lensA, lensB), _lodash2.default.extend({ _lensA: lensA, _lensB: lensB, _conjunctive: true }, options));
 };
 
-ConjunctiveLens.prototype = new Lens();
+ConjunctiveLens.prototype = new _Lens2.default();
 
-module.exports = ConjunctiveLens;
-
-},{"../base/Lens":"/Users/Ben/projects/nanoscope/src/base/Lens.js","./MultiLens":"/Users/Ben/projects/nanoscope/src/combinator/MultiLens.js","lodash":"/Users/Ben/projects/nanoscope/node_modules/lodash/dist/lodash.js"}],"/Users/Ben/projects/nanoscope/src/combinator/DisjunctiveLens.js":[function(require,module,exports){
+},{"./MultiLens":18,"base/Lens":13,"lodash":7}],17:[function(require,module,exports){
 'use strict';
 
-var _ = require('lodash'),
-    Lens = require('../base/Lens'),
-    DisjunctiveLens,
-    get,
-    map;
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _Lens = require('base/Lens');
+
+var _Lens2 = _interopRequireDefault(_Lens);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * The get function for a DisjunctiveLens. Returns `lensA.get()` if it is non-null/undefined, and
@@ -7889,14 +7986,14 @@ var _ = require('lodash'),
  * @param lensB
  * @returns {Function}
  */
-get = function get(lensA, lensB) {
+var get = function get(lensA, lensB) {
     return function (obj) {
         var gotten;
 
         try {
             gotten = lensA.get(obj);
 
-            if (_.isNull(gotten) || _.isUndefined(gotten)) {
+            if (_lodash2.default.isNull(gotten) || _lodash2.default.isUndefined(gotten)) {
                 return lensB.get(obj) || null;
             }
 
@@ -7916,14 +8013,14 @@ get = function get(lensA, lensB) {
  * @param lensB
  * @returns {Function}
  */
-map = function map(lensA, lensB) {
+var map = function map(lensA, lensB) {
     return function (obj, func) {
         var gotten;
 
         try {
             gotten = lensA.get(obj);
 
-            if (_.isNull(gotten) || _.isUndefined(gotten)) {
+            if (_lodash2.default.isNull(gotten) || _lodash2.default.isUndefined(gotten)) {
 
                 return lensB.map(obj, func);
             }
@@ -7946,39 +8043,46 @@ map = function map(lensA, lensB) {
  * @constructor
  * @param options
  */
-DisjunctiveLens = function DisjunctiveLens(lensA, lensB, options) {
-    this.base = Lens;
-    this.base(get(lensA, lensB), map(lensA, lensB), _.extend({ _lensA: lensA, _lensB: lensB, _disjunctive: true }, options));
+
+exports.default = DisjunctiveLens = function DisjunctiveLens(lensA, lensB, options) {
+    this.base = _Lens2.default;
+    this.base(get(lensA, lensB), map(lensA, lensB), _lodash2.default.extend({ _lensA: lensA, _lensB: lensB, _disjunctive: true }, options));
 };
 
-DisjunctiveLens.prototype = new Lens();
+DisjunctiveLens.prototype = new _Lens2.default();
 
-module.exports = DisjunctiveLens;
+},{"base/Lens":13,"lodash":7}],18:[function(require,module,exports){
+'use strict';
 
-},{"../base/Lens":"/Users/Ben/projects/nanoscope/src/base/Lens.js","lodash":"/Users/Ben/projects/nanoscope/node_modules/lodash/dist/lodash.js"}],"/Users/Ben/projects/nanoscope/src/combinator/MultiLens.js":[function(require,module,exports){
-"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
-var _ = require('lodash'),
-    Lens = require('./../base/Lens'),
-    get,
-    map,
-    _MultiLens;
+var _lodash = require('lodash');
 
-get = function get(lenses) {
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _Lens = require('base/Lens');
+
+var _Lens2 = _interopRequireDefault(_Lens);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var get = function get(lenses) {
     return function (obj) {
         var gets;
 
-        if (_.isArray(lenses)) {
+        if (_lodash2.default.isArray(lenses)) {
             gets = [];
 
-            _.forEach(lenses, function (lens) {
+            _lodash2.default.forEach(lenses, function (lens) {
                 gets.push(lens.get(obj));
             });
         } else {
-            if (_.isObject(lenses)) {
+            if (_lodash2.default.isObject(lenses)) {
                 gets = {};
 
-                _.forEach(_.keys(lenses), function (key) {
+                _lodash2.default.forEach(_lodash2.default.keys(lenses), function (key) {
                     gets[key] = lenses[key].get(obj);
                 });
             }
@@ -7988,17 +8092,17 @@ get = function get(lenses) {
     };
 };
 
-map = function map(lenses) {
+var map = function map(lenses) {
     return function (obj, func) {
-        var newObj = _.clone(obj);
+        var newObj = _lodash2.default.clone(obj);
 
-        if (_.isArray(lenses)) {
-            _.forEach(lenses, function (lens) {
+        if (_lodash2.default.isArray(lenses)) {
+            _lodash2.default.forEach(lenses, function (lens) {
                 newObj = lens.map(newObj, func);
             });
         } else {
-            if (_.isObject(lenses)) {
-                _.forEach(_.values(lenses), function (lens) {
+            if (_lodash2.default.isObject(lenses)) {
+                _lodash2.default.forEach(_lodash2.default.values(lenses), function (lens) {
                     newObj = lens.map(newObj, func);
                 });
             }
@@ -8017,19 +8121,30 @@ map = function map(lenses) {
  * @returns {MultiLens}
  * @constructor
  */
-_MultiLens = function MultiLens(lenses, flags) {
+
+exports.default = MultiLens = function (_MultiLens) {
+    function MultiLens(_x, _x2) {
+        return _MultiLens.apply(this, arguments);
+    }
+
+    MultiLens.toString = function () {
+        return _MultiLens.toString();
+    };
+
+    return MultiLens;
+}(function (lenses, flags) {
     flags = flags || {};
 
     // Guard against no 'new'
-    if (!this instanceof _MultiLens) {
-        return new _MultiLens(lenses, flags);
+    if (!this instanceof MultiLens) {
+        return new MultiLens(lenses, flags);
     }
 
     flags._multi = true;
 
-    if (_.isObject(lenses)) {
-        _.forEach(_.keys(lenses), function (key) {
-            if (!(lenses[key] instanceof Lens || lenses[key] instanceof _MultiLens)) {
+    if (_lodash2.default.isObject(lenses)) {
+        _lodash2.default.forEach(_lodash2.default.keys(lenses), function (key) {
+            if (!(lenses[key] instanceof _Lens2.default || lenses[key] instanceof MultiLens)) {
                 throw new Error('Cannot construct MultiLens from non-lens');
             }
         });
@@ -8037,9 +8152,9 @@ _MultiLens = function MultiLens(lenses, flags) {
         this._lenses = lenses;
     }
 
-    if (_.isArray(lenses)) {
-        _.forEach(lenses, function (lens) {
-            if (!(lens instanceof Lens || lens instanceof _MultiLens)) {
+    if (_lodash2.default.isArray(lenses)) {
+        _lodash2.default.forEach(lenses, function (lens) {
+            if (!(lens instanceof _Lens2.default || lens instanceof MultiLens)) {
                 throw new Error('Cannot construct MultiLens from non-lens');
             }
         });
@@ -8047,11 +8162,11 @@ _MultiLens = function MultiLens(lenses, flags) {
         this._lenses = lenses;
     }
 
-    this.base = Lens;
+    this.base = _Lens2.default;
     this.base(get(lenses), map(lenses), flags);
-};
+});
 
-_MultiLens.prototype = new Lens();
+MultiLens.prototype = new _Lens2.default();
 
 /**
  * Add a new focus to this `Lens` by providing another `Lens` with which to focus with.
@@ -8059,38 +8174,46 @@ _MultiLens.prototype = new Lens();
  * @param otherLens The `Lens` to add to this `Lens`
  * @returns {MultiLens}
  */
-_MultiLens.prototype.add = function (otherLens) {
+MultiLens.prototype.add = function (otherLens) {
     var lenses = this._lenses,
         flags = this.getFlags();
 
-    if (otherLens instanceof Lens) {
-        flags = _.extend(flags, otherLens.getFlags());
+    if (otherLens instanceof _Lens2.default) {
+        flags = _lodash2.default.extend(flags, otherLens.getFlags());
     }
 
-    if (_.isArray(lenses)) {
+    if (_lodash2.default.isArray(lenses)) {
         lenses.push(otherLens);
-    } else if (_.isObject(lenses)) {
-        if (_.isObject(otherLens)) {
+    } else if (_lodash2.default.isObject(lenses)) {
+        if (_lodash2.default.isObject(otherLens)) {
             // Assumes each value is a Lens
-            _.forEach(_.values(otherLens), function (lens) {
-                flags = _.extend(flags, lens.getFlags());
+            _lodash2.default.forEach(_lodash2.default.values(otherLens), function (lens) {
+                flags = _lodash2.default.extend(flags, lens.getFlags());
             });
 
-            lenses = _.extend(lenses, otherLens);
+            lenses = _lodash2.default.extend(lenses, otherLens);
         }
     }
 
-    return new _MultiLens(lenses, flags);
+    return new MultiLens(lenses, flags);
 };
 
-module.exports = _MultiLens;
-
-},{"./../base/Lens":"/Users/Ben/projects/nanoscope/src/base/Lens.js","lodash":"/Users/Ben/projects/nanoscope/node_modules/lodash/dist/lodash.js"}],"/Users/Ben/projects/nanoscope/src/combinator/Optional.js":[function(require,module,exports){
+},{"base/Lens":13,"lodash":7}],19:[function(require,module,exports){
 "use strict";
 
-var _ = require('lodash'),
-    Lens = require('../base/Lens'),
-    Optional;
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _Lens = require('base/Lens');
+
+var _Lens2 = _interopRequireDefault(_Lens);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * `Optional` `Lens`es take `Lens`es and an optional error handler as an argument, and make any `Lens` accesses safe.
@@ -8115,7 +8238,7 @@ var _ = require('lodash'),
  * @returns {Lens} A safer lens
  * @constructor
  */
-Optional = function Optional(lens, errorHandler) {
+exports.default = Optional = function Optional(lens, errorHandler) {
     var get = lens._get,
         map = lens._over;
 
@@ -8125,7 +8248,7 @@ Optional = function Optional(lens, errorHandler) {
             try {
                 return lens.get(obj);
             } catch (ex) {
-                if (_.isFunction(errorHandler)) {
+                if (_lodash2.default.isFunction(errorHandler)) {
                     return errorHandler(ex);
                 }
                 return errorHandler || null;
@@ -8139,7 +8262,7 @@ Optional = function Optional(lens, errorHandler) {
             try {
                 return lens.map(obj, func);
             } catch (ex) {
-                if (_.isFunction(errorHandler)) {
+                if (_lodash2.default.isFunction(errorHandler)) {
                     return errorHandler(ex);
                 }
                 // Return original object if failing
@@ -8148,11 +8271,11 @@ Optional = function Optional(lens, errorHandler) {
         };
     }
 
-    this.base = Lens;
-    this.base(get, map, _.extend(lens.getFlags(), { _optional: true }));
+    this.base = _Lens2.default;
+    this.base(get, map, _lodash2.default.extend(lens.getFlags(), { _optional: true }));
 };
 
-Optional.prototype = new Lens();
+Optional.prototype = new _Lens2.default();
 
 // Add stuff to base Lens
 
@@ -8162,7 +8285,7 @@ Optional.prototype = new Lens();
  * @param errorHandler
  * @returns {Optional}
  */
-Lens.prototype.catch = function (errorHandler) {
+_Lens2.default.prototype.catch = function (errorHandler) {
     if (errorHandler) {
         this._errorHandler = errorHandler;
     }
@@ -8170,9 +8293,7 @@ Lens.prototype.catch = function (errorHandler) {
     return new Optional(this, errorHandler);
 };
 
-module.exports = Optional;
-
-},{"../base/Lens":"/Users/Ben/projects/nanoscope/src/base/Lens.js","lodash":"/Users/Ben/projects/nanoscope/node_modules/lodash/dist/lodash.js"}],"/Users/Ben/projects/nanoscope/src/exports.js":[function(require,module,exports){
+},{"base/Lens":13,"lodash":7}],20:[function(require,module,exports){
 'use strict';
 
 var _lodash = require('lodash');
@@ -8265,58 +8386,102 @@ lenses = {
 
 module.exports = _lodash2.default.extend(_nanoscope2.default, _standard2.default, lenses);
 
-},{"../lib/standard":"/Users/Ben/projects/nanoscope/lib/standard.js","array/FilterLens":"/Users/Ben/projects/nanoscope/src/array/FilterLens.js","array/IndexedLens":"/Users/Ben/projects/nanoscope/src/array/IndexedLens.js","array/SliceLens":"/Users/Ben/projects/nanoscope/src/array/SliceLens.js","base/Getter":"/Users/Ben/projects/nanoscope/src/base/Getter.js","base/Lens":"/Users/Ben/projects/nanoscope/src/base/Lens.js","base/Setter":"/Users/Ben/projects/nanoscope/src/base/Setter.js","combinator/Compose":"/Users/Ben/projects/nanoscope/src/combinator/Compose.js","combinator/ConjunctiveLens":"/Users/Ben/projects/nanoscope/src/combinator/ConjunctiveLens.js","combinator/DisjunctiveLens":"/Users/Ben/projects/nanoscope/src/combinator/DisjunctiveLens.js","combinator/MultiLens":"/Users/Ben/projects/nanoscope/src/combinator/MultiLens.js","combinator/Optional":"/Users/Ben/projects/nanoscope/src/combinator/Optional.js","lodash":"/Users/Ben/projects/nanoscope/node_modules/lodash/dist/lodash.js","nanoscope":"/Users/Ben/projects/nanoscope/src/nanoscope.js","object/PathLens":"/Users/Ben/projects/nanoscope/src/object/PathLens.js","object/PluckLens":"/Users/Ben/projects/nanoscope/src/object/PluckLens.js"}],"/Users/Ben/projects/nanoscope/src/nanoscope.js":[function(require,module,exports){
-"use strict";
+},{"../lib/standard":6,"array/FilterLens":8,"array/IndexedLens":9,"array/SliceLens":10,"base/Getter":12,"base/Lens":13,"base/Setter":14,"combinator/Compose":15,"combinator/ConjunctiveLens":16,"combinator/DisjunctiveLens":17,"combinator/MultiLens":18,"combinator/Optional":19,"lodash":7,"nanoscope":21,"object/PathLens":22,"object/PluckLens":23}],21:[function(require,module,exports){
+'use strict';
 
-var _ = require('lodash'),
-    IdLens = require('../lib/primitives/IdLens'),
-    Lens = require('./base/Lens'),
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
+var _lodash = require('lodash');
 
-// Predefined Lenses
-IndexedLens = require('./array/IndexedLens'),
-    SliceLens = require('./array/SliceLens'),
-    PathLens = require('./object/PathLens'),
-    FilterLens = require('./array/FilterLens'),
-    PluckLens = require('./object/PluckLens'),
+var _lodash2 = _interopRequireDefault(_lodash);
 
+var _IdLens = require('../lib/primitives/IdLens');
 
-// Composite Lenses
-Compose = require('./combinator/Compose'),
-    Optional = require('./combinator/Optional'),
-    MultiLens = require('./combinator/MultiLens'),
+var _IdLens2 = _interopRequireDefault(_IdLens);
 
+var _Lens = require('base/Lens');
 
-// Special Cases
-Getter = require('./base/Getter'),
-    Setter = require('./base/Setter'),
-    setupAliases,
-    _nanoscope,
-    unsafe;
+var _Lens2 = _interopRequireDefault(_Lens);
 
-_nanoscope = function nanoscope(view) {
+var _IndexedLens = require('array/IndexedLens');
+
+var _IndexedLens2 = _interopRequireDefault(_IndexedLens);
+
+var _SliceLens = require('array/SliceLens');
+
+var _SliceLens2 = _interopRequireDefault(_SliceLens);
+
+var _PathLens = require('object/PathLens');
+
+var _PathLens2 = _interopRequireDefault(_PathLens);
+
+var _FilterLens = require('array/FilterLens');
+
+var _FilterLens2 = _interopRequireDefault(_FilterLens);
+
+var _PluckLens = require('object/PluckLens');
+
+var _PluckLens2 = _interopRequireDefault(_PluckLens);
+
+var _Compose = require('combinator/Compose');
+
+var _Compose2 = _interopRequireDefault(_Compose);
+
+var _Optional = require('combinator/Optional');
+
+var _Optional2 = _interopRequireDefault(_Optional);
+
+var _MultiLens = require('combinator/MultiLens');
+
+var _MultiLens2 = _interopRequireDefault(_MultiLens);
+
+var _Getter = require('base/Getter');
+
+var _Getter2 = _interopRequireDefault(_Getter);
+
+var _Setter = require('base/Setter');
+
+var _Setter2 = _interopRequireDefault(_Setter);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = nanoscope = function (_nanoscope) {
+    function nanoscope(_x) {
+        return _nanoscope.apply(this, arguments);
+    }
+
+    nanoscope.toString = function () {
+        return _nanoscope.toString();
+    };
+
+    return nanoscope;
+}(function (view) {
 
     // nanoscope shouldn't be thought of as a class, but is one.
     // So, don't require `new` keyword on construction.
-    if (!(this instanceof _nanoscope)) {
-        return new _nanoscope(view);
+    if (!(this instanceof nanoscope)) {
+        return new nanoscope(view);
     }
 
     this._view = view;
-};
+});
 
 /**
  * Add mixin functions to nanoscope
  *
  * @param mapping
  */
-_nanoscope.mixin = function (mapping) {
-    var keys = _.keys(mapping);
 
-    _.forEach(keys, function (key) {
-        if (_.isFunction(mapping[key])) {
-            _nanoscope.prototype[key] = mapping[key];
-            Lens.prototype[key] = mapping[key];
+
+nanoscope.mixin = function (mapping) {
+    var keys = _lodash2.default.keys(mapping);
+
+    _lodash2.default.forEach(keys, function (key) {
+        if (_lodash2.default.isFunction(mapping[key])) {
+            nanoscope.prototype[key] = mapping[key];
+            _Lens2.default.prototype[key] = mapping[key];
         }
     });
 };
@@ -8327,8 +8492,8 @@ _nanoscope.mixin = function (mapping) {
  * @param options
  * @returns {*}
  */
-_nanoscope.prototype.addView = function (options) {
-    return _.extend({ _view: this._view }, options);
+nanoscope.prototype.addView = function (options) {
+    return _lodash2.default.extend({ _view: this._view }, options);
 };
 
 /**
@@ -8338,8 +8503,8 @@ _nanoscope.prototype.addView = function (options) {
  * @param options
  * @returns {FilterLens}
  */
-_nanoscope.prototype.filter = function (filter, options) {
-    return new FilterLens(filter, this.addView(options));
+nanoscope.prototype.filter = function (filter, options) {
+    return new _FilterLens2.default(filter, this.addView(options));
 };
 
 /**
@@ -8349,8 +8514,8 @@ _nanoscope.prototype.filter = function (filter, options) {
  * @param options
  * @returns {IndexedLens}
  */
-_nanoscope.prototype.index = function (index, options) {
-    return new IndexedLens(index, this.addView(options));
+nanoscope.prototype.index = function (index, options) {
+    return new _IndexedLens2.default(index, this.addView(options));
 };
 
 /**
@@ -8360,8 +8525,8 @@ _nanoscope.prototype.index = function (index, options) {
  * @param options
  * @returns {IndexedLens}
  */
-_nanoscope.prototype.unsafeIndex = function (index, options) {
-    return new IndexedLens.Unsafe(index, this.addView(options));
+nanoscope.prototype.unsafeIndex = function (index, options) {
+    return new _IndexedLens2.default.Unsafe(index, this.addView(options));
 };
 
 /**
@@ -8372,8 +8537,8 @@ _nanoscope.prototype.unsafeIndex = function (index, options) {
  * @param options
  * @returns {SliceLens}
  */
-_nanoscope.prototype.slice = function (i, j, options) {
-    return new SliceLens(i, j, this.addView(options));
+nanoscope.prototype.slice = function (i, j, options) {
+    return new _SliceLens2.default(i, j, this.addView(options));
 };
 
 /**
@@ -8383,8 +8548,8 @@ _nanoscope.prototype.slice = function (i, j, options) {
  * @param options
  * @returns {PathLens}
  */
-_nanoscope.prototype.path = function (path, options) {
-    return new PathLens(path, this.addView(options));
+nanoscope.prototype.path = function (path, options) {
+    return new _PathLens2.default(path, this.addView(options));
 };
 
 /**
@@ -8394,8 +8559,8 @@ _nanoscope.prototype.path = function (path, options) {
  * @param options
  * @returns {PathLens.Unsafe}
  */
-_nanoscope.prototype.unsafePath = function (path, options) {
-    return new PathLens.Unsafe(path, this.addView(options));
+nanoscope.prototype.unsafePath = function (path, options) {
+    return new _PathLens2.default.Unsafe(path, this.addView(options));
 };
 
 /**
@@ -8405,8 +8570,8 @@ _nanoscope.prototype.unsafePath = function (path, options) {
  * @param options
  * @returns {PluckLens}
  */
-_nanoscope.prototype.pluck = function (pluck, options) {
-    return new PluckLens(pluck, this.addView(options));
+nanoscope.prototype.pluck = function (pluck, options) {
+    return new _PluckLens2.default(pluck, this.addView(options));
 };
 
 /**
@@ -8416,8 +8581,8 @@ _nanoscope.prototype.pluck = function (pluck, options) {
  * @param options
  * @returns {PluckLens.Recursive}
  */
-_nanoscope.prototype.recursivePluck = function (pluck, options) {
-    return new PluckLens.Recursive(pluck, this.addView(options));
+nanoscope.prototype.recursivePluck = function (pluck, options) {
+    return new _PluckLens2.default.Recursive(pluck, this.addView(options));
 };
 
 /**
@@ -8426,8 +8591,8 @@ _nanoscope.prototype.recursivePluck = function (pluck, options) {
  * @param eachFn
  * @returns {*}
  */
-_nanoscope.prototype.each = function (eachFn) {
-    return new IdLens().view(this._view).each(eachFn);
+nanoscope.prototype.each = function (eachFn) {
+    return new _IdLens2.default().view(this._view).each(eachFn);
 };
 
 /**
@@ -8436,22 +8601,22 @@ _nanoscope.prototype.each = function (eachFn) {
  * @param ownFn
  * @returns {*}
  */
-_nanoscope.prototype.own = function (ownFn) {
-    return new IdLens().view(this._view).own(ownFn);
+nanoscope.prototype.own = function (ownFn) {
+    return new _IdLens2.default().view(this._view).own(ownFn);
 };
 
 /**
  * Get the value at the focus of the lens
  */
-_nanoscope.prototype.get = function () {
-    return new IdLens().view(this._view).get();
+nanoscope.prototype.get = function () {
+    return new _IdLens2.default().view(this._view).get();
 };
 
 /**
  * Set the value at the focus of the lens.
  */
-_nanoscope.prototype.set = function (val) {
-    return new IdLens().view(this._view).set(val);
+nanoscope.prototype.set = function (val) {
+    return new _IdLens2.default().view(this._view).set(val);
 };
 
 /**
@@ -8461,15 +8626,15 @@ _nanoscope.prototype.set = function (val) {
  * @param  {*} val
  * @return {Lens}
  */
-_nanoscope.prototype.setting = function (val) {
-    return new IdLens().view(this._view).setting(val);
+nanoscope.prototype.setting = function (val) {
+    return new _IdLens2.default().view(this._view).setting(val);
 };
 
 /**
  * Map over the focus of the lens.
  */
-_nanoscope.prototype.map = function (mappingFn) {
-    return new IdLens().view(this._view).map(mappingFn);
+nanoscope.prototype.map = function (mappingFn) {
+    return new _IdLens2.default().view(this._view).map(mappingFn);
 };
 
 /**
@@ -8479,8 +8644,8 @@ _nanoscope.prototype.map = function (mappingFn) {
  * @param  {Function} mappingFn
  * @return {Lens}
  */
-_nanoscope.prototype.mapping = function (mappingFn) {
-    return new IdLens().view(this._view).mapping(mappingFn);
+nanoscope.prototype.mapping = function (mappingFn) {
+    return new _IdLens2.default().view(this._view).mapping(mappingFn);
 };
 
 /**
@@ -8489,10 +8654,10 @@ _nanoscope.prototype.mapping = function (mappingFn) {
  * @param proto
  * @param aliases
  */
-setupAliases = function setupAliases(proto, aliases) {
-    _.forOwn(aliases, function (alias, prop) {
-        if (_.isArray(alias)) {
-            _.forEach(alias, function (_alias) {
+var setupAliases = function setupAliases(proto, aliases) {
+    _lodash2.default.forOwn(aliases, function (alias, prop) {
+        if (_lodash2.default.isArray(alias)) {
+            _lodash2.default.forEach(alias, function (_alias) {
                 proto[_alias] = proto[prop];
             });
         } else {
@@ -8504,7 +8669,7 @@ setupAliases = function setupAliases(proto, aliases) {
 /**
  * Set up the aliases for nanoscope
  */
-setupAliases(_nanoscope.prototype, {
+setupAliases(nanoscope.prototype, {
     filter: 'filtering',
     index: 'indexing',
     unsafeIndex: 'unsafelyIndexing',
@@ -8515,9 +8680,7 @@ setupAliases(_nanoscope.prototype, {
     recursivePluck: 'recursivelyPlucking'
 });
 
-module.exports = _nanoscope;
-
-},{"../lib/primitives/IdLens":"/Users/Ben/projects/nanoscope/lib/primitives/IdLens.js","./array/FilterLens":"/Users/Ben/projects/nanoscope/src/array/FilterLens.js","./array/IndexedLens":"/Users/Ben/projects/nanoscope/src/array/IndexedLens.js","./array/SliceLens":"/Users/Ben/projects/nanoscope/src/array/SliceLens.js","./base/Getter":"/Users/Ben/projects/nanoscope/src/base/Getter.js","./base/Lens":"/Users/Ben/projects/nanoscope/src/base/Lens.js","./base/Setter":"/Users/Ben/projects/nanoscope/src/base/Setter.js","./combinator/Compose":"/Users/Ben/projects/nanoscope/src/combinator/Compose.js","./combinator/MultiLens":"/Users/Ben/projects/nanoscope/src/combinator/MultiLens.js","./combinator/Optional":"/Users/Ben/projects/nanoscope/src/combinator/Optional.js","./object/PathLens":"/Users/Ben/projects/nanoscope/src/object/PathLens.js","./object/PluckLens":"/Users/Ben/projects/nanoscope/src/object/PluckLens.js","lodash":"/Users/Ben/projects/nanoscope/node_modules/lodash/dist/lodash.js"}],"/Users/Ben/projects/nanoscope/src/object/PathLens.js":[function(require,module,exports){
+},{"../lib/primitives/IdLens":3,"array/FilterLens":8,"array/IndexedLens":9,"array/SliceLens":10,"base/Getter":12,"base/Lens":13,"base/Setter":14,"combinator/Compose":15,"combinator/MultiLens":18,"combinator/Optional":19,"lodash":7,"object/PathLens":22,"object/PluckLens":23}],22:[function(require,module,exports){
 "use strict";
 
 /**
@@ -8777,7 +8940,7 @@ Lens.prototype.following = Lens.prototype.composePath;
 
 module.exports = PathLens;
 
-},{"../base/Lens":"/Users/Ben/projects/nanoscope/src/base/Lens.js","lodash":"/Users/Ben/projects/nanoscope/node_modules/lodash/dist/lodash.js"}],"/Users/Ben/projects/nanoscope/src/object/PluckLens.js":[function(require,module,exports){
+},{"../base/Lens":13,"lodash":7}],23:[function(require,module,exports){
 "use strict";
 
 var _ = require('lodash'),
@@ -8952,4 +9115,4 @@ Lens.prototype.plucking = Lens.prototype.composePluck;
 
 module.exports = PluckLens;
 
-},{"../base/Lens":"/Users/Ben/projects/nanoscope/src/base/Lens.js","lodash":"/Users/Ben/projects/nanoscope/node_modules/lodash/dist/lodash.js"}]},{},["/Users/Ben/projects/nanoscope/src/exports.js"]);
+},{"../base/Lens":13,"lodash":7}]},{},[20]);

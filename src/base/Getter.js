@@ -1,16 +1,12 @@
 "use strict";
 
-var _ = require('lodash'),
-    Lens = require('./Lens'),
-
-    Getter,
-
-    map;
+import _ from 'lodash';
+import Lens from './Lens';
 
 /**
  * Never allow `map` in a getter
  */
-map = function () {
+const map = function () {
     throw new Error('map not permitted in a Getter');
 };
 
@@ -23,7 +19,7 @@ map = function () {
  * @returns {Getter}
  * @constructor
  */
-Getter = function (get, options) {
+export default Getter = function (get, options) {
     var opts = { _getter: true};
 
     if (_.isObject(options)) {
@@ -51,4 +47,3 @@ Lens.prototype.getter = function () {
     return Getter.fromLens(this);
 };
 
-module.exports = Getter;

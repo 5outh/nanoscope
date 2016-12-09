@@ -1,9 +1,7 @@
 "use strict";
 
-var _ = require('lodash'),
-    Lens = require('../base/Lens'),
-
-    Optional;
+import _ from 'lodash';
+import Lens from 'base/Lens';
 
 /**
  * `Optional` `Lens`es take `Lens`es and an optional error handler as an argument, and make any `Lens` accesses safe.
@@ -28,7 +26,7 @@ var _ = require('lodash'),
  * @returns {Lens} A safer lens
  * @constructor
  */
-Optional = function (lens, errorHandler) {
+export default Optional = function (lens, errorHandler) {
     var get = lens._get, map = lens._over;
 
     // Only overwrite get if the lens is not a setter (always throw the errors about missing functions)
@@ -82,4 +80,3 @@ Lens.prototype.catch = function (errorHandler) {
     return new Optional(this, errorHandler);
 };
 
-module.exports = Optional;

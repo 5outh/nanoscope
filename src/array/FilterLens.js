@@ -1,11 +1,5 @@
-"use strict";
-
-var _ = require('lodash'),
-    Lens = require('../base/Lens'),
-    FilterLens,
-
-    get,
-    map;
+import _ from 'lodash';
+import Lens from 'base/Lens';
 
 /**
  * Get the elements from an array satisfying a filtering function
@@ -13,7 +7,7 @@ var _ = require('lodash'),
  * @param filter
  * @returns {Function}
  */
-get = function (filter) {
+const get = function (filter) {
     return function (arr) {
         if (_.isFunction(filter)) {
             // Return only the elements that are truthy from the filter function
@@ -34,7 +28,7 @@ get = function (filter) {
  * @param filter
  * @returns {Function}
  */
-map = function (filter) {
+const map = function (filter) {
     return function (arr, func) {
         // Only map elements that are truthy from the filter function
         return _.map(_.clone(arr), function (elem) {
@@ -49,7 +43,7 @@ map = function (filter) {
     };
 };
 
-FilterLens = function (filter, options) {
+export default FilterLens = function (filter, options) {
     this.base = Lens;
     this.base(get(filter), map(filter), _.extend({ _filter: filter }, options));
 };
@@ -83,5 +77,3 @@ Lens.prototype.filter = Lens.prototype.composeFilter;
 Lens.prototype.filtering = Lens.prototype.composeFilter;
 
 FilterLens.prototype = new Lens;
-
-module.exports = FilterLens;

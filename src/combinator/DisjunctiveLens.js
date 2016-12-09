@@ -1,9 +1,5 @@
-var _ = require('lodash'),
-    Lens = require('../base/Lens'),
-
-    DisjunctiveLens,
-    get,
-    map;
+import _ from 'lodash';
+import Lens from 'base/Lens';
 
 /**
  * The get function for a DisjunctiveLens. Returns `lensA.get()` if it is non-null/undefined, and
@@ -13,7 +9,7 @@ var _ = require('lodash'),
  * @param lensB
  * @returns {Function}
  */
-get = function (lensA, lensB) {
+const get = function (lensA, lensB) {
     return function (obj) {
         var gotten;
 
@@ -40,7 +36,7 @@ get = function (lensA, lensB) {
  * @param lensB
  * @returns {Function}
  */
-map = function (lensA, lensB) {
+const map = function (lensA, lensB) {
     return function (obj, func) {
         var gotten;
 
@@ -70,11 +66,9 @@ map = function (lensA, lensB) {
  * @constructor
  * @param options
  */
-DisjunctiveLens = function (lensA, lensB, options) {
+export default DisjunctiveLens = function (lensA, lensB, options) {
     this.base = Lens;
     this.base(get(lensA, lensB), map(lensA, lensB), _.extend({ _lensA: lensA, _lensB: lensB, _disjunctive: true }, options));
 };
 
 DisjunctiveLens.prototype = new Lens;
-
-module.exports = DisjunctiveLens;

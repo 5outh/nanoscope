@@ -1,9 +1,10 @@
-"use strict";
+import _ from 'lodash'
+import nanoscope from '../index'
 
-var _ = require('lodash'),
-    nanoscope = require('../index'),
-    IndexedLens = nanoscope.IndexedLens,
-    Compose = nanoscope.Compose;
+console.log(nanoscope)
+
+const IndexedLens = nanoscope.IndexedLens;
+const Compose = nanoscope.Compose;
 
 describe('Compose', function () {
     var testArr, compositeLens;

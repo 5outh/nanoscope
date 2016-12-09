@@ -1,14 +1,8 @@
 "use strict";
 
-var _ = require('lodash'),
-
-    Lens = require('../base/Lens'),
-    utils = require('./utils'),
-
-    get,
-    map,
-
-    SliceLens;
+import _ from 'lodash';
+import Lens from 'base/Lens';
+import utils from './utils';
 
 /**
  * Get the slice of an array from `i` to `j`.
@@ -17,7 +11,7 @@ var _ = require('lodash'),
  * @param {int} j The end of the slice
  * @returns {Function}
  */
-get = function (i, j) {
+const get = function (i, j) {
     return function (arr) {
 
         if (!_.isArray(arr)) {
@@ -38,7 +32,7 @@ get = function (i, j) {
  * @param {int} j The end of the slice (may be negative)
  * @returns {Function}
  */
-map = function (i, j) {
+const map = function (i, j) {
     return function (arr, func) {
         var newArr = [],
             slicedArr,
@@ -89,7 +83,7 @@ map = function (i, j) {
  * @constructor
  * @param options
  */
-SliceLens = function (i, j, options) {
+export default SliceLens = function (i, j, options) {
     var range,
         flags;
 
@@ -170,5 +164,3 @@ Lens.prototype.composeSlice = function (i, j, options) {
  */
 Lens.prototype.slice = Lens.prototype.composeSlice;
 Lens.prototype.slicing = Lens.prototype.composeSlice;
-
-module.exports = SliceLens;

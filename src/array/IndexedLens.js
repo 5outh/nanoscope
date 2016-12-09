@@ -1,14 +1,6 @@
-"use strict";
-
-var _ = require('lodash'),
-
-    Lens = require('../base/Lens'),
-    utils = require('./utils'),
-
-    IndexedLens,
-
-    get,
-    map;
+import _ from 'lodash';
+import Lens from 'base/Lens';
+import utils from './utils';
 
 /**
  * Get the element at a specific index of an array
@@ -17,7 +9,7 @@ var _ = require('lodash'),
  * @returns {Function} The get function required to construct a Lens
  * @param {boolean} unsafe If true, throw an error if index is invalid
  */
-get = function (index, unsafe) {
+const get = function (index, unsafe) {
     return function (arr) {
         index = utils.normalizeIndex(arr, index);
 
@@ -50,7 +42,7 @@ get = function (index, unsafe) {
  * @returns {Function} The map function required to construct a Lens
  * @param {boolean} unsafe If true, throw an error if index isn't valid.
  */
-map = function (index, unsafe) {
+const map = function (index, unsafe) {
     return function (arr, func) {
         var newArr = _.clone(arr);
 
@@ -86,7 +78,7 @@ map = function (index, unsafe) {
  * @constructor
  * @param options
  */
-IndexedLens = function (index, options) {
+export default IndexedLens = function (index, options) {
     var unsafe = options && options.unsafe,
         view = options && options._view,
         flags = { _index: index, _unsafeIndex: unsafe || false };
@@ -164,4 +156,3 @@ Lens.prototype.composeIndex = function (index) {
 Lens.prototype.index = Lens.prototype.composeIndex;
 Lens.prototype.indexing = Lens.prototype.composeIndex;
 
-module.exports = IndexedLens;

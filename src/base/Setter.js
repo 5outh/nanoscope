@@ -1,17 +1,12 @@
 "use strict";
 
-var _ = require('lodash'),
-
-    Setter,
-
-    get;
-
+import _ from 'lodash';
 import Lens from 'base/Lens';
 
 /**
  * Never allow `get` in a setter
  */
-get = function () {
+const get = function () {
     throw new Error('get not permitted in a Setter');
 };
 
@@ -23,7 +18,7 @@ get = function () {
  * @returns {Lens}
  * @constructor
  */
-Setter = function (map, options) {
+export default Setter = function (map, options) {
     var opts = { _setter: true};
 
     if (_.isObject(options)) {
@@ -51,4 +46,3 @@ Lens.prototype.setter = function () {
     return Setter.fromLens(this);
 };
 
-module.exports = Setter;
